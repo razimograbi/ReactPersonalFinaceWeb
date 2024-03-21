@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.display-none{
+    @apply hidden;
+}
+
+.backdrop {
+    @apply fixed z-[30] w-screen h-screen  left-0 top-0;
+    background: rgba(0, 0, 0, 0.5);
+}
