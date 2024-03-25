@@ -11,10 +11,10 @@ const Header = () => {
           <div className="container mx-auto flex items-center justify-between relative">
             <button
               id="menuBtn"
-              className="block sm:hidden bg-white text-blue-500 py-2 px-4 rounded-full hover:bg-blue-100 ml-auto"
-            >
-              &#9776;
-              {/* <!-- Hamburger Icon --> */}
+              className="block sm:hidden bg-white text-blue-500 py-2 px-4 rounded-full hover:bg-blue-100 ml-auto">
+            
+                &#9776; {/* <!-- Hamburger Icon --> */}
+              
             </button>
             <div className="sm:flex space-x-4 hidden">
               <Link to="/" className="hover:text-gray-300">
@@ -47,7 +47,7 @@ const Header = () => {
             <div
               id="popupmenu"
               className="justify-start gap-4 hidden sm:hidden absolute bg-slate-600 width-[70px] top-[60px] rounded-lg left-0 right-0 p-4 pb-6"
-            >
+            > 
               <Link to="/" className="hover:text-gray-300 block">
                 Home
               </Link>

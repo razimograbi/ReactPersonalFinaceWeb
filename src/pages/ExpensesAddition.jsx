@@ -15,7 +15,7 @@ const ExpensesAddition = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isQuestionOpen, setIsQuestionOpen] = useState(false);
 
-  const handleAmountOfMoney = (e) => {
+  const handleAmountOfMoney= (e) => {
     setAmountOfMoney(e.target.value);
   };
 
@@ -87,7 +87,7 @@ const ExpensesAddition = () => {
   return (
     <div className="min-h-screen dark:bg-gray-800">
       <Helmet>
-        <title>Expensis Page</title>
+        <title>Expenses Page</title>
       </Helmet>
       <div
         id="confirm-screen"
@@ -98,7 +98,7 @@ const ExpensesAddition = () => {
         id="modal"
         className={`${
           isModalOpen ? "" : "hidden"
-        } mr-8 sm:ml-auto md:ml-4 lg:ml-20 sm:mr-none md:mr-none lg:mr-none fixed z-50 top-1/4 left-1/4 w-2/4 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px]`}
+        } fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/4 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px] rounded-md`}
       >
         <h1 className="text-center my-4 font-bold text-xl">
           Confirm Addition?
@@ -132,18 +132,18 @@ const ExpensesAddition = () => {
           <button
             onClick={handleSubmit}
             id="yes-button"
-            className="bg-green-500 text-black text-center p-2 text-base sm:text-lg font-bold"
-            type="button"
-          >
-            yes!
+            className="border border-green-500  text-black text-center p-2 text-base sm:text-lg font-bold rounded-md m-2"
+            type="button">
+          
+            Yes
           </button>
           <button
             id="no-button"
-            className="bg-red-600 border-red-600 p-2 text-base sm:text-lg font-bold"
+            className=" border border-red-600 p-2 text-base sm:text-lg font-bold rounded-md"
             type="button"
-            onClick={handleModal}
-          >
-            No!
+            onClick={handleModal}>
+          
+            No
           </button>
         </div>
       </div>
@@ -163,31 +163,31 @@ const ExpensesAddition = () => {
         >
           <label
             htmlFor="categoryButton"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          
             Choose Category
           </label>
           <button
             id="categoryButton"
             onClick={handleDropdown}
             className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button"
-          >
+            type="button">
+          
             {choosenCategory}
             <svg
               className="w-2.5 h-2.5 ms-3"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 10 6"
-            >
+              viewBox="0 0 10 6">
+            
               <path
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="m1 1 4 4 4-4"
-              />
+                d="m1 1 4 4 4-4"/>
+              
             </svg>
           </button>
           {/* <!-- Dropdown menu --> */}

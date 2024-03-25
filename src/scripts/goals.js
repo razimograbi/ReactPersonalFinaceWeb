@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="text-xl font-bold">${goal.name}</div>
             Goal amount: $${goal.amount}<br>Amount saved: $${goal.amountSaved}
             <div class="w-full bg-gray-200 rounded-full dark:bg-gray-50 shadow">
-                <div class="bg-lime-500 text-xs font-medium text-gray-50 text-center font-bold p-0.5 leading-none rounded-full" style="width: ${percentage}%"> ${percentage}%</div>
+                <div class="bg-lime-500 text-xs font-medium text-gray-700 text-center font-bold p-0.5 leading-none rounded-full" style="width: ${percentage}%"> ${percentage}%</div>
             </div>
         </div>
     `;

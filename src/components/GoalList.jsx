@@ -16,6 +16,7 @@ const GoalList = () => {
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setGoalsData(response.data.goals);
+          console.log(response.data.goals)
         } else {
           console.error("Token not found in localStorage");
         }
@@ -36,7 +37,7 @@ const GoalList = () => {
         <>
           {goalsData.map((goal) => (
             <div
-              key={goal.id}
+              key={goal._id}
               className="shadow p-2 m-2 dark:bg-gray-900 rounded-md"
             >
               <div className="text-xl font-bold">{goal.name}</div>
@@ -47,7 +48,7 @@ const GoalList = () => {
               </p>
               <div className="w-full bg-gray-200 rounded-full dark:bg-gray-50 shadow">
                 <div
-                  className="bg-lime-500 text-xs text-gray-50 text-center font-bold p-0.5 leading-none rounded-full"
+                  className="bg-lime-500 text-xs text-gray-700 text-center font-bold p-0.5 leading-none rounded-full"
                   style={{
                     width: `${(goal.amountSaved / goal.amount) * 100}%`,
                   }}
