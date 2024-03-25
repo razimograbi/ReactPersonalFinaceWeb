@@ -2,10 +2,8 @@ import UserNavigation from "../components/UserNavigation";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import { default as AvatarAnisha } from "../assets/images/avatar-anisha.png";
 import { useEffect, useState } from "react";
 import BudgetList from "../components/BudgetList";
-import { Link } from "react-router-dom";
 
 const BudgetTracking = () => {
   const [years, setYears] = useState([]);
@@ -185,14 +183,14 @@ const BudgetTracking = () => {
       </div>
 
       {/* <!-- Month Picker --> */}
-      <div className="mt-5 sm:hidden flex justify-center">
+      <div className="my-5 sm:hidden flex justify-center">
         <label htmlFor="month" className="flex items-center">
           Month:
         </label>
         <select
           id="month"
           onChange={handleMonth}
-          className="p-2 ml-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="p-2 ml-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         >
           <option value="">Select Month</option>
           <option value="1">January</option>
@@ -322,96 +320,7 @@ const BudgetTracking = () => {
               id="budgetList"
               className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900"
             >
-              <li className="py-3 sm:py-2 shadow">
-                <div className="flex gap-5 p-2 my-2">
-                  <div>
-                    <img
-                      src={AvatarAnisha}
-                      className="rounded-full w-10 h-10 mb-2 ml-2"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1 w-96">
-                    <div className="flex justify-between gap-2">
-                      <h5 className="dark:text-white">Food&Beverage</h5>
-                      <p className="dark:text-white">$200</p>
-                    </div>
-                    <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                      <div
-                        className="bg-green-600 text-xs h-4 rounded-full text-center p-0.5 leading-none dark:bg-green-500 dark:text-white"
-                        style={{ width: "15%" }}
-                      >
-                        $30
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    {/* <!-- Added flex items-center --> */}
-                    <Link to="/budgetCategoryChanger" className="text-blue-500">
-                      Edit Budget
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <li className="py-3 sm:py-2 shadow">
-                <div className="flex gap-5 p-2 mb-2">
-                  <div>
-                    <img
-                      src={AvatarAnisha}
-                      className="rounded-full w-10 h-10 mb-2 ml-2"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1 w-96">
-                    <div className="flex justify-between gap-2">
-                      <h5 className="dark:text-white">Shopping</h5>
-                      <p className="dark:text-white">$300</p>
-                    </div>
-                    <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                      <div
-                        className="bg-blue-600 text-xs h-4 rounded-full text-center p-0.5 leading-none dark:text-white"
-                        style={{ width: "36%" }}
-                      >
-                        $110
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    {/* <!-- Added flex items-center --> */}
-                    <Link to="/budgetCategoryChanger" className="text-blue-500">
-                      Edit Budget
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <li className="pb-3 sm:pb-4 shadow">
-                <div className="flex gap-5 p-2 mt-2">
-                  <div>
-                    <img
-                      src={AvatarAnisha}
-                      className="rounded-full w-10 h-10 mb-2 ml-2"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1 w-96">
-                    <div className="flex justify-between gap-2">
-                      <h5 className="dark:text-white">Transportaion</h5>
-                      <p className="dark:text-white">$50</p>
-                    </div>
-                    <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                      <div
-                        className="bg-red-600 text-xs h-4 rounded-full text-center p-0.5 leading-none dark:bg-red-500 dark:text-white"
-                        style={{ width: "6%" }}
-                      >
-                        $3
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    {/* <!-- Added flex items-center --> */}
-                    <Link to="/budgetCategoryChanger" className="text-blue-500">
-                      Edit Budget
-                    </Link>
-                  </div>
-                </div>
-              </li>
+
             </ul>
           )}
         </div>
