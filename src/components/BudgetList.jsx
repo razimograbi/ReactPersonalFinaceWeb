@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { default as AvatarAnisha } from "../assets/images/avatar-anisha.png";
 import { Link } from "react-router-dom";
 
 function BudgetList({ budgetArray }) {
@@ -14,13 +13,6 @@ function BudgetList({ budgetArray }) {
         return (
           <li key={budget.category}>
             <div className="flex gap-5 p-2 my-2">
-              <div>
-                <img
-                  src={AvatarAnisha}
-                  className="rounded-full w-10 h-10 mb-2 ml-2"
-                  alt="avatar"
-                />
-              </div>
               <div className="flex flex-col gap-1 w-96">
                 <div className="flex justify-between gap-2">
                   <h5 className="dark:text-white">{budget.category}</h5>

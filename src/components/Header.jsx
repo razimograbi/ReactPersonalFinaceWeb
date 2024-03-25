@@ -11,18 +11,19 @@ const Header = () => {
           <div className="container mx-auto flex items-center justify-between relative">
             <button
               id="menuBtn"
-              className="block sm:hidden bg-white text-blue-500 py-2 px-4 rounded-full hover:bg-blue-100 ml-auto">
-            
-                &#9776; {/* <!-- Hamburger Icon --> */}
-              
+              className="block sm:hidden bg-white text-blue-500 py-2 px-4 rounded-full hover:bg-blue-100 ml-auto"
+              onClick={() => {
+                const popupMenu = document.getElementById("popupmenu");
+                popupMenu.classList.toggle("hidden");
+              }}
+            >
+              &#9776;
+              {/* <!-- Hamburger Icon --> */}
             </button>
             <div className="sm:flex space-x-4 hidden">
               <Link to="/" className="hover:text-gray-300">
                 Home
               </Link>
-              <a href="#features" className="hover:text-gray-300">
-                Features
-              </a>
               <Link to="/aboutUs" className="hover:text-gray-300">
                 About Us
               </Link>

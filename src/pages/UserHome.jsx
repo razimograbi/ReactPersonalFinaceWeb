@@ -287,9 +287,9 @@ const UserHome = () => {
       <UserNavigation />
       <p
         id="welcomeMsgUser"
-        className="container font-bold text-2xl md:ml-52 sm:ml-8 ml-8 mt-8"
+        className=" flex-initial text-2xl font-bold text-center dark:text-white mt-4"
       >
-        Welcome Bonnie,
+        
       </p>
 
       <section className="" id="hero">
@@ -308,7 +308,7 @@ const UserHome = () => {
                 id="incomeCnt"
                 className="text-lime-700 dark:text-green-500 mt-2"
               >
-                $10000
+               
               </div>
             </div>
             <div className=" items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2  mx-auto  dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
@@ -320,7 +320,7 @@ const UserHome = () => {
                 id="expansesCnt"
                 className="text-rose-600 dark:text-red-700 mt-2"
               >
-                $2000
+               
               </div>
             </div>
             <div className=" relative flex flex-col flex-initial w-40 md:w-60 md:h-32 text-center shadow p-2  mx-auto bg-gray-100 dark:bg-gray-900 dark:text-white dark:text-xl font-bold">
@@ -333,7 +333,7 @@ const UserHome = () => {
                 <p className="mt-4 ml-1">Budget remain</p>
               </div>
               <div id="budgetCnt" className="text-blue-500  dark:to-blue-700">
-                $4000
+               
               </div>
             </div>
           </div>
@@ -341,7 +341,7 @@ const UserHome = () => {
         {/* <!--features panel --> */}
         <div className="container flex flex-col gap-7 items-center mx-auto ">
           {/* <!-- expenses and goals--> */}
-          <div className=" container flex flex-col justify-center md:flex-row space-x-2 mx-4 px-2 ">
+          <div className="container flex flex-col justify-center items-center md:flex-row md:space-x-2 sd:space-x-0 mx-auto px-2">
             {/* <!--expenses--> */}
 
             <div className=" container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
