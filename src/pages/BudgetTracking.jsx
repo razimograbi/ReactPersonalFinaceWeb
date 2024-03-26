@@ -184,13 +184,13 @@ const BudgetTracking = () => {
 
       {/* <!-- Month Picker --> */}
       <div className="my-5 sm:hidden flex justify-center">
-        <label htmlFor="month" className="flex items-center">
+        <label htmlFor="month" className="flex items-center dark:text-white">
           Month:
         </label>
         <select
           id="month"
           onChange={handleMonth}
-          className="p-2 ml-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="dark:bg-gray-900 dark:text-white p-2 ml-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         >
           <option value="">Select Month</option>
           <option value="1">January</option>
@@ -310,7 +310,7 @@ const BudgetTracking = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row space-x-2 mx-4 px-2 gap-3 justify-center items-center">
+      <div className="flex flex-col md:flex-row space-x-2 mx-4 px-2 gap-3 justify-center items-center mb-8">
         {/* <!--expenses--> */}
         <div className="dark:bg-gray-900 container max-w-xl shadow-xl border border-solid">
           {currentlySelectedMonth ? (

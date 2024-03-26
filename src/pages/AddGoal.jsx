@@ -12,7 +12,9 @@ const AddGoal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAmountOfMoney = (e) => {
+   
     setAmountOfMoney(e.target.value);
+   
   };
 
   const handleNameOfGoal = (e) => {
@@ -122,47 +124,7 @@ const AddGoal = () => {
           </button>
         </div>
       </div>
-     {/*  <div id="confirm-screen" className="backdrop hidden"></div>
-        <div
-        id="modal"
-        className="hidden mr-8 sm:ml-auto md:ml-4 lg:ml-20 sm:mr-none md:mr-none lg:mr-none fixed z-50 top-1/4 left-1/4 w-2/4 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px]"
-        >
-        <h1 className="text-center my-4 font-bold text-xl">
-          Confirm Addition?
-        </h1>
-        <div className="bg-slate-400 shadow max-w-[400px]">
-          <ul>
-            <li className="flex gap-3 p-2">
-              <h5 className="font-bold">Name of Goal</h5>
-              <p id="amount-of-payments-in-model" className=""></p>
-            </li>
-            <li className="flex gap-3 p-2">
-              <h5 className="font-bold">Amount of money</h5>
-              <div className="flex gap-1">
-                <span>$</span>
-                <p id="amount-of-money-in-model" className=""></p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className="text-center mt-2">
-          <button
-            id="yes-button"
-            className="bg-green-500 text-black text-center p-2 text-base sm:text-lg font-bold"
-            type="button"
-            onClick={handleSubmit}
-          >
-            yes!
-          </button>
-          <button
-            id="no-button"
-            className="bg-red-600 border-red-600 p-2 text-base sm:text-lg font-bold"
-            type="button"
-          >
-            No!
-          </button>
-        </div>
-      </div> */}
+     
       <UserNavigation />
       <div
         id="menu-overlay"

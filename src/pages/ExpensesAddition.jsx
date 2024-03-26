@@ -9,7 +9,7 @@ const dropdownLinks = ["Shopping", "groceries", "Food Only", "Loan", "Other"];
 
 const ExpensesAddition = () => {
   const [choosenCategory, setChoosenCategory] = useState("Category");
-  const [amountOfMoney, setAmountOfMoney] = useState(null);
+  const [amountOfMoney, setAmountOfMoney] = useState(0);
   const [numberOfPayment, setNumberOfPayment] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
