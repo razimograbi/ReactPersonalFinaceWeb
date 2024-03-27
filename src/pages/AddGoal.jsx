@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { default as DolarSign } from "../assets/images/dollar-sign-svgrepo-com.svg";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
+import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 
 const AddGoal = () => {
@@ -43,9 +44,12 @@ const AddGoal = () => {
   const handleSubmit = () => {
     const goalData = {
       name: choosenName,
-      amount: amountOfMoney,
+      amount: parseInt(amountOfMoney),
+      
       /*add more fields here as needed  */
     };
+
+
     const token = getToken();
       axios.post("https://partialbackendforweb.onrender.com/pages/api/goals/add",goalData, {
         headers: {
@@ -54,6 +58,7 @@ const AddGoal = () => {
       })
       .then((response) => {
         console.log("Goals data retrieved successfully:");
+        setIsModalOpen((prev) => !prev);
       })
       .catch((error) => {
         console.error("Error retrieving goals data:", error);
@@ -65,65 +70,40 @@ const AddGoal = () => {
       <Helmet>
         <title>Add Goal</title>
       </Helmet>
-      <div
-        id="confirm-screen"
-        className={`backdrop ${isModalOpen ? "" : "hidden"}`}
-        onClick={handleModal}
-      ></div>
-      {/* <div
-        id="modal"
-        className={`${
-          isModalOpen ? "" : "hidden"
-        } mr-8 sm:ml-auto md:ml-4 lg:ml-20 sm:mr-none md:mr-none lg:mr-none fixed z-50 top-1/4 left-1/4 w-1/2 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px] rounded-md`}
-      > */}
-      <div
-        id="modal"
-        className={`${
-          isModalOpen ? "" : "hidden"
-        } fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/4 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px] rounded-md`}
-      >
-        <h1 className="text-center my-4 font-bold text-xl">
-          Confirm Addition?
-        </h1>
-        <div className="bg-slate-400 shadow max-w-[400px]">
-          <ul>
-            <li className="flex gap-3 p-2">
-              <h5 className="font-bold">Name of goal:</h5>
-              <p id="goalname-in-model" className="">
-                {choosenName}
-              </p>
-            </li>
-            <li className="flex gap-3 p-2">
-              <h5 className="font-bold">Amount of money :</h5>
-              <div className="flex gap-1">
-                <span>$</span>
-                <p id="amount-of-money-in-model" className="">
-                  {amountOfMoney}
-                </p>
-              </div>
-            </li>
-            
-          </ul>
-        </div>
-        <div className="text-center mt-2">
-          <button
-            onClick={handleSubmit}
-            id="yes-button"
-            className="border border-green-500  text-black text-center p-2 text-base sm:text-lg font-bold rounded-md m-2"
-            type="button">
-          
-            Yes
-          </button>
-          <button
-            id="no-button"
-            className=" border border-red-600 p-2 text-base sm:text-lg font-bold rounded-md"
-            type="button"
-            onClick={handleModal}>
-          
-            No
-          </button>
-        </div>
-      </div>
+ 
+      <Modal 
+        isOpen={isModalOpen} 
+        handleModal={handleModal} 
+        content={
+          <>
+            <h1 className="text-center my-4 font-bold text-xl">
+              Confirm Addition?
+            </h1>
+            <div className="bg-slate-400 shadow max-w-[400px]">
+              <ul>
+                <li className="flex gap-3 p-2">
+                  <h5 className="font-bold">Name of goal:</h5>
+                  <p id="goalname-in-model" className="">
+                    {choosenName}
+                  </p>
+                </li>
+                <li className="flex gap-3 p-2">
+                  <h5 className="font-bold">Amount of money :</h5>
+                  <div className="flex gap-1">
+                    <span>$</span>
+                    <p id="amount-of-money-in-model" className="">
+                      {amountOfMoney}
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </>
+        }
+        handleSubmit={handleSubmit}
+        positiveLabel="Yes"
+        negativeLabel="No"
+      />
      
       <UserNavigation />
       <div

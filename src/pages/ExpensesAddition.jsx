@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { default as DolarSign } from "../assets/images/dollar-sign-svgrepo-com.svg";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
+import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 
 const dropdownLinks = ["Shopping", "groceries", "Food Only", "Loan", "Other"];
@@ -89,17 +90,12 @@ const ExpensesAddition = () => {
       <Helmet>
         <title>Expenses Page</title>
       </Helmet>
-      <div
-        id="confirm-screen"
-        className={`backdrop ${isModalOpen ? "" : "hidden"}`}
-        onClick={handleModal}
-      ></div>
-      <div
-        id="modal"
-        className={`${
-          isModalOpen ? "" : "hidden"
-        } fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/4 bg-white p-4 border-slate-950 shadow min-w-[237px] max-w-[400px] rounded-md`}
-      >
+      
+      <Modal 
+        isOpen={isModalOpen} 
+        handleModal={handleModal} 
+        content={
+          <>
         <h1 className="text-center my-4 font-bold text-xl">
           Confirm Addition?
         </h1>
@@ -128,25 +124,13 @@ const ExpensesAddition = () => {
             </li>
           </ul>
         </div>
-        <div className="text-center mt-2">
-          <button
-            onClick={handleSubmit}
-            id="yes-button"
-            className="border border-green-500  text-black text-center p-2 text-base sm:text-lg font-bold rounded-md m-2"
-            type="button">
-          
-            Yes
-          </button>
-          <button
-            id="no-button"
-            className=" border border-red-600 p-2 text-base sm:text-lg font-bold rounded-md"
-            type="button"
-            onClick={handleModal}>
-          
-            No
-          </button>
-        </div>
-      </div>
+        </>
+        }
+        handleSubmit={handleSubmit}
+        positiveLabel="Yes"
+        negativeLabel="No"
+      />
+      
       <UserNavigation />
       <div
         id="menu-overlay"
