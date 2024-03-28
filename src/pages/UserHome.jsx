@@ -185,6 +185,8 @@ const UserHome = () => {
             "Transportation",
             "Loan",
             "Groceries",
+            "Bills",
+            "Entertainment", // Added Entertainment category
             "Other",
           ];
 
@@ -238,11 +240,14 @@ const UserHome = () => {
                   (category) => expensesByCategory[category]
                 ),
                 backgroundColor: [
-                  "rgb(133, 105, 241)",
-                  "rgb(164, 101, 241)",
-                  "rgb(101, 143, 241)",
-                  "rgb(200, 100,241)",
-                  "rgb(11, 81,96)",
+                  "rgb(51, 153, 255)", // Light Blue (Shopping)
+                  "rgb(255, 102, 102)", // Light Red (Food)
+                  "rgb(255, 204, 51)", // Light Yellow (Transportation)
+                  "rgb(102, 204, 0)", // Light Green (Loan)
+                  "rgb(166, 206, 227)", // Light Blue (Groceries)
+                  "rgb(253, 218, 236)", // Light Pink (Bills)
+                  "rgb(255, 153, 0)", // Light Orange (Entertainment)
+                  "rgb(0, 153, 153)", // Light Teal (Other)
                 ],
                 hoverOffset: 4,
               },
@@ -288,9 +293,7 @@ const UserHome = () => {
       <p
         id="welcomeMsgUser"
         className=" flex-initial text-2xl font-bold text-center dark:text-white mt-4"
-      >
-        
-      </p>
+      ></p>
 
       <section className="" id="hero">
         {/* <!--Income, spendings  section--> */}
@@ -307,9 +310,7 @@ const UserHome = () => {
               <div
                 id="incomeCnt"
                 className="text-lime-700 dark:text-green-500 mt-2"
-              >
-               
-              </div>
+              ></div>
             </div>
             <div className=" items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2  mx-auto  dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
               <div className="flex flex-row items-center mt-4">
@@ -319,9 +320,7 @@ const UserHome = () => {
               <div
                 id="expansesCnt"
                 className="text-rose-600 dark:text-red-700 mt-2"
-              >
-               
-              </div>
+              ></div>
             </div>
             <div className=" relative flex flex-col flex-initial w-40 md:w-60 md:h-32 text-center shadow p-2  mx-auto bg-gray-100 dark:bg-gray-900 dark:text-white dark:text-xl font-bold">
               {/* <!-- <div className="text-blue-500 dark:to-blue-700">$4000</div> --> */}
@@ -332,9 +331,10 @@ const UserHome = () => {
                 />
                 <p className="mt-4 ml-1">Budget remain</p>
               </div>
-              <div id="budgetCnt" className="text-blue-500  dark:to-blue-700">
-               
-              </div>
+              <div
+                id="budgetCnt"
+                className="text-blue-500  dark:to-blue-700"
+              ></div>
             </div>
           </div>
         </div>
@@ -358,10 +358,11 @@ const UserHome = () => {
               ></canvas>
             </div>
 
-            {/* <!--goals--> */}
+            {/* <!--Goals--> */}
+
             <div
               id="GoalsContainer"
-              className="container flex flex-col p-6 my-2 mx-auto shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]"
+              className="container flex flex-col p-6 my-2 mx-auto shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px] overflow-y-auto"
             >
               <Link
                 to="#"
@@ -369,7 +370,10 @@ const UserHome = () => {
               >
                 Goals Tracking
               </Link>
-              <div className="goal-container"></div>
+              <div
+                className="goal-container"
+                style={{ height: "100%", overflowY: "auto" }}
+              ></div>
             </div>
           </div>
           {/* <!-- upcoming bills and transactions--> */}
@@ -384,7 +388,10 @@ const UserHome = () => {
                 Latest Expenses
               </Link>
               <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div
+                  className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
+                  style={{ maxHeight: "500px", overflowY: "auto" }}
+                >
                   <div className="overflow-hidden">
                     <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
                       <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">

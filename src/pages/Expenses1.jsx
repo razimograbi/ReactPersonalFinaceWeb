@@ -7,7 +7,6 @@ import axios from "axios";
 import { Chart } from "chart.js/auto";
 
 const Expenses1 = () => {
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,7 +20,7 @@ const Expenses1 = () => {
             }
           );
 
-          const expenses = response.data.expenses
+          const expenses = response.data.expenses;
 
           // Update My Chart
 
@@ -70,6 +69,8 @@ const Expenses1 = () => {
             "Transportation",
             "Loan",
             "Groceries",
+            "Bills",
+            "Entertainment", // Added Entertainment category
             "Other",
           ];
           // Initialize an object to store total amounts for each category
@@ -118,11 +119,14 @@ const Expenses1 = () => {
                   (category) => expensesByCategory[category]
                 ),
                 backgroundColor: [
-                  "rgb(133, 105, 241)",
-                  "rgb(164, 101, 241)",
-                  "rgb(101, 143, 241)",
-                  "rgb(200, 100,241)",
-                  "rgb(11, 81,96)",
+                  "rgb(51, 153, 255)", // Light Blue (Shopping)
+                  "rgb(255, 102, 102)", // Light Red (Food)
+                  "rgb(255, 204, 51)", // Light Yellow (Transportation)
+                  "rgb(102, 204, 0)", // Light Green (Loan)
+                  "rgb(166, 206, 227)", // Light Blue (Groceries)
+                  "rgb(253, 218, 236)", // Light Pink (Bills)
+                  "rgb(255, 153, 0)", // Light Orange (Entertainment)
+                  "rgb(0, 153, 153)", // Light Teal (Other)
                 ],
                 hoverOffset: 4,
               },
@@ -149,10 +153,7 @@ const Expenses1 = () => {
             },
           };
           console.log(expensesByCategory);
-          new Chart(
-            document.getElementById("chartDoughnut"),
-            configDoughnut
-          );
+          new Chart(document.getElementById("chartDoughnut"), configDoughnut);
 
           //Update My Chart
 
@@ -263,13 +264,13 @@ const Expenses1 = () => {
           </Link>
         </div>
         <div className="flex flex-col md:flex-row justify-center mx-4">
-          <div className=" container  text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[900px] max-h-[800px] mr-4">
+          <div className=" container  text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900  dark:text-white max-w-[900px] max-h-[800px] mr-4">
             {/* <!-- bar chart code for income and expenses --> */}
-            <div className=" container flex  ">
+            <div className=" container flex dark:text-white ">
               <canvas id="myChart" className=""></canvas>
             </div>
           </div>
-          <div className=" container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
+          <div className=" dark:text-white container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
             <Link
               to={""}
               className="py-3 px-5 bg-gray-100 text-xl dark:text-white dark:bg-gray-700 font-bold text-center"
@@ -286,18 +287,18 @@ const Expenses1 = () => {
           {/* <!-- Transcation activity--> */}
           <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">
             <Link
-              to={""}
-              className="py-3 px-5 bg-gray-100 text-center text-xl font-bold dark:text-white dark:bg-gray-700"
+              to="#"
+              className="py-3 px-5 bg-gray-100 text-center dark:text-2xl font-bold dark:text-white dark:bg-gray-700"
             >
               Latest Expenses
             </Link>
-            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
-              <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8 ">
-                <div className="overflow-hidden ">
-                  <table
-                    id="latestExpensesTable"
-                    className="min-w-full text-left text-sm font-light dark:text-gray-400"
-                  >
+            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div
+                className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
+                style={{ maxHeight: "500px", overflowY: "auto" }}
+              >
+                <div className="overflow-hidden">
+                  <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
                     <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">
                       <tr>
                         <th scope="col" className="px-6 py-4">
@@ -315,7 +316,7 @@ const Expenses1 = () => {
                       </tr>
                     </thead>
                     <tbody id="latestExpensesBody">
-                      {/* <!-- Expense rows will be dynamically added here --> */}
+                      {/* <!-- Table rows for expenses will be added here dynamically --> */}
                     </tbody>
                   </table>
                 </div>
