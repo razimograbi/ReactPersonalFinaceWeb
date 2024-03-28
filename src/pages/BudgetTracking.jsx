@@ -314,7 +314,9 @@ const BudgetTracking = () => {
         {/* <!--expenses--> */}
         <div className="dark:bg-gray-900 container max-w-xl shadow-xl border border-solid">
           {currentlySelectedMonth ? (
-            <BudgetList budgetArray={budgetsArray} />
+            <BudgetList budgetArray={budgetsArray} 
+            currentlySelectedMonth={currentlySelectedMonth}
+            currentlySelectedYear={currentlySelectedYear}/>
           ) : (
             <ul
               id="budgetList"
