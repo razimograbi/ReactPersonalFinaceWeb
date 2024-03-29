@@ -161,7 +161,7 @@ const GoalList = () => {
             {goalsData.map((goal) => (
               <div
                 key={goal._id}
-                className=" shadow p-2 m-2 dark:bg-gray-900 rounded-md"
+                className=" shadow p-2 m-2 dark:bg-gray-900 hover:shadow-lg transform hover:scale-102 transition-all duration-300"
               >
                 <div className="text-xl font-bold">{goal.name}</div>
                 <div className="float-right flex sm:flex-row flex-col">

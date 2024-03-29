@@ -12,6 +12,10 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
   const [budgetLimit, setBudgetLimit] = useState('');
   const [categoryName, setCategoryName] = useState('');
 
+  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [newBudgetSize, setNewBudgetSize] = useState('');
+
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;
@@ -25,6 +29,46 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
     return tokenObj.value;
   }
   
+
+
+  // Function to filter out categories not already in the budget array
+  const getAvailableCategories = () => {
+    const categories = ['Food', 'Groceries', 'Shopping', 'Transportation', 'Loans', 'Other', 'Bills', 'Entertainment'];
+    return categories.filter(category => !budgetArray.find(budget => budget.category === category));
+  };
+
+  // Function to handle tracking another budget
+  const handleAddBudget = () => {
+    const token = getToken();
+
+    const budgetData = {
+      category: selectedCategory,
+      date: "2024-03-02",
+      limit: parseInt(newBudgetSize),
+    };
+
+    // POST request
+    axios
+      .post(
+        "https://partialbackendforweb.onrender.com/pages/api/budget/add",
+        budgetData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        // Handle success
+        console.log("Budget data added successfully:", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error adding budget data:", error);
+      });
+    setIsTrackModalOpen(false);
+  };
+
   const handlenewBudgetLimitChange = (e) => {
     const inputAmount = e.target.value;
     // Allow only positive numbers greater than zero
@@ -33,8 +77,8 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
     }
   };
  
-
-  const handleBudgetChange =  () => {
+  
+  const handleBudgetEdit =  () => {
     
       const token = getToken();
       const editData = {
@@ -78,6 +122,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
   console.log(budgetArray);
   return (
     <div>
+    <div>
 
       <Modal
         isOpen={isModalOpen}
@@ -102,11 +147,44 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
           </>
         }
         //handleSubmit={() => handleBudgetChange(budgetLimit, currentlySelectedMonth, currentlySelectedYear)}
-        handleSubmit={() => handleBudgetChange()}
+        handleSubmit={() => handleBudgetEdit()}
         positiveLabel="Change"
         negativeLabel="Discard"
       >
       </Modal>
+
+      <Modal
+        isOpen={isTrackModalOpen}
+        handleModal={() => {setBudgetLimit('');setIsTrackModalOpen(false);}}
+        content={
+          <>
+            <p className="mb-2 font-bold text-lg text-center">Track Another Category</p>
+            <p className="mb-2 text-lg text-center">{currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
+            <div className="flex flex-col items-center">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="border rounded-md p-2 mb-4"
+              >
+                <option value="">Select Category</option>
+                {getAvailableCategories().map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+              <input
+                type="number"
+                value={budgetLimit}
+                onChange={handlenewBudgetLimitChange}
+                placeholder="Enter new budget amount"
+                className="border rounded-md p-2 mb-4"
+              />
+            </div>
+          </>
+        }
+        handleSubmit={handleAddBudget}
+        positiveLabel="Track"
+        negativeLabel="Discard"
+      />
     <ul id="budgetList"
       className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900">
       
@@ -114,10 +192,10 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
       {budgetArray?.map((budget) => {
         const percentageSpent = (budget.spent / budget.limit) * 100;
         return (
-          <li key={budget.category}>
-            <div className="flex gap-5 p-2 my-2">
-              <div className="flex flex-col gap-1 w-96">
-                <div className="flex justify-between gap-2">
+          <li className ="hover:shadow-lg transform hover:scale-102 transition-all duration-300 border border-solid " key={budget.category}>
+            <div className="flex gap-5 p-2 items-center justify-center">
+              <div className="flex flex-col gap-1 w-96 ">
+                <div className="flex justify-between items-center ">
                   <h5 className="dark:text-white">{budget.category}</h5>
                   <p className="dark:text-white">${budget.limit}</p>
                 </div>
@@ -132,7 +210,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
               </div>
               <div className="flex items-center">
               
-              <button className="rounded-md border px-2" onClick={() => {setCategoryName(budget.category), setAmountSpent(budget.spent); setBudgetLimit(budget.limit);setBudgetId(budget._id); setIsModalOpen(true);}}>Edit Budget</button>
+              <button className="rounded-md border px-2 dark:text-white" onClick={() => {setCategoryName(budget.category), setAmountSpent(budget.spent); setBudgetLimit(budget.limit);setBudgetId(budget._id); setIsModalOpen(true);}}>Edit</button>
               
                 
                 {/* <Link to="/budgetCategoryChanger" className="text-blue-500">
@@ -147,6 +225,9 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
     </ul>
     
     
+    
+    </div>
+    <button onClick={() => setIsTrackModalOpen(true)} className="bg-blue-500 m-4 rounded-md text-white p-2">Track another category</button>
     </div>
   );
 }
