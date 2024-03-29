@@ -40,6 +40,7 @@ const GoalList = () => {
         // Handle success
         console.log("Removed Goal", response.data);
         setIsDeleteModalOpen(false);
+        fetchGoalsData();
       })
       .catch((error) => {
         // Handle error
@@ -80,12 +81,13 @@ const GoalList = () => {
             console.log(selectedGoalForAddingMoney.name)
             setIsAddMoneyModalOpen(false);
             setAddMoneyAmount("");
+            fetchGoalsData();
           } catch (error) {
             console.error("Error adding money to goal:", error);
           }
   };
 
-  useEffect(() => {
+    // Function to fetch goals data
     const fetchGoalsData = async () => {
       try {
         const tokenData = localStorage.getItem("token");
@@ -96,7 +98,6 @@ const GoalList = () => {
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setGoalsData(response.data.goals);
-          console.log(response.data.goals)
         } else {
           console.error("Token not found in localStorage");
         }
@@ -104,9 +105,10 @@ const GoalList = () => {
         console.error("Error occurred:", error);
       }
     };
-
-    fetchGoalsData();
-  }, []);
+  
+    useEffect(() => {
+      fetchGoalsData();
+    }, []);
 
   return (
     <div>
