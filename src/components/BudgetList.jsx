@@ -139,7 +139,14 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
 
   // Function to filter out categories not already in the budget array
   const getAvailableCategories = () => {
-    const categories = ['Food', 'Groceries', 'Shopping', 'Transportation', 'Loans', 'Other', 'Bills', 'Entertainment'];
+    const categories = ["Shopping",
+    "Food",
+    "Transportation",
+    "Loan",
+    "Groceries",
+    "Bills",
+    "Entertainment", // Added Entertainment category
+    "Other",];
     return categories.filter(category => !budgetArray.find(budget => budget.category === category));
   };
 
@@ -250,9 +257,9 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
         handleModal={handleModalClose}
         content={
           <>
-            <p className="mb-2 font-bold text-lg text-center">Budget for {categoryName} category, {currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
+            <p className="mb-2 font-bold text-lg text-center dark:text-white">Budget for {categoryName} category<br></br> {currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
              <div className="flex  flex-col items-center ">
-                <div>
+                <div className="dark:text-white">
                 Budget Limit <br></br> 
                 <input className="border rounded-md p-2"
                 type="number"
@@ -261,7 +268,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
                 placeholder="Enter new budget amount"
               />
               </div>
-              <p className="mt-4">You have spent ${amountSpent} on this category so far.</p>
+              <p className="mt-4 dark:text-white">You have spent ${amountSpent} on this category so far.</p>
 
             </div>
           
@@ -279,8 +286,8 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
         handleModal={() => {setBudgetLimit('');setIsTrackModalOpen(false);}}
         content={
           <>
-            <p className="mb-2 font-bold text-lg text-center">Track Another Category</p>
-            <p className="mb-2 text-lg text-center">{currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
+            <p className="mb-2 font-bold text-lg text-center dark:text-white">Track Another Category</p>
+            <p className="mb-2 text-lg text-center dark:text-white">{currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
             <div className="flex flex-col items-center">
               <select
                 value={selectedCategory}

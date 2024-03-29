@@ -267,7 +267,7 @@ const Expenses1 = () => {
                   ticks: {
                    
                     font: {
-                      size: 14, // Increase font size for x-axis labels
+                      size: 12, // Increase font size for x-axis labels
                     },
                   },
                 },
@@ -278,7 +278,7 @@ const Expenses1 = () => {
                   ticks: {
                     
                     font: {
-                      size: 14, // Increase font size for x-axis labels
+                      size: 12, // Increase font size for x-axis labels
                     },
                   },
                 },

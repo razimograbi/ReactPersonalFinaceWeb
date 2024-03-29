@@ -72,6 +72,7 @@ const GoalList = () => {
         .then((response) => {
           // Handle success
           console.log("goal savedAmount updated successfully:", response.data);
+          fetchGoalsData();
         })
         .catch((error) => {
           // Handle error
@@ -81,7 +82,7 @@ const GoalList = () => {
             console.log(selectedGoalForAddingMoney.name)
             setIsAddMoneyModalOpen(false);
             setAddMoneyAmount("");
-            fetchGoalsData();
+            
           } catch (error) {
             console.error("Error adding money to goal:", error);
           }
@@ -117,7 +118,7 @@ const GoalList = () => {
         isOpen={isDeleteModalOpen}
         handleModal={() => setIsDeleteModalOpen(false)}
         content={<>
-        <p className="text-lg font-bold">
+        <p className="text-lg font-bold dark:text-white">
           Are you sure you want to delete your goal " {selectedGoalForDeletion ? selectedGoalForDeletion.name : ''}"?
         </p>
         </>
@@ -133,10 +134,10 @@ const GoalList = () => {
         isOpen={isAddMoneyModalOpen}
         handleModal={() => setIsAddMoneyModalOpen(false)}
         content={<>
-          <p className="text-lg font-bold"> You've saved {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
+          <p className="text-lg font-bold dark:text-white"> You've saved {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
           </p>
         
-          <input className="border rounded-md p-2" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
+          <input className="border rounded-md p-2 dark:text-black" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
 
          </>}
         handleSubmit={handleAddMoney}
@@ -180,7 +181,7 @@ const GoalList = () => {
                   <div
                     className="bg-lime-500 text-xs text-gray-700 text-center font-bold p-0.5 leading-none rounded-full"
                     style={{
-                      width: `${(goal.amountSaved / goal.amount) * 100}%`,
+                      width: `${Math.max(0, Math.min((goal.amountSaved / goal.amount) * 100, 100))}%`,
                     }}
                   >
                     {(goal.amountSaved / goal.amount) * 100}%

@@ -6,7 +6,11 @@ import { useState } from "react";
 import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 
-const dropdownLinks = ["Shopping", "groceries", "Food Only", "Loan", "Other"];
+const dropdownLinks = ["Shopping","Food","Transportation","Loan","Groceries","Bills","Entertainment", "Other"];
+
+
+
+
 
 const ExpensesAddition = () => {
   const [choosenCategory, setChoosenCategory] = useState("Category");
@@ -15,6 +19,11 @@ const ExpensesAddition = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isQuestionOpen, setIsQuestionOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date) => { // Step 2: Function to handle date change
+    setSelectedDate(date);
+  };
 
   const handleAmountOfMoney= (e) => {
     setAmountOfMoney(e.target.value);
@@ -59,7 +68,8 @@ const ExpensesAddition = () => {
       category: choosenCategory,
       amount: amountOfMoney,
       numberOfPayment: numberOfPayment,
-      startDate: Date.now(),
+      //startDate: Date.now(),
+      startDate:selectedDate,
     };
     const token = getToken();
     axios
@@ -223,7 +233,22 @@ const ExpensesAddition = () => {
               />
             </div>
           </div>
-
+          <div className="mb-5">
+            <label
+             
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Start Date
+            </label>
+            <input
+              type="date"
+              id="start-date"
+              value={selectedDate}
+              onChange={(e) => handleDateChange(e.target.value)} // Step 4: Handle date change
+              className="bg-gray-50 border border-gray-300 text-gray-900 max-w-44 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
           <div className="relative flex gap-3 justify-center items-end mb-5">
             <div>
               <label
@@ -257,7 +282,9 @@ const ExpensesAddition = () => {
             >
               The number of monthly payments.
             </div>
+            
           </div>
+          
           <button
             id="add-expense-button"
             type="submit"
@@ -265,6 +292,8 @@ const ExpensesAddition = () => {
           >
             Add Expense
           </button>
+
+
         </form>
       </div>
       <Footer />
