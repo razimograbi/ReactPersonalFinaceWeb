@@ -426,3 +426,33 @@ axios
     // Handle error
     console.error("Error retrieving goals data:", error);
   });
+
+
+
+  /*Adds a certain amount of money to the saved money in goal*/ 
+const token = getToken();
+const additionData = {
+  goalId: "", // Replace with the actual goal ID
+  addedAmount: 0, // Replace with new addition value
+};
+
+
+// PUT request
+axios
+  .put(
+    "https://partialbackendforweb.onrender.com/pages/api/goals/addAmountToGoal",
+    additionData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+  .then((response) => {
+    // Handle success
+    console.log("goal savedAmount updated successfully:", response.data);
+  })
+  .catch((error) => {
+    // Handle error
+    console.error("Error updating amountSaved data:", error);
+  });

@@ -7,7 +7,7 @@ import BudgetList from "../components/BudgetList";
 
 const BudgetTracking = () => {
   const [years, setYears] = useState([]);
-  const [currentlySelectedMonth, setCurrentSelectedMonth] = useState(null);
+  const [currentlySelectedMonth, setCurrentSelectedMonth] = useState('');
   const [currentlySelectedYear, setCurrentlySelectedYear] = useState("2024");
   const [budgetsArray, setBudgetArray] = useState([]);
 
@@ -62,7 +62,7 @@ const BudgetTracking = () => {
       .catch((error) => {
         console.error("Error retrieving budget data:", error);
       });
-  }, [currentlySelectedMonth]);
+  }, [currentlySelectedMonth,currentlySelectedYear]);
 
   async function getExpensesBasedOnMonthAndYear() {
     const token = getToken();
@@ -125,18 +125,21 @@ const BudgetTracking = () => {
     );
   }
 
+  //this was changed
   // Function to handle month selection
   function selectMonth(month) {
-    if (currentlySelectedYear) {
+    setCurrentSelectedMonth(month.toString());
+
+    /*   if (currentlySelectedYear) {
       // Log the selected year and month to the console
       console.log("Selected Year:", currentlySelectedYear);
       console.log("Selected Month:", month.toString());
-      setCurrentSelectedMonth(month.toString());
+      
       // displayBudgets(budgetsArray);
     } else {
       // Prompt the user to select a year first
       console.log("Please select a year first");
-    }
+    } */
   }
 
   const handleMonth = (e) => {
@@ -309,10 +312,12 @@ const BudgetTracking = () => {
           December
         </div>
       </div>
-
+      <div className="text-lg text-center">{currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</div>
       <div className="flex flex-col md:flex-row space-x-2 mx-4 px-2 gap-3 justify-center items-center mb-8">
         {/* <!--expenses--> */}
-        <div className="dark:bg-gray-900 container max-w-xl shadow-xl border border-solid">
+
+        <div className="dark:bg-gray-900 container max-w-xl shadow-xl border border-solid ">
+
           {currentlySelectedMonth ? (
             <BudgetList budgetArray={budgetsArray} 
             currentlySelectedMonth={currentlySelectedMonth}

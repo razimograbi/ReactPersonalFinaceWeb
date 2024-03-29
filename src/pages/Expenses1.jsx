@@ -2,11 +2,14 @@ import UserNavigation from "../components/UserNavigation";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 import { Chart } from "chart.js/auto";
 
 const Expenses1 = () => {
+  const myChartRef = useRef(null);
+  const chartDoughnutRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,8 +24,24 @@ const Expenses1 = () => {
           );
 
           const expenses = response.data.expenses;
-
+          expenses.sort((a, b) => {
+            // Convert the start dates to Date objects
+            const dateA = new Date(a.startDate);
+            const dateB = new Date(b.startDate);
+            
+            // Compare the dates using the comparison operators
+            if (dateA < dateB) {
+              return -1; // dateA comes before dateB
+            } else if (dateA > dateB) {
+              return 1; // dateA comes after dateB
+            } else {
+              return 0; // dates are equal
+            }
+          });
+          console.log(expenses);
+       
           // Update My Chart
+          
 
           // Code for My Chart
 
@@ -111,6 +130,8 @@ const Expenses1 = () => {
             }
           });
 
+
+
           const dataDoughnut = {
             labels: categoriesToShow,
             datasets: [
@@ -153,7 +174,10 @@ const Expenses1 = () => {
             },
           };
           console.log(expensesByCategory);
-          new Chart(document.getElementById("chartDoughnut"), configDoughnut);
+          if (chartDoughnutRef.current !== null) {
+            chartDoughnutRef.current.destroy();
+          }
+          chartDoughnutRef.current=new Chart(document.getElementById("chartDoughnut"), configDoughnut);
 
           //Update My Chart
 
@@ -182,8 +206,12 @@ const Expenses1 = () => {
           console.log(monthlyIncomes);
           console.log(monthlyExpenses);
 
+          if (myChartRef.current !== null) {
+            myChartRef.current.destroy();
+          }
+
           const ctx = document.getElementById("myChart").getContext("2d");
-          new Chart(ctx, {
+           myChartRef.current=new Chart(ctx, {
             type: "bar",
             data: {
               labels: [

@@ -2,16 +2,28 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Modal from '../components/Modal'; // Import the Modal component
+import axios from "axios";
 
 function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [categoryName, setCategoryName] = useState('');
+  const [budgetId, setBudgetId] = useState('');
   const [amountSpent, setAmountSpent] = useState('');
-  const [newAmountSpent, setNewAmountSpent] = useState('');
-  const [budgetLimit, setBudgetLimit] = useState('');
-  const [newBudgetLimit, setnewBudgetLimit] = useState('');
 
-  
+  const [budgetLimit, setBudgetLimit] = useState('');
+  const [categoryName, setCategoryName] = useState('');
+
+  function getToken() {
+    const tokenObj = JSON.parse(localStorage.getItem("token"));
+    if (!tokenObj) return null;
+
+    const currentTime = new Date().getTime();
+    if (currentTime > tokenObj.expires) {
+      localStorage.removeItem("token"); // Remove expired token
+      return null;
+    }
+
+    return tokenObj.value;
+  }
   
   const handlenewBudgetLimitChange = (e) => {
     const inputAmount = e.target.value;
@@ -20,32 +32,46 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
       setBudgetLimit(inputAmount);
     }
   };
-  const handleSpentAmountChange = (e) => {
-    // Allow only positive numbers greater than or equal to zero
-    const inputAmount = e.target.value;
-    if (/^\d*\.?\d+$/.test(inputAmount) && parseFloat(inputAmount) >= 0) {
-      // Add your logic to update the spent amount in the state or perform any other actions
-      setAmountSpent(inputAmount);
-    }
-  };
+ 
 
-  const handleBudgetChange = async (newBudgetLimit, category, month, year) => {
-    if (parseFloat(amountSpent) > parseFloat(budgetLimit)) {
-      handleBudgetChange(budgetLimit, categoryName, currentlySelectedMonth, currentlySelectedYear);
-      return;
-    }
-    // Add your logic here to update the budget in the database
-    // Example: Axios request to update budget
-    console.log('Updating budget:',budgetLimit, category, month, year);
+  const handleBudgetChange =  () => {
+    
+      const token = getToken();
+      const editData = {
+        budgetId: budgetId, // Replace with the actual budget ID
+        newBudget:parseInt(budgetLimit), // Replace with the new budget value
+      };
 
-    // After updating the budget, you can perform any necessary actions
-    setIsModalOpen(false); // Close the modal
-    setnewBudgetLimit(''); // Clear input field
+      // PUT request
+      axios
+        .put(
+          "https://partialbackendforweb.onrender.com/pages/api/budget/edit",
+          editData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          // Handle success
+          console.log("Budget data edited successfully:", response.data);
+           // After updating the budget, you can perform any necessary actions
+          setIsModalOpen(false); // Close the modal
+          setnewBudgetLimit(''); // Clear input field
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error editing budget data:", error);
+        });
+
+
+   
   };
  
 
   const handleModalClose = () => {
-    setnewBudgetLimit('');
+    setBudgetLimit('');
     setIsModalOpen(false);
   };
     
@@ -58,43 +84,33 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
         handleModal={handleModalClose}
         content={
           <>
-            <p class="mb-2 font-bold text-lg">Budget for {categoryName} Category {currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
-             <div class="flex  flex-col items-center ">
-              <div>
-              Budget Limit <br></br> 
-              <input class="border rounded-md"
-              type="number"
-              value={budgetLimit}
-              onChange={handlenewBudgetLimitChange}
-              placeholder="Enter new budget amount"
-            />
+            <p className="mb-2 font-bold text-lg text-center">Budget for {categoryName} category, {currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</p>
+             <div className="flex  flex-col items-center ">
+                <div>
+                Budget Limit <br></br> 
+                <input className="border rounded-md p-2"
+                type="number"
+                value={budgetLimit}
+                onChange={handlenewBudgetLimitChange}
+                placeholder="Enter new budget amount"
+              />
+              </div>
+              <p className="mt-4">You have spent ${amountSpent} on this category so far.</p>
+
             </div>
-            <div>
-            <p class="mt-2">Amount Spent</p> 
-            <input class="border rounded-md"
-              type="number"
-              value={amountSpent}
-              onChange={handleSpentAmountChange}
-              placeholder="Enter spent amount"
-            />
-            </div>
-            </div>
-            {/* Conditional message */}
-            {amountSpent > budgetLimit && (
-            <p className="text-red-500 mt-2">Spent amount cannot exceed budget limit</p>
-            )}
+          
           </>
         }
-        handleSubmit={() => handleBudgetChange(newBudgetLimit, categoryName, currentlySelectedMonth, currentlySelectedYear)}
+        //handleSubmit={() => handleBudgetChange(budgetLimit, currentlySelectedMonth, currentlySelectedYear)}
+        handleSubmit={() => handleBudgetChange()}
         positiveLabel="Change"
         negativeLabel="Discard"
       >
       </Modal>
-
     <ul id="budgetList"
       className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900">
       
-    
+        
       {budgetArray?.map((budget) => {
         const percentageSpent = (budget.spent / budget.limit) * 100;
         return (
@@ -116,7 +132,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
               </div>
               <div className="flex items-center">
               
-              <button className="rounded-md border px-2" onClick={() => { setAmountSpent(budget.spent); setBudgetLimit(budget.limit);setCategoryName(budget.category); setIsModalOpen(true);}}>Edit Budget</button>
+              <button className="rounded-md border px-2" onClick={() => {setCategoryName(budget.category), setAmountSpent(budget.spent); setBudgetLimit(budget.limit);setBudgetId(budget._id); setIsModalOpen(true);}}>Edit Budget</button>
               
                 
                 {/* <Link to="/budgetCategoryChanger" className="text-blue-500">
