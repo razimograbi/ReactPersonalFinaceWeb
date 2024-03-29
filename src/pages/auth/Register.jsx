@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { default as growth } from "../../assets/images/growth.jpg";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
+import axios from "axios"; // Import axios
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,45 @@ const Register = () => {
     }));
   };
 
+  // Define handleRegister function
+  const handleRegister = (e) => {
+    e.preventDefault(); // Prevent form submission
+    
+    // Extract user data from the form fields directly
+    const { fullname, email, password, confirmPassword } = formData;
+  
+    // Check if the password and confirm password match
+    if (password !== confirmPassword) {
+      alert("Password and confirm password do not match.");
+      return; // Abort registration if passwords don't match
+    }
+  
+    // Create user data object
+    const userData = {
+      name: fullname,
+      email: email,
+      password: password,
+    };
+  
+    // POST request
+    axios
+      .post("https://partialbackendforweb.onrender.com/register", userData)
+      .then((response) => {
+        // Handle success
+        console.log("User registered successfully:", response.data);
+        // Show success alert
+        alert("User registered successfully!");
+        // Redirect user to login page
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error registering user:", error);
+        // Show error alert
+        alert("Error registering user. Please try again later.");
+      });
+  };
+  
+
   return (
     <div
       className="bg-cover bg-center bg-fixed"
@@ -32,7 +72,7 @@ const Register = () => {
           <h1 className="text-3xl font-bold mb-4">Create an Account</h1>
 
           {/* <!-- Registration Form --> */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleRegister}>
             <div>
               <label
                 htmlFor="fullname"
@@ -103,6 +143,7 @@ const Register = () => {
 
             <div>
               <button
+                onClick={handleRegister}
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
               >
