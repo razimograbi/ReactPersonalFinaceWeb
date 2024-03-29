@@ -5,7 +5,7 @@ import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 import UserNavigation from "../components/UserNavigation";
 
-function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
+function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [budgetId, setBudgetId] = useState('');
   const [amountSpent, setAmountSpent] = useState('');
@@ -15,112 +15,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
 
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  
-  /**Trying something!!!!!!!!!!!!!! */
-  const [budgetArray, setBudgetArray] = useState([]);
-   // Fetch budget data based on the selected month and year
-   useEffect(() => {
-  
-    fetchData(); // Call fetchData initially
-  
-    // Call fetchData whenever either currentlySelectedMonth or currentlySelectedYear changes
-  }, [currentlySelectedMonth, currentlySelectedYear]);
-    
-  const fetchData = async () => {
-    const token = getToken();
-    try {
-      const response = await axios.get("https://partialbackendforweb.onrender.com/pages/api/budget", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      displayBudgets(response.data);
-    } catch (error) {
-      console.error("Error retrieving budget data:", error);
-    }
-  };
-
-    async function displayBudgets(response) {
-    if (!currentlySelectedMonth || !currentlySelectedYear) {
-      return;
-    }
-
-    const expenseArray = await getExpensesBasedOnMonthAndYear(); // Assuming this function returns expense data
-
-    setBudgetArray(() =>
-      calculateSpentPercentages(
-        response,
-        expenseArray,
-        currentlySelectedMonth,
-        currentlySelectedYear
-      )
-    );
-  }
-
-  async function getExpensesBasedOnMonthAndYear() {
-    const token = getToken();
-    try {
-      const response = await axios.get(
-        "https://partialbackendforweb.onrender.com/pages/api/expenses/retrieve",
-        {
-          params: {
-            month: currentlySelectedMonth,
-            year: currentlySelectedYear,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // Once the data is fetched, return the expenses array
-      return response.data.expenses; // This waits for the axios request to complete
-    } catch (error) {
-      console.error("Error retrieving data:", error);
-      return []; // Return an empty array in case of an error
-    }
-  }
-
-  function calculateSpentPercentages(budgetsArray, expensesArray, month, year) {
-    // Format the month and year to match the budgetDate format ("YY-MM")
-    const formattedMonth = month.padStart(2, "0"); // Ensure month is two digits
-    const monthYear = year + "-" + formattedMonth; // Format to "YY-MM"
-    const relevantBudgets = budgetsArray.filter(
-      (budget) => budget.budgetDate === monthYear
-    );
-    const expensesSumByCategory = expensesArray.reduce((acc, expense) => {
-      acc[expense.category.toLowerCase()] =
-        (acc[expense.category.toLowerCase()] || 0) + expense.amount;
-      return acc;
-    }, {});
-
-    return relevantBudgets.map((budget) => {
-      const spent = expensesSumByCategory[budget.category.toLowerCase()] || 0;
-      const spentPercentage = (spent / budget.limit) * 100;
-      return {
-        ...budget,
-        spent,
-        spentPercentage: spentPercentage.toFixed(2) + "%", // Format percentage with 2 decimal places
-      };
-    });
-  }
-
-    
-
-
-
-  const [refreshKey, setRefreshKey] = useState(0); 
-  useEffect(() => {
-    fetchData();
-    // This effect will be triggered when refreshKey changes
-    // You can perform any actions here that need to be executed when the component is refreshed
-  }, [refreshKey]);
-
-  // Function to refresh the component
-  const refreshComponent = () => {
-    setRefreshKey(prevKey => prevKey + 1); // Increment the refreshKey state variable
-  };
-
-  /**Trying something!!!!!!!!!!!!!! */
+ 
 
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
@@ -177,14 +72,13 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
       .then((response) => {
         // Handle success
         console.log("Budget data added successfully:", response.data);
-        //window.location.reload();
-        refreshComponent();
+        window.location.reload();
         
       })
       .catch((error) => {
         // Handle error
         console.error("Error adding budget data:", error);
-        
+        refreshComponent();
       });
     setIsTrackModalOpen(false);
   };
@@ -223,7 +117,6 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
            // After updating the budget, you can perform any necessary actions
           setIsModalOpen(false); // Close the modal
           setBudgetLimit(''); // Clear input field
-          refreshComponent();
         })
         .catch((error) => {
           // Handle error
@@ -320,15 +213,11 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
                   <h5 className="dark:text-white">{budget.category}</h5>
                   <p className="dark:text-white">${budget.limit}</p>
                 </div>
-                <div className="w-full  mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                    <div
-                      className={`rounded-full text-center p-0.5  leading-none dark:text-white ${
-                        percentageSpent <= 100 ? 'bg-green-600' : 'bg-red-600'
-                      }`}
-                      style={{
-                        width: percentageSpent <= 100 ? `${percentageSpent}%` : '100%',
-                      }}>
-                
+                <div className="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div
+                    className="bg-green-600 text-xs h-4 rounded-full text-center p-0.5 leading-none dark:bg-green-500 dark:text-white"
+                    style={{ width: `${percentageSpent}%` }}
+                  >
                     ${budget.spent}
                   </div>
                 </div>
@@ -337,6 +226,10 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
               
               <button className="rounded-md border px-2 dark:text-white" onClick={() => {setCategoryName(budget.category), setAmountSpent(budget.spent); setBudgetLimit(budget.limit);setBudgetId(budget._id); setIsModalOpen(true);}}>Edit</button>
               
+                
+                {/* <Link to="/budgetCategoryChanger" className="text-blue-500">
+                  Edit Budget
+                </Link> */}
               </div>
             </div>
           </li>

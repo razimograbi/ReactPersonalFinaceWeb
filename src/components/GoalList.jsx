@@ -11,30 +11,78 @@ const GoalList = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
 
-  const handleDeleteGoal = async () => {
-    try {
-      // Call API to delete the selected goal using its ID
-      // You can access the selected goal ID from selectedGoalForDeletion state
-      // After successful deletion, update the goalsData state to reflect the changes
-      console.log("im in handle delete for goal name")
-      console.log(selectedGoalForDeletion.name)
-      setIsDeleteModalOpen(false);
-    } catch (error) {
-      console.error("Error deleting goal:", error);
+  
+  function getToken() {
+    const tokenObj = JSON.parse(localStorage.getItem("token"));
+    if (!tokenObj) return null;
+
+    const currentTime = new Date().getTime();
+    if (currentTime > tokenObj.expires) {
+      localStorage.removeItem("token"); // Remove expired token
+      return null;
     }
+
+    return tokenObj.value;
+  }
+
+  const handleDeleteGoal = () => {
+    const token = getToken();
+    axios
+      .delete(
+        `https://partialbackendforweb.onrender.com/pages/api/goals/delete/${selectedGoalForDeletion._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        // Handle success
+        console.log("Removed Goal", response.data);
+        setIsDeleteModalOpen(false);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error Deleting Goal:", error);
+      });
   };
 
-  const handleAddMoney = async () => {
+
+  const handleAddMoney = () => {
     try {
-      // Call API to add money to the selected goal using its ID and the addMoneyAmount state
-      // After successful addition, update the goalsData state to reflect the changes
-      console.log("im in handle add money for goal name")
-      console.log(selectedGoalForAddingMoney.name)
-      setIsAddMoneyModalOpen(false);
-      setAddMoneyAmount("");
-    } catch (error) {
-      console.error("Error adding money to goal:", error);
-    }
+      const token = getToken();
+      const additionData = {
+        goalId: selectedGoalForAddingMoney._id, // Replace with the actual goal ID
+        addedAmount: parseInt(addMoneyAmount), // Replace with new addition value
+      };
+
+
+      // PUT request
+      axios
+        .put(
+          "https://partialbackendforweb.onrender.com/pages/api/goals/addAmountToGoal",
+          additionData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          // Handle success
+          console.log("goal savedAmount updated successfully:", response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error updating amountSaved data:", error);
+        });
+            console.log("im in handle add money for goal name")
+            console.log(selectedGoalForAddingMoney.name)
+            setIsAddMoneyModalOpen(false);
+            setAddMoneyAmount("");
+          } catch (error) {
+            console.error("Error adding money to goal:", error);
+          }
   };
 
   useEffect(() => {
@@ -67,7 +115,7 @@ const GoalList = () => {
         isOpen={isDeleteModalOpen}
         handleModal={() => setIsDeleteModalOpen(false)}
         content={<>
-        <p class="text-lg font-bold">
+        <p className="text-lg font-bold">
           Are you sure you want to delete your goal " {selectedGoalForDeletion ? selectedGoalForDeletion.name : ''}"?
         </p>
         </>
@@ -83,10 +131,10 @@ const GoalList = () => {
         isOpen={isAddMoneyModalOpen}
         handleModal={() => setIsAddMoneyModalOpen(false)}
         content={<>
-          <p class="text-lg font-bold"> You've saved {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
+          <p className="text-lg font-bold"> You've saved {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
           </p>
         
-          <input class="border rounded-md p-2" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
+          <input className="border rounded-md p-2" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
 
          </>}
         handleSubmit={handleAddMoney}
@@ -113,7 +161,7 @@ const GoalList = () => {
             {goalsData.map((goal) => (
               <div
                 key={goal._id}
-                className=" shadow p-2 m-2 dark:bg-gray-900 rounded-md"
+                className=" shadow p-2 m-2 dark:bg-gray-900 hover:shadow-lg transform hover:scale-102 transition-all duration-300"
               >
                 <div className="text-xl font-bold">{goal.name}</div>
                 <div className="float-right flex sm:flex-row flex-col">
