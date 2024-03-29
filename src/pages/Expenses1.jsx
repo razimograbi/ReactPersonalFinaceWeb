@@ -306,7 +306,8 @@ const Expenses1 = () => {
       </h2>
 
       <div className="flex flex-col justify-between  ">
-        <div className="inline-block">
+        <div className="flex justify-center">
+        <div className="container ml-2 md:mr-10 md:justify-start">
           <Link
             to="/expensesAddition"
             className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 md:ml-20 py-2 px-2 rounded-md"
@@ -315,7 +316,9 @@ const Expenses1 = () => {
             Add Expense
           </Link>
         </div>
+        </div>
         <div className="flex flex-col md:flex-row justify-center mx-4">
+
           <div className=" container  text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900  dark:text-white max-w-[900px] max-h-[800px] mr-4">
             {/* <!-- bar chart code for income and expenses --> */}
             <div className=" container flex dark:text-white ">
