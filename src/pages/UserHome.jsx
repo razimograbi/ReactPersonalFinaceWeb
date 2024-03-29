@@ -168,7 +168,7 @@ const UserHome = () => {
                             <td class="whitespace-nowrap px-6 py-4 font-medium">${            new Date(
                               expense.startDate
                             ).toLocaleDateString()}</td>
-                            <td class="whitespace-nowrap px-6 py-4 dark:text-white">${expense.payee}</td>
+                           
                             <td class="whitespace-nowrap px-6 py-4 dark:text-white">${expense.category}</td>
                             <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${expense.amount}</td>
                         `;
@@ -401,9 +401,7 @@ const UserHome = () => {
                           <th scope="col" className="px-6 py-4">
                             Date
                           </th>
-                          <th scope="col" className="px-6 py-4">
-                            Payee
-                          </th>
+                          
                           <th scope="col" className="px-6 py-4">
                             Category
                           </th>

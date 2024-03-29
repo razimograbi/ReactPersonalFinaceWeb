@@ -65,9 +65,7 @@ const Expenses1 = () => {
         <td class="whitespace-nowrap px-6 py-4 font-medium">${new Date(
           expense.startDate
         ).toLocaleDateString()}</td>
-        <td class="whitespace-nowrap px-6 py-4 dark:text-white">${
-          expense.payee
-        }</td>
+         
         <td class="whitespace-nowrap px-6 py-4 dark:text-white">${
           expense.category
         }</td>
@@ -358,9 +356,7 @@ const Expenses1 = () => {
                         <th scope="col" className="px-6 py-4">
                           Date
                         </th>
-                        <th scope="col" className="px-6 py-4">
-                          Payee
-                        </th>
+                        
                         <th scope="col" className="px-6 py-4">
                           Category
                         </th>
@@ -394,9 +390,7 @@ const Expenses1 = () => {
                         <th scope="col" className="px-6 py-4">
                           Date
                         </th>
-                        <th scope="col" className="px-6 py-4">
-                          Payee
-                        </th>
+                        
                         <th scope="col" className="px-6 py-4">
                           Category
                         </th>
@@ -410,9 +404,7 @@ const Expenses1 = () => {
                         <td className="whitespace-nowrap px-6 py-4 font-medium">
                           01/03/2024
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Bank
-                        </td>
+                      
                         <td className="whitespace-nowrap px-6 py-4 dark:text-white">
                           Loan
                         </td>
@@ -424,9 +416,7 @@ const Expenses1 = () => {
                         <td className="whitespace-nowrap px-6 py-4 font-medium">
                           10/03/2024
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Electricity ltd
-                        </td>
+                      
                         <td className="whitespace-nowrap px-6 py-4 dark:text-white">
                           Bills
                         </td>
@@ -438,9 +428,7 @@ const Expenses1 = () => {
                         <td className="whitespace-nowrap px-6 py-4 font-medium">
                           10/03/2024
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Netflix
-                        </td>
+                     
                         <td className="whitespace-nowrap px-6 py-4 dark:text-white">
                           Entertainment
                         </td>
