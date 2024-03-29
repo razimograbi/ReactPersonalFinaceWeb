@@ -11,7 +11,29 @@ const BudgetTracking = () => {
   const [currentlySelectedYear, setCurrentlySelectedYear] = useState("2024");
   const [budgetsArray, setBudgetArray] = useState([]);
 
-  
+  function calculateSpentPercentages(budgetsArray, expensesArray, month, year) {
+    // Format the month and year to match the budgetDate format ("YY-MM")
+    const formattedMonth = month.padStart(2, "0"); // Ensure month is two digits
+    const monthYear = year + "-" + formattedMonth; // Format to "YY-MM"
+    const relevantBudgets = budgetsArray.filter(
+      (budget) => budget.budgetDate === monthYear
+    );
+    const expensesSumByCategory = expensesArray.reduce((acc, expense) => {
+      acc[expense.category.toLowerCase()] =
+        (acc[expense.category.toLowerCase()] || 0) + expense.amount;
+      return acc;
+    }, {});
+
+    return relevantBudgets.map((budget) => {
+      const spent = expensesSumByCategory[budget.category.toLowerCase()] || 0;
+      const spentPercentage = (spent / budget.limit) * 100;
+      return {
+        ...budget,
+        spent,
+        spentPercentage: spentPercentage.toFixed(2) + "%", // Format percentage with 2 decimal places
+      };
+    });
+  }
 
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
@@ -26,16 +48,46 @@ const BudgetTracking = () => {
     return tokenObj.value;
   }
 
-  
   useEffect(() => {
+    const token = getToken();
+    axios
+      .get("https://partialbackendforweb.onrender.com/pages/api/budget", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        displayBudgets(response.data);
+      })
+      .catch((error) => {
+        console.error("Error retrieving budget data:", error);
+      });
+  }, [currentlySelectedMonth,currentlySelectedYear]);
 
-    const storedMonth = localStorage.getItem("selectedMonth");
-    const storedYear = localStorage.getItem("selectedYear");
-    
-    // Use stored values as initial state if available, otherwise use default values
-    setCurrentSelectedMonth(storedMonth || '');
-    setCurrentlySelectedYear(storedYear || '2024');
- 
+  async function getExpensesBasedOnMonthAndYear() {
+    const token = getToken();
+    try {
+      const response = await axios.get(
+        "https://partialbackendforweb.onrender.com/pages/api/expenses/retrieve",
+        {
+          params: {
+            month: currentlySelectedMonth,
+            year: currentlySelectedYear,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // Once the data is fetched, return the expenses array
+      return response.data.expenses; // This waits for the axios request to complete
+    } catch (error) {
+      console.error("Error retrieving data:", error);
+      return []; // Return an empty array in case of an error
+    }
+  }
+
+  useEffect(() => {
     const currentYear = new Date().getFullYear();
     const yearsArray = [];
 
@@ -54,15 +106,29 @@ const BudgetTracking = () => {
     // selectYear.value = year; // Store the selected year
     // setSelectedYear(year)
     setCurrentlySelectedYear(e.target.value.toString());
-    localStorage.setItem("selectedYear", currentlySelectedYear);
   }
 
+  async function displayBudgets(response) {
+    if (!currentlySelectedMonth || !currentlySelectedYear) {
+      return;
+    }
+
+    const expenseArray = await getExpensesBasedOnMonthAndYear(); // Assuming this function returns expense data
+
+    setBudgetArray(() =>
+      calculateSpentPercentages(
+        response,
+        expenseArray,
+        currentlySelectedMonth,
+        currentlySelectedYear
+      )
+    );
+  }
 
   //this was changed
   // Function to handle month selection
   function selectMonth(month) {
     setCurrentSelectedMonth(month.toString());
-    localStorage.setItem("selectedMonth", month.toString());
 
     /*   if (currentlySelectedYear) {
       // Log the selected year and month to the console
@@ -255,7 +321,7 @@ const BudgetTracking = () => {
         <div className="dark:bg-gray-900 container max-w-xl  ">
 
           {currentlySelectedMonth ? (
-            <BudgetList 
+            <BudgetList budgetArray={budgetsArray} 
             currentlySelectedMonth={currentlySelectedMonth}
             currentlySelectedYear={currentlySelectedYear}/>
           ) : (

@@ -210,6 +210,9 @@ const Expenses1 = () => {
             myChartRef.current.destroy();
           }
 
+          const gridColor = "#ccc"; // Light gray color
+      
+
           const ctx = document.getElementById("myChart").getContext("2d");
            myChartRef.current=new Chart(ctx, {
             type: "bar",
@@ -232,29 +235,52 @@ const Expenses1 = () => {
                 {
                   label: "Income",
                   data: monthlyIncomes, // Fake data for income
-                  backgroundColor: "rgba(75, 192, 192, 0.2)",
+                  backgroundColor: "rgba(75, 192, 192)",
                   borderColor: "rgba(75, 192, 192, 1)",
                   borderWidth: 1,
                 },
                 {
                   label: "Expenses",
                   data: monthlyExpenses, // Fake data for expenses
-                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+                  backgroundColor: "rgba(255, 99, 132)",
                   borderColor: "rgba(255, 99, 132, 1)",
                   borderWidth: 1,
                 },
               ],
             },
             options: {
-              indexAxis: "y", // Display bars horizontally
+              indexAxis: "x", // Display bars horizontally
+              
               plugins: {
                 legend: {
-                  position: "right", // Position the legend to the right
+                  position: "right",
+                   // Position the legend to the right
                 },
+
               },
               scales: {
                 x: {
-                  beginAtZero: true, // Start the scale from zero
+                  beginAtZero: true,
+                  grid: {
+                    color: gridColor, // Set adaptive grid color
+                  },
+                  ticks: {
+                   
+                    font: {
+                      size: 14, // Increase font size for x-axis labels
+                    },
+                  },
+                },
+                y: {
+                  grid: {
+                    color: gridColor, // Set adaptive grid color
+                  },
+                  ticks: {
+                    
+                    font: {
+                      size: 14, // Increase font size for x-axis labels
+                    },
+                  },
                 },
               },
             },
