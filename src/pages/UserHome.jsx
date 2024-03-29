@@ -165,7 +165,9 @@ const UserHome = () => {
 
               // Add table data for each column
               expenseRow.innerHTML = `
-                            <td class="whitespace-nowrap px-6 py-4 font-medium">${expense.startDate}</td>
+                            <td class="whitespace-nowrap px-6 py-4 font-medium">${            new Date(
+                              expense.startDate
+                            ).toLocaleDateString()}</td>
                             <td class="whitespace-nowrap px-6 py-4 dark:text-white">${expense.payee}</td>
                             <td class="whitespace-nowrap px-6 py-4 dark:text-white">${expense.category}</td>
                             <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${expense.amount}</td>
