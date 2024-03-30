@@ -261,7 +261,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
              <div className="flex  flex-col items-center ">
                 <div className="dark:text-white">
                 Budget Limit <br></br> 
-                <input className="border rounded-md p-2"
+                <input className="border rounded-md p-2 dark:text-black"
                 type="number"
                 value={budgetLimit}
                 onChange={handlenewBudgetLimitChange}

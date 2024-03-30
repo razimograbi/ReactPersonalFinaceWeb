@@ -119,7 +119,7 @@ const GoalList = () => {
         handleModal={() => setIsDeleteModalOpen(false)}
         content={<>
         <p className="text-lg font-bold dark:text-white">
-          Are you sure you want to delete your goal " {selectedGoalForDeletion ? selectedGoalForDeletion.name : ''}"?
+          Are you sure you want to delete your goal "{selectedGoalForDeletion ? selectedGoalForDeletion.name : ''}"?
         </p>
         </>
       }
@@ -134,11 +134,11 @@ const GoalList = () => {
         isOpen={isAddMoneyModalOpen}
         handleModal={() => setIsAddMoneyModalOpen(false)}
         content={<>
-          <p className="text-lg font-bold dark:text-white"> You've saved {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
+          <p className="text-lg font-bold dark:text-white"> You've saved ${selectedGoalForAddingMoney ? selectedGoalForAddingMoney.amountSaved : ''} for {selectedGoalForAddingMoney ? selectedGoalForAddingMoney.name : ''}. How much would you like to add?
           </p>
-        
-          <input className="border rounded-md p-2 dark:text-black" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
-
+          <div className="flex flex-row m-2">
+          <p className="text-2xl mx-2">$ </p><input className="border rounded-md p-2 dark:text-black" type="number" value={addMoneyAmount} onChange={(e) => setAddMoneyAmount(e.target.value)} />
+          </div>
          </>}
         handleSubmit={handleAddMoney}
         positiveLabel="Add"
