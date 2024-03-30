@@ -78,7 +78,8 @@ const UserHome = () => {
           // Update Income
           const incomeElement = document.getElementById("incomeCnt");
           incomeElement.textContent = `$${currentMonthIncome}`;
-
+          
+          /*
           // Calculate expenses for current month
           const currentMonthExpenses = userData.expenses.reduce((acc, cur) => {
             const expenseDate = new Date(cur.startDate);
@@ -91,11 +92,30 @@ const UserHome = () => {
               return acc;
             }
           }, 0);
+          */
+
+
+          // Calculate expenses for current month
+const currentMonthExpenses = userData.expenses.filter((expense) => {
+  const expenseDate = new Date(expense.startDate);
+  return (
+    expenseDate.getMonth() + 1 === currentMonth &&
+    expenseDate.getFullYear() === currentYear
+  );
+});
+
+// Calculate the total amount of expenses for the current month
+ const totalExpensesForMonth = currentMonthExpenses.reduce((total, expense) => {
+  // Access the 'amount' property of each expense object and convert it to a number
+  const expenseAmount = parseFloat(expense.amount);
+  return total + expenseAmount;
+}, 0);
 
           // Update Expenses
           const expensesElement = document.getElementById("expansesCnt");
-          expensesElement.textContent = `$${currentMonthExpenses}`;
-
+          //expensesElement.textContent = `$${currentMonthExpenses}`;
+          expensesElement.textContent = `$${totalExpensesForMonth}`;
+          /*
           // Get budget limit for current month
           const budgetEntry = userData.budget.find((entry) => {
             const budgetDate = new Date(entry.budgetDate);
@@ -113,6 +133,35 @@ const UserHome = () => {
           // Update Budget Remain
           const budgetRemainElement = document.getElementById("budgetCnt");
           budgetRemainElement.textContent = `$${budgetRemain}`;
+          */
+         // Get budget entries for the current month
+// Get budget entries for the current month
+const currentMonthBudgetEntries = userData.budget.filter((entry) => {
+  const budgetDate = new Date(entry.budgetDate);
+  return (
+    budgetDate.getMonth() + 1 === currentMonth &&
+    budgetDate.getFullYear() === currentYear
+  );
+});
+
+// Calculate total budget for the current month
+const totalBudgetForMonth = currentMonthBudgetEntries.reduce((total, entry) => {
+  return total + entry.limit;
+}, 0);
+
+
+
+
+// Calculate remaining budget for this month
+const remainingBudgetForMonth = totalBudgetForMonth - totalExpensesForMonth;
+
+// Update UI to display remaining budget for this month
+const budgetElement = document.getElementById("budgetCnt");
+budgetElement.textContent = `$${remainingBudgetForMonth}`;
+
+budgetSentence = document.getElementById("budgetSentence");
+ budgetSentence.textContent = `You've budgeted $${totalBudgetForMonth} for this month`;
+
 
           const goalsContainer = document.querySelector(".goal-container");
 
@@ -125,12 +174,12 @@ const UserHome = () => {
             goalDiv.classList.add("shadow", "p-2", "dark:text-white");
             goalDiv.innerHTML = `
                           ${goal.name}<br>
-                          Goal: ${goal.amount}<br>
-                          Saved: ${goal.amountSaved}<br>
+                          Goal: $${goal.amount}<br>
+                          Saved: $${goal.amountSaved}<br>
                           <div class="w-full bg-gray-50 rounded-full dark:bg-gray-700 shadow">
-                              <div class="bg-lime-500 text-xs font-medium text-gray-50 text-center p-0.5 leading-none rounded-full" style="width: ${Math.floor(
-                                (goal.amountSaved / goal.amount) * 100
-                              )}%"> ${Math.floor(
+                              <div class="bg-lime-500 text-xs font-medium text-gray-50 text-center p-0.5 leading-none rounded-full" style="width: ${Math.min(Math.floor( (goal.amountSaved / goal.amount) * 100),100)}%">
+                               
+                               ${Math.floor(
               (goal.amountSaved / goal.amount) * 100
             )}%</div>
                           </div>
@@ -300,8 +349,8 @@ const UserHome = () => {
       <section className="" id="hero">
         {/* <!--Income, spendings  section--> */}
         <div className="container flex-initial  flex  flex-col items-center px-4 mx-auto mt-8 mb-6 space-x-2 space-y-0 md:space-y-0 text-lg  py-2">
-          <p className="dark:text-white mb-2 font-bold">
-            You&apos;ve budgeted $6000 for this month
+          <p  id="budgetSentence" className="dark:text-white mb-2 font-bold">
+           
           </p>
           <div className="flex flex-col gap-2 sm:flex-row">
             <div className=" items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2  block-inline  mx-auto overflow-hidden  dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
@@ -347,12 +396,12 @@ const UserHome = () => {
             {/* <!--expenses--> */}
 
             <div className=" container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
-              <Link
+              <p
                 to="#"
                 className="py-3 px-5 bg-gray-100 dark:text-white dark:bg-gray-700 font-bold text-center"
               >
-                Expenses Tracking
-              </Link>
+                Current month expenses
+              </p>
 
               <canvas
                 className="container flex p-10 dark:bg-gray-900"

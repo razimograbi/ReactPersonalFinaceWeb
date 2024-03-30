@@ -30,9 +30,9 @@ const Expenses1 = () => {
             const dateB = new Date(b.startDate);
             
             // Compare the dates using the comparison operators
-            if (dateA < dateB) {
+            if (dateA > dateB) {
               return -1; // dateA comes before dateB
-            } else if (dateA > dateB) {
+            } else if (dateA < dateB) {
               return 1; // dateA comes after dateB
             } else {
               return 0; // dates are equal
@@ -52,7 +52,18 @@ const Expenses1 = () => {
 
           latestExpensesBody.innerHTML = "";
 
+          const upcomingExpensesBody = document.querySelector(
+            "#upcomingExpensesBody"
+          );
+
+          upcomingExpensesBody.innerHTML = "";
+
           expenses.forEach((expense) => {
+            const expenseDate = new Date(expense.startDate);
+            const today = new Date();
+
+            // Check if the expense date is prior to today
+            
             const expenseRow = document.createElement("tr");
             expenseRow.classList.add(
               "border-b",
@@ -62,19 +73,22 @@ const Expenses1 = () => {
             );
 
             expenseRow.innerHTML = `
-        <td class="whitespace-nowrap px-6 py-4 font-medium">${new Date(
-          expense.startDate
-        ).toLocaleDateString()}</td>
-         
-        <td class="whitespace-nowrap px-6 py-4 dark:text-white">${
-          expense.category
-        }</td>
-        <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${
-          expense.amount
-        }</td>
-      `;
+            <td class="whitespace-nowrap px-6 py-4 font-medium">${new Date(
+              expense.startDate
+            ).toLocaleDateString()}</td>
+            
+            <td class="whitespace-nowrap px-6 py-4 dark:text-white">${
+              expense.category
+            }</td>
+            <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${
+              expense.amount
+            }</td>
+          `;
 
-            latestExpensesBody.appendChild(expenseRow);
+            if (expenseDate < today){latestExpensesBody.appendChild(expenseRow);}
+            //else{upcomingExpensesBody.appendChild(expenseRow);}
+            else{upcomingExpensesBody.insertBefore(expenseRow, upcomingExpensesBody.firstChild);}
+          
           });
 
           // Update Donut
@@ -302,7 +316,7 @@ const Expenses1 = () => {
 
       <UserNavigation />
       <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
-        Expenses monitoring{" "}
+        Expenses Tracking{" "}
       </h2>
 
       <div className="flex flex-col justify-between  ">
@@ -402,43 +416,8 @@ const Expenses1 = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr className="border-b bg-neutral-100 dark:bg-gray-900 dark:border-gray-700">
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          01/03/2024
-                        </td>
-                      
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Loan
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          $400
-                        </td>
-                      </tr>
-                      <tr className="border-b bg-white dark:bg-gray-900 dark:border-gray-700 ">
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          10/03/2024
-                        </td>
-                      
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Bills
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          $112
-                        </td>
-                      </tr>
-                      <tr className="border-b bg-neutral-100 dark:bg-gray-900 dark:border-gray-700">
-                        <td className="whitespace-nowrap px-6 py-4 font-medium">
-                          10/03/2024
-                        </td>
-                     
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          Entertainment
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 dark:text-white">
-                          $20
-                        </td>
-                      </tr>
+                    <tbody id="upcomingExpensesBody">
+                       {/* <!-- Table rows for expenses will be added here dynamically --> */}
                     </tbody>
                   </table>
                 </div>
