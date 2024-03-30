@@ -16,7 +16,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   
-  /**Trying something!!!!!!!!!!!!!! */
+ 
   const [budgetArray, setBudgetArray] = useState([]);
    // Fetch budget data based on the selected month and year
    useEffect(() => {
@@ -120,7 +120,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
     setRefreshKey(prevKey => prevKey + 1); // Increment the refreshKey state variable
   };
 
-  /**Trying something!!!!!!!!!!!!!! */
+  
 
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
