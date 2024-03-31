@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -25,6 +25,8 @@ function getToken() {
 }
 
 const UserHome = () => {
+  const chartDoughnutRef = useRef(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     // Retrieve token from localStorage
@@ -283,6 +285,7 @@ budgetSentence = document.getElementById("budgetSentence");
             }
           });
 
+          
           const dataDoughnut = {
             labels: categoriesToShow,
             datasets: [
@@ -325,7 +328,12 @@ budgetSentence = document.getElementById("budgetSentence");
             },
           };
 
-          new Chart(document.getElementById("chartDoughnut"), configDoughnut);
+          if (chartDoughnutRef.current !== null) {
+            chartDoughnutRef.current.destroy();
+          }
+          chartDoughnutRef.current=new Chart(document.getElementById("chartDoughnut"), configDoughnut);
+          
+          
         })
         .catch((error) => {
           // Handle error

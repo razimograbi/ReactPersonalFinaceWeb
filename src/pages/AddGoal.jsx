@@ -2,15 +2,18 @@ import UserNavigation from "../components/UserNavigation";
 import Footer from "../components/Footer";
 import { default as DolarSign } from "../assets/images/dollar-sign-svgrepo-com.svg";
 import { Helmet } from "react-helmet";
-import { useState } from "react";
+import { useState, } from "react";
 import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddGoal = () => {
 
   const [choosenName, setNameOfGoal] = useState(null);
   const [amountOfMoney, setAmountOfMoney] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const navigate = useNavigate();
 
   const handleAmountOfMoney = (e) => {
    
@@ -59,6 +62,9 @@ const AddGoal = () => {
       .then((response) => {
         console.log("Goals data retrieved successfully:");
         setIsModalOpen((prev) => !prev);
+      
+        navigate("/goals1");
+        
       })
       .catch((error) => {
         console.error("Error retrieving goals data:", error);

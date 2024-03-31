@@ -9,6 +9,7 @@ import { Chart } from "chart.js/auto";
 const Expenses1 = () => {
   const myChartRef = useRef(null);
   const chartDoughnutRef = useRef(null);
+ 
 
   useEffect(() => {
     const fetchData = async () => {

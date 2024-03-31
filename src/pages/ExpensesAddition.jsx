@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { useState } from "react";
 import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const dropdownLinks = ["Shopping","Food","Transportation","Loan","Groceries","Bills","Entertainment", "Other"];
 
 
@@ -20,6 +20,7 @@ const ExpensesAddition = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isQuestionOpen, setIsQuestionOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const navigate = useNavigate();
 
   const handleDateChange = (date) => { // Step 2: Function to handle date change
     setSelectedDate(date);
@@ -88,6 +89,7 @@ const ExpensesAddition = () => {
         setIsModalOpen((prev) => !prev);
         setAmountOfMoney(null);
         setNumberOfPayment(1);
+        navigate("/expenses1");
       })
       .catch((error) => {
         // Handle error
