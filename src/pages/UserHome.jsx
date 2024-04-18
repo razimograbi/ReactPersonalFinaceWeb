@@ -205,8 +205,9 @@ budgetSentence = document.getElementById("budgetSentence");
             // Get the current month
             const currentDate = new Date();
             const currentMonth = currentDate.getMonth();
+            const currentDay = currentDate.getDate();
 
-            if (expenseMonth == currentMonth) {
+            if (expenseMonth == currentMonth && currentDay >= expenseDate.getDate()) {
               const expenseRow = document.createElement("tr");
               expenseRow.classList.add(
                 "border-b",
@@ -344,7 +345,7 @@ budgetSentence = document.getElementById("budgetSentence");
       navigate("/");
     }
   }, []);
-  
+
   return (
     <div className="dark:bg-gray-700">
       <Helmet>
