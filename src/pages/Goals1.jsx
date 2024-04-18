@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 import GoalList from "../components/GoalList";
 
+//Define goals compponent
 const Goals1 = () => {
   return (
     <div className="dark:bg-gray-700 dark:text-white">

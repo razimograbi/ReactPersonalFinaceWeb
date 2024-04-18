@@ -5,6 +5,7 @@ import { default as aboutUs } from "../assets/images/about_us.jpg";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
+//Define home component
 const Home = () => {
   
   return (

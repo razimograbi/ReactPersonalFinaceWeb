@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from '../components/Modal'; // Import the Modal component
 
-const GoalList = () => {
-  const [goalsData, setGoalsData] = useState([]);
-  const [selectedGoalForDeletion, setSelectedGoalForDeletion] = useState(null);
-  const [selectedGoalForAddingMoney, setSelectedGoalForAddingMoney] = useState(null);
-  const [addMoneyAmount, setAddMoneyAmount] = useState("");
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
 
+// Define the GoalList component
+const GoalList = () => {
+    // State variables declaration
+    const [goalsData, setGoalsData] = useState([]); // State to hold the array of goals data fetched from the server
+    const [selectedGoalForDeletion, setSelectedGoalForDeletion] = useState(null); // State to hold the selected goal for deletion
+    const [selectedGoalForAddingMoney, setSelectedGoalForAddingMoney] = useState(null); // State to hold the selected goal for adding money
+    const [addMoneyAmount, setAddMoneyAmount] = useState(""); // State to hold the amount of money to add
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Boolean state to manage the visibility of the delete modal
+    const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false); // Boolean state to manage the visibility of the add money modal
   
+    // Function to retrieve token from localStorage
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;
@@ -25,6 +28,7 @@ const GoalList = () => {
     return tokenObj.value;
   }
 
+    // Function to handle deletion of a goal
   const handleDeleteGoal = () => {
     const token = getToken();
     axios
@@ -49,6 +53,7 @@ const GoalList = () => {
   };
 
 
+    // Function to handle addition of money to a goal
   const handleAddMoney = () => {
     try {
       const token = getToken();
@@ -106,11 +111,13 @@ const GoalList = () => {
         console.error("Error occurred:", error);
       }
     };
-  
+    
+    // useEffect hook to fetch goals data on component mount
     useEffect(() => {
       fetchGoalsData();
     }, []);
 
+      // Render the component
   return (
     <div>
       

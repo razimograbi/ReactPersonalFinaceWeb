@@ -9,6 +9,7 @@ import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
 import { Chart } from "chart.js/auto";
 
+// Function to retrieve token from localStorage
 function getToken() {
   const tokenObj = JSON.parse(localStorage.getItem("token"));
   if (!tokenObj) {
@@ -343,6 +344,7 @@ budgetSentence = document.getElementById("budgetSentence");
       navigate("/");
     }
   }, []);
+  
   return (
     <div className="dark:bg-gray-700">
       <Helmet>

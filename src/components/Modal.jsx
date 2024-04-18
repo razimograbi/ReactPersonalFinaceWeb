@@ -1,5 +1,16 @@
 import React from 'react';
 
+
+/**
+ * Modal component to display a dialog box with customizable content and buttons.
+ * @param {boolean} isOpen - Indicates whether the modal is open or closed.
+ * @param {function} handleModal - Function to handle modal close event.
+ * @param {JSX.Element} content - JSX element representing the content of the modal.
+ * @param {function} handleSubmit - Function to handle submission action, associated with the positive button.
+ * @param {string} positiveLabel - Label for the positive button,  indicating an affirmative action.
+ * @param {string} negativeLabel - Label for the negative button, indicating a cancel or discard action.
+ * @returns {JSX.Element} Modal component.
+ */
 const Modal = ({ isOpen, handleModal, content, handleSubmit ,positiveLabel, negativeLabel }) => {
     
 

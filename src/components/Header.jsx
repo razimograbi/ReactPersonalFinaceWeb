@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//Define Header component
 const Header = () => {
   return (
     <div id="navbar-container" className="fixed w-full -top-1 z-20">

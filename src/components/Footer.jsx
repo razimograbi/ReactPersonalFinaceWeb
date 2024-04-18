@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//Define Footer component
 const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-900 w-full">

@@ -6,13 +6,22 @@ import { useState } from "react";
 import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+/**
+ * An array containing dropdown menu options for expense categories.
+ * These options are displayed when selecting a category for the expense.
+ */
 const dropdownLinks = ["Shopping","Food","Transportation","Loan","Groceries","Bills","Entertainment", "Other"];
 
 
 
 
-
+/**
+ * Functional component for adding expenses.
+ * Allows users to input details of an expense and add it to the system.
+ */
 const ExpensesAddition = () => {
+    // State variables to manage user inputs and modal state
   const [choosenCategory, setChoosenCategory] = useState("Category");
   const [amountOfMoney, setAmountOfMoney] = useState(0);
   const [numberOfPayment, setNumberOfPayment] = useState(1);
@@ -22,18 +31,36 @@ const ExpensesAddition = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const navigate = useNavigate();
 
+
+  /**
+   * Handler function to update selected date.
+   * @param {Date} date - Selected date
+   */
   const handleDateChange = (date) => { // Step 2: Function to handle date change
     setSelectedDate(date);
   };
 
+  /**
+   * Handler function to update amount of money input.
+   * @param {Event} e - Input change event
+   */
   const handleAmountOfMoney= (e) => {
     setAmountOfMoney(e.target.value);
   };
 
+  /**
+   * Handler function to update number of payments input.
+   * @param {Event} e - Input change event
+   */
   const handleNumberOfPayment = (e) => {
     setNumberOfPayment(e.target.value);
   };
 
+  /**
+   * Handler function to toggle the modal state.
+   * If no category is chosen, the modal won't open.
+   * @param {Event} e - Click event
+   */
   const handleModal = (e) => {
     e.preventDefault();
     if (choosenCategory === "Category") {
@@ -42,14 +69,25 @@ const ExpensesAddition = () => {
     setIsModalOpen((prev) => !prev);
   };
 
+  /**
+   * Handler function to toggle the dropdown menu state.
+   */
   const handleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
+  /**
+   * Handler function to set the chosen category.
+   * @param {string} value - Chosen category value
+   */
   const handleChooseCategory = (value) => {
     setChoosenCategory(value);
   };
 
+  /**
+   * Function to retrieve token from localStorage.
+   * @returns {string|null} - Token value or null if not found or expired
+   */
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;
@@ -63,7 +101,11 @@ const ExpensesAddition = () => {
     return tokenObj.value;
   }
 
-  // add expense function
+
+  /**
+   * Handler function to submit expense data to the server.
+   * Sends a POST request to add the expense to the system.
+   */
   const handleSubmit = () => {
     const expenseData = {
       category: choosenCategory,

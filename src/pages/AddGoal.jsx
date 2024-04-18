@@ -8,29 +8,34 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddGoal = () => {
+ // State variables for managing goal name, amount of money, and modal visibility
+ const [choosenName, setNameOfGoal] = useState(null); // Goal name
+ const [amountOfMoney, setAmountOfMoney] = useState(null); // Amount of money
+ const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
 
-  const [choosenName, setNameOfGoal] = useState(null);
-  const [amountOfMoney, setAmountOfMoney] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
+ // useNavigate hook for programmatic navigation
   const navigate = useNavigate();
 
+    // Function to handle changes in the amount of money input field
   const handleAmountOfMoney = (e) => {
    
     setAmountOfMoney(e.target.value);
    
   };
 
+    // Function to handle changes in the goal name input field
   const handleNameOfGoal = (e) => {
     setNameOfGoal(e.target.value);
   };
 
+    // Function to handle modal visibility
   const handleModal = (e) => {
     e.preventDefault();
     
     setIsModalOpen((prev) => !prev);
   };
 
+    // Function to retrieve token from localStorage
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;
@@ -44,6 +49,7 @@ const AddGoal = () => {
     return tokenObj.value;
   }
 
+    // Function to handle form submission
   const handleSubmit = () => {
     const goalData = {
       name: choosenName,

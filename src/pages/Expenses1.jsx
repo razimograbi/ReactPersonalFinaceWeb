@@ -6,7 +6,13 @@ import { useEffect, useRef } from "react";
 import axios from "axios";
 import { Chart } from "chart.js/auto";
 
+/**
+ * Functional component for displaying and managing expense tracking.
+ * Displays a bar chart for income and expenses, a doughnut chart for expense categorization,
+ * and tables for displaying latest and upcoming expenses.
+ */
 const Expenses1 = () => {
+    // References for chart elements
   const myChartRef = useRef(null);
   const chartDoughnutRef = useRef(null);
  
@@ -41,12 +47,6 @@ const Expenses1 = () => {
           });
           console.log(expenses);
        
-          // Update My Chart
-          
-
-          // Code for My Chart
-
-          // End of My Chart code
           const latestExpensesBody = document.querySelector(
             "#latestExpensesBody"
           );

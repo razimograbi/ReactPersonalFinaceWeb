@@ -3,19 +3,19 @@ import PropTypes from "prop-types";
 import Modal from '../components/Modal'; // Import the Modal component
 import axios from "axios";
 
+// Define the BudgetList component
 function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [budgetId, setBudgetId] = useState('');
-  const [amountSpent, setAmountSpent] = useState('');
+  // State variables declaration
 
-  const [budgetLimit, setBudgetLimit] = useState('');
-  const [categoryName, setCategoryName] = useState('');
-
-  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
   
- 
-  const [budgetArray, setBudgetArray] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Boolean state to manage the visibility of the edit modal
+  const [budgetId, setBudgetId] = useState(''); // State to hold the ID of the budget being edited
+  const [amountSpent, setAmountSpent] = useState(''); // State to hold the amount spent for the selected budget
+  const [budgetLimit, setBudgetLimit] = useState(''); // State to hold the new budget limit being set
+  const [categoryName, setCategoryName] = useState(''); // State to hold the name of the category being edited
+  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false); // Boolean state to manage the visibility of the add budget modal
+  const [selectedCategory, setSelectedCategory] = useState(''); // State to hold the selected category for adding a new budget
+  const [budgetArray, setBudgetArray] = useState([]); // State to hold the array of budget data fetched from the server
    // Fetch budget data based on the selected month and year
    useEffect(() => {
   
@@ -24,7 +24,10 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
     // Call fetchData whenever either currentlySelectedMonth or currentlySelectedYear changes
   }, [currentlySelectedMonth, currentlySelectedYear]);
     
+  // Fetch budget data from the server
   const fetchData = async () => {
+    // Fetch data using Axios
+    // Handle success and error cases
     const token = getToken();
     try {
       const response = await axios.get("https://partialbackendforweb.onrender.com/pages/api/budget", {
@@ -38,6 +41,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
     }
   };
 
+    // Display budget data based on selected month and year
     async function displayBudgets(response) {
     if (!currentlySelectedMonth || !currentlySelectedYear) {
       return;
@@ -55,6 +59,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
     );
   }
 
+    // Calculate spent percentages for each budget category
   async function getExpensesBasedOnMonthAndYear() {
     const token = getToken();
     try {
@@ -78,6 +83,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
     }
   }
 
+    // Calculate spent percentages for each budget category
   function calculateSpentPercentages(budgetsArray, expensesArray, month, year) {
     // Format the month and year to match the budgetDate format ("YY-MM")
     const formattedMonth = month.padStart(2, "0"); // Ensure month is two digits
@@ -119,7 +125,7 @@ function BudgetList({  currentlySelectedMonth, currentlySelectedYear }) {
   };
 
   
-
+  //gets token from user's local storage
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;

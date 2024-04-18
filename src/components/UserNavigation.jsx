@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import { default as AvatarAnisha } from "../assets/images/avatar-anisha.png";
 import { useEffect, useState } from "react";
 
+/**
+ * UserNavigation component for displaying navigation links and user profile dropdown.
+ * @returns {JSX.Element} UserNavigation component.
+ */
 const UserNavigation = () => {
+    // State for controlling visibility of profile picture dropdown and theme
   const [isProfilePicDropdownVisible, setProfilePicDropdownVisible] =
     useState(false);
   const [theme, setTheme] = useState(
@@ -12,19 +17,20 @@ const UserNavigation = () => {
         ? "dark"
         : "light")
   );
-  // const userName = localStorage.getItem("userName");
-  // const userEmail = localStorage.getItem("userEmail");
 
+    // Function to toggle visibility of profile picture dropdown
   const toggleProfilePicDropdown = () => {
     setProfilePicDropdownVisible(!isProfilePicDropdownVisible);
   };
 
+    // Function to toggle theme between light and dark mode
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
   };
 
+    // Effect to apply theme class to document element and attach event listeners
   useEffect(() => {
     const themeCheck = () => {
       if (theme === "dark") {
@@ -42,11 +48,14 @@ const UserNavigation = () => {
 
     themeCheck();
 
+        // Cleanup function to remove event listeners
     return () => {
       sunIcon.removeEventListener("click", toggleTheme);
       moonIcon.removeEventListener("click", toggleTheme);
     };
   }, [theme]);
+
+    // Render the UserNavigation component
   return (
     <nav className="bg-blue-500 p-4">
       <div className="container mx-auto flex justify-between items-center">
