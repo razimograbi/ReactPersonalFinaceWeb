@@ -34,7 +34,7 @@ To run the project locally, follow these steps:
    ```
 
 
-4. **Start the Development Server**: Once the dependencies are installed, start the development server using the following command:
+4. **Start the Application**: Start the client application by using the following command:
    ```
    npm run dev
    ```
