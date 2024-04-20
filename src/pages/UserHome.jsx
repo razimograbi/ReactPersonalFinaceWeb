@@ -1,4 +1,4 @@
-import { useEffect,useRef } from "react";
+import { useEffect,useRef, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -8,6 +8,8 @@ import { default as Expense } from "../assets/images/Expenses.png";
 import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
 import { Chart } from "chart.js/auto";
+import Modal from '../components/Modal'; // Import the Modal component
+
 
 // Function to retrieve token from localStorage
 function getToken() {
@@ -27,6 +29,11 @@ function getToken() {
 
 const UserHome = () => {
   const chartDoughnutRef = useRef(null);
+  const [editIncomeAmount, setEditIncomeAmount] = useState(""); // State to hold the edited income amount
+  const [isEditIncomeModalOpen, setIsEditIncomeModalOpen] = useState(false); // Boolean state to manage the visibility of the edit income modal
+  const [editIncomeMonth, setEditIncomeMonth] = useState(""); 
+  const [editIncomeYear, setEditIncomeYear] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -346,7 +353,177 @@ budgetSentence = document.getElementById("budgetSentence");
     }
   }, []);
 
+  // Function to handle opening the edit income modal
+  const handleEditIncomeModalOpen = () => {
+    setIsEditIncomeModalOpen(true);
+    setEditIncomeMonth(""); // Reset editIncomeMonth state
+  setEditIncomeAmount(""); // Reset editIncomeAmount state
+  };
+
+  // Function to handle closing the edit income modal
+  const handleEditIncomeModalClose = () => {
+    setIsEditIncomeModalOpen(false);
+  };
+
+
+
+
+  const handleEditIncomeSubmit = () => {
+    // Validate the year
+    const year = parseInt(editIncomeYear);
+    if (year < 1990 || year > currentYear) {
+      setErrorMessage("Please enter a year between 1990 and " + currentYear);
+      return;
+    }
+    if (!editIncomeAmount) {
+      setErrorMessage("Amount field is required");
+      return;
+    }
+    setErrorMessage("");
+  
+    // Make the POST request to update the income
+    const token = getToken();
+  
+    const data = {
+      amount: parseInt(editIncomeAmount),
+      month: editIncomeMonth,
+      year: editIncomeYear,
+    };
+  
+    // Make the POST request to update the income
+    axios
+      .post("https://partialbackendforweb.onrender.com/income/add2", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log("Income added successfully:", response.data);
+        // Close the modal after successful submission
+        setIsEditIncomeModalOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error occurred while adding income:", error);
+      });
+  };
+  
+
+
+
+
+  
+  // // Function to handle submitting the edited income
+  // const handleEditIncomeSubmit = () => {
+  //   // Validate the year
+  //   const year = parseInt(editIncomeYear);
+  //   if (year < 1990 || year > currentYear) {
+  //     setErrorMessage("Please enter a year between 1990 and " + currentYear);
+  //     return;
+  //   }
+  //   if (!editIncomeAmount) {
+  //     setErrorMessage("Amount field is required");
+  //     return;
+  //   }
+  //   setErrorMessage("");
+
+
+  //   // Prepare data for the PUT request
+  //   const token = getToken();
+
+  //   console.log(editIncomeMonth)
+  //   const monthIndex = new Date(Date.parse(editIncomeMonth + " 1, 2000")).getMonth();
+  //   console.log(monthIndex)
+
+  //   const date1 = new Date(editIncomeYear, monthIndex, 1);
+  //   console.log(date1)
+
+
+  //   const data = {
+  //     amount: editIncomeAmount,
+  //     date: date1, // Set the current date
+  //   };
+  //   console.log(data.date)
+  //   // Make the PUT request to update the income
+  //   axios
+  //     .post("https://partialbackendforweb.onrender.com/income/Adanadd", data, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       console.log("Income added successfully:", response.data);
+  //       // Close the modal after successful submission
+  //       setIsEditIncomeModalOpen(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error occurred while adding income:", error);
+  //     });
+  // };
+  const currentYear = new Date().getFullYear();
+
   return (
+    <div><Modal
+    isOpen={isEditIncomeModalOpen}
+    handleModal={handleEditIncomeModalClose}
+    content={
+      <>
+        <p className="text-lg text-center font-bold dark:text-white">
+          Edit Income
+        </p>
+        <div className="mt-4">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
+            Month
+          </label>
+          <select
+            className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            value={editIncomeMonth}
+            onChange={(e) => setEditIncomeMonth(e.target.value)}
+            
+          >
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+        
+        <div className="mt-4">
+        <label className="block text-sm font-medium text-gray-700 dark:text-white">
+          Year
+        </label>
+        <div className="flex items-center">
+          
+        <input
+          type="number"
+          className="mt-1 block w-1/2 px-3 py-2 dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+          value={editIncomeYear}
+          onChange={(e) => setEditIncomeYear(e.target.value)} // This line remains the same
+        />
+        
+        </div>
+      
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
+            Amount
+          </label>
+          <input
+            type="number"
+            className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            value={editIncomeAmount}
+            onChange={(e) => setEditIncomeAmount(e.target.value)}
+            required
+          />
+        </div>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      </>
+    }
+    handleSubmit={handleEditIncomeSubmit}
+    positiveLabel="Save"
+    negativeLabel="Cancel"
+  />
     <div className="dark:bg-gray-700">
       <Helmet>
         <title>Home Screen</title>
@@ -363,16 +540,16 @@ budgetSentence = document.getElementById("budgetSentence");
           <p  id="budgetSentence" className="dark:text-white mb-2 font-bold">
            
           </p>
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-col gap-2 sm:flex-row"> 
             <div className=" items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2  block-inline  mx-auto overflow-hidden  dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
-              <div className="flex flex-row items-center mt-4">
+                           <div className="flex flex-row items-center mt-4">
                 <img className="w-8 block-inline" src={IncomeIcon} />
-                <p className="mt-4 ml-2">Income</p>
+                <p className=" mt-4 ml-2">Income</p>
               </div>
               <div
                 id="incomeCnt"
                 className="text-lime-700 dark:text-green-500 mt-2"
-              ></div>
+              ></div><button onClick={handleEditIncomeModalOpen} className="float-left text-sm text-blue-500"> Edit income</button> 
             </div>
             <div className=" items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2  mx-auto  dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
               <div className="flex flex-row items-center mt-4">
@@ -482,7 +659,7 @@ budgetSentence = document.getElementById("budgetSentence");
         </div>
       </section>
       <Footer />
-    </div>
+    </div></div>
   );
 };
 
