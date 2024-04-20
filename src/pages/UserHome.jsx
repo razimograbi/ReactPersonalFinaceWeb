@@ -1,4 +1,4 @@
-import { useEffect,useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -8,8 +8,7 @@ import { default as Expense } from "../assets/images/Expenses.png";
 import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
 import { Chart } from "chart.js/auto";
-import Modal from '../components/Modal'; // Import the Modal component
-
+import Modal from "../components/Modal"; // Import the Modal component
 
 // Function to retrieve token from localStorage
 function getToken() {
@@ -31,7 +30,7 @@ const UserHome = () => {
   const chartDoughnutRef = useRef(null);
   const [editIncomeAmount, setEditIncomeAmount] = useState(""); // State to hold the edited income amount
   const [isEditIncomeModalOpen, setIsEditIncomeModalOpen] = useState(false); // Boolean state to manage the visibility of the edit income modal
-  const [editIncomeMonth, setEditIncomeMonth] = useState(""); 
+  const [editIncomeMonth, setEditIncomeMonth] = useState("");
   const [editIncomeYear, setEditIncomeYear] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -88,7 +87,7 @@ const UserHome = () => {
           // Update Income
           const incomeElement = document.getElementById("incomeCnt");
           incomeElement.textContent = `$${currentMonthIncome}`;
-          
+
           /*
           // Calculate expenses for current month
           const currentMonthExpenses = userData.expenses.reduce((acc, cur) => {
@@ -104,22 +103,24 @@ const UserHome = () => {
           }, 0);
           */
 
-
           // Calculate expenses for current month
-const currentMonthExpenses = userData.expenses.filter((expense) => {
-  const expenseDate = new Date(expense.startDate);
-  return (
-    expenseDate.getMonth() + 1 === currentMonth &&
-    expenseDate.getFullYear() === currentYear
-  );
-});
+          const currentMonthExpenses = userData.expenses.filter((expense) => {
+            const expenseDate = new Date(expense.startDate);
+            return (
+              expenseDate.getMonth() + 1 === currentMonth &&
+              expenseDate.getFullYear() === currentYear
+            );
+          });
 
-// Calculate the total amount of expenses for the current month
- const totalExpensesForMonth = currentMonthExpenses.reduce((total, expense) => {
-  // Access the 'amount' property of each expense object and convert it to a number
-  const expenseAmount = parseFloat(expense.amount);
-  return total + expenseAmount;
-}, 0);
+          // Calculate the total amount of expenses for the current month
+          const totalExpensesForMonth = currentMonthExpenses.reduce(
+            (total, expense) => {
+              // Access the 'amount' property of each expense object and convert it to a number
+              const expenseAmount = parseFloat(expense.amount);
+              return total + expenseAmount;
+            },
+            0
+          );
 
           // Update Expenses
           const expensesElement = document.getElementById("expansesCnt");
@@ -144,34 +145,34 @@ const currentMonthExpenses = userData.expenses.filter((expense) => {
           const budgetRemainElement = document.getElementById("budgetCnt");
           budgetRemainElement.textContent = `$${budgetRemain}`;
           */
-         // Get budget entries for the current month
-// Get budget entries for the current month
-const currentMonthBudgetEntries = userData.budget.filter((entry) => {
-  const budgetDate = new Date(entry.budgetDate);
-  return (
-    budgetDate.getMonth() + 1 === currentMonth &&
-    budgetDate.getFullYear() === currentYear
-  );
-});
+          // Get budget entries for the current month
+          // Get budget entries for the current month
+          const currentMonthBudgetEntries = userData.budget.filter((entry) => {
+            const budgetDate = new Date(entry.budgetDate);
+            return (
+              budgetDate.getMonth() + 1 === currentMonth &&
+              budgetDate.getFullYear() === currentYear
+            );
+          });
 
-// Calculate total budget for the current month
-const totalBudgetForMonth = currentMonthBudgetEntries.reduce((total, entry) => {
-  return total + entry.limit;
-}, 0);
+          // Calculate total budget for the current month
+          const totalBudgetForMonth = currentMonthBudgetEntries.reduce(
+            (total, entry) => {
+              return total + entry.limit;
+            },
+            0
+          );
 
+          // Calculate remaining budget for this month
+          const remainingBudgetForMonth =
+            totalBudgetForMonth - totalExpensesForMonth;
 
+          // Update UI to display remaining budget for this month
+          const budgetElement = document.getElementById("budgetCnt");
+          budgetElement.textContent = `$${remainingBudgetForMonth}`;
 
-
-// Calculate remaining budget for this month
-const remainingBudgetForMonth = totalBudgetForMonth - totalExpensesForMonth;
-
-// Update UI to display remaining budget for this month
-const budgetElement = document.getElementById("budgetCnt");
-budgetElement.textContent = `$${remainingBudgetForMonth}`;
-
-budgetSentence = document.getElementById("budgetSentence");
- budgetSentence.textContent = `You've budgeted $${totalBudgetForMonth} for this month`;
-
+          var budgetSentence = document.getElementById("budgetSentence");
+          budgetSentence.textContent = `You've budgeted $${totalBudgetForMonth} for this month`;
 
           const goalsContainer = document.querySelector(".goal-container");
 
@@ -187,11 +188,16 @@ budgetSentence = document.getElementById("budgetSentence");
                           Goal: $${goal.amount}<br>
                           Saved: $${goal.amountSaved}<br>
                           <div class="w-full bg-gray-50 rounded-full dark:bg-gray-700 shadow">
-                              <div class="bg-lime-500 text-xs font-medium text-gray-50 text-center p-0.5 leading-none rounded-full" style="width: ${Math.min(Math.floor( (goal.amountSaved / goal.amount) * 100),100)}%">
+                              <div class="bg-lime-500 text-xs font-medium text-gray-50 text-center p-0.5 leading-none rounded-full" style="width: ${Math.min(
+                                Math.floor(
+                                  (goal.amountSaved / goal.amount) * 100
+                                ),
+                                100
+                              )}%">
                                
                                ${Math.floor(
-              (goal.amountSaved / goal.amount) * 100
-            )}%</div>
+                                 (goal.amountSaved / goal.amount) * 100
+                               )}%</div>
                           </div>
                       `;
             goalsContainer.appendChild(goalDiv);
@@ -214,7 +220,10 @@ budgetSentence = document.getElementById("budgetSentence");
             const currentMonth = currentDate.getMonth();
             const currentDay = currentDate.getDate();
 
-            if (expenseMonth == currentMonth && currentDay >= expenseDate.getDate()) {
+            if (
+              expenseMonth == currentMonth &&
+              currentDay >= expenseDate.getDate()
+            ) {
               const expenseRow = document.createElement("tr");
               expenseRow.classList.add(
                 "border-b",
@@ -225,12 +234,16 @@ budgetSentence = document.getElementById("budgetSentence");
 
               // Add table data for each column
               expenseRow.innerHTML = `
-                            <td class="whitespace-nowrap px-6 py-4 font-medium">${            new Date(
+                            <td class="whitespace-nowrap px-6 py-4 font-medium">${new Date(
                               expense.startDate
                             ).toLocaleDateString()}</td>
                            
-                            <td class="whitespace-nowrap px-6 py-4 dark:text-white">${expense.category}</td>
-                            <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${expense.amount}</td>
+                            <td class="whitespace-nowrap px-6 py-4 dark:text-white">${
+                              expense.category
+                            }</td>
+                            <td class="whitespace-nowrap px-6 py-4 dark:text-white">$${
+                              expense.amount
+                            }</td>
                         `;
 
               // Append the row to the table body
@@ -294,7 +307,6 @@ budgetSentence = document.getElementById("budgetSentence");
             }
           });
 
-          
           const dataDoughnut = {
             labels: categoriesToShow,
             datasets: [
@@ -340,9 +352,10 @@ budgetSentence = document.getElementById("budgetSentence");
           if (chartDoughnutRef.current !== null) {
             chartDoughnutRef.current.destroy();
           }
-          chartDoughnutRef.current=new Chart(document.getElementById("chartDoughnut"), configDoughnut);
-          
-          
+          chartDoughnutRef.current = new Chart(
+            document.getElementById("chartDoughnut"),
+            configDoughnut
+          );
         })
         .catch((error) => {
           // Handle error
@@ -357,16 +370,13 @@ budgetSentence = document.getElementById("budgetSentence");
   const handleEditIncomeModalOpen = () => {
     setIsEditIncomeModalOpen(true);
     setEditIncomeMonth(""); // Reset editIncomeMonth state
-  setEditIncomeAmount(""); // Reset editIncomeAmount state
+    setEditIncomeAmount(""); // Reset editIncomeAmount state
   };
 
   // Function to handle closing the edit income modal
   const handleEditIncomeModalClose = () => {
     setIsEditIncomeModalOpen(false);
   };
-
-
-
 
   const handleEditIncomeSubmit = () => {
     // Validate the year
@@ -380,16 +390,16 @@ budgetSentence = document.getElementById("budgetSentence");
       return;
     }
     setErrorMessage("");
-  
+
     // Make the POST request to update the income
     const token = getToken();
-  
+
     const data = {
       amount: parseInt(editIncomeAmount),
       month: editIncomeMonth,
       year: editIncomeYear,
     };
-  
+
     // Make the POST request to update the income
     axios
       .post("https://partialbackendforweb.onrender.com/income/add2", data, {
@@ -404,12 +414,7 @@ budgetSentence = document.getElementById("budgetSentence");
         console.error("Error occurred while adding income:", error);
       });
   };
-  
 
-
-
-
-  
   // // Function to handle submitting the edited income
   // const handleEditIncomeSubmit = () => {
   //   // Validate the year
@@ -424,7 +429,6 @@ budgetSentence = document.getElementById("budgetSentence");
   //   }
   //   setErrorMessage("");
 
-
   //   // Prepare data for the PUT request
   //   const token = getToken();
 
@@ -434,7 +438,6 @@ budgetSentence = document.getElementById("budgetSentence");
 
   //   const date1 = new Date(editIncomeYear, monthIndex, 1);
   //   console.log(date1)
-
 
   //   const data = {
   //     amount: editIncomeAmount,
@@ -458,208 +461,215 @@ budgetSentence = document.getElementById("budgetSentence");
   const currentYear = new Date().getFullYear();
 
   return (
-    <div><Modal
-    isOpen={isEditIncomeModalOpen}
-    handleModal={handleEditIncomeModalClose}
-    content={
-      <>
-        <p className="text-lg text-center font-bold dark:text-white">
-          Edit Income
-        </p>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Month
-          </label>
-          <select
-            className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            value={editIncomeMonth}
-            onChange={(e) => setEditIncomeMonth(e.target.value)}
-            
-          >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-        </div>
-        
-        <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-white">
-          Year
-        </label>
-        <div className="flex items-center">
-          
-        <input
-          type="number"
-          className="mt-1 block w-1/2 px-3 py-2 dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-          value={editIncomeYear}
-          onChange={(e) => setEditIncomeYear(e.target.value)} // This line remains the same
-        />
-        
-        </div>
-      
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Amount
-          </label>
-          <input
-            type="number"
-            className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            value={editIncomeAmount}
-            onChange={(e) => setEditIncomeAmount(e.target.value)}
-            required
-          />
-        </div>
-        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      </>
-    }
-    handleSubmit={handleEditIncomeSubmit}
-    positiveLabel="Save"
-    negativeLabel="Cancel"
-  />
-    <div className="dark:bg-gray-700">
-      <Helmet>
-        <title>Home Screen</title>
-      </Helmet>
-      <UserNavigation />
-      <p
-        id="welcomeMsgUser"
-        className=" flex-initial text-2xl font-bold text-center dark:text-white mt-4"
-      ></p>
+    <div>
+      <Modal
+        isOpen={isEditIncomeModalOpen}
+        handleModal={handleEditIncomeModalClose}
+        content={
+          <>
+            <p className="text-lg text-center font-bold dark:text-white">
+              Edit Income
+            </p>
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+                Month
+              </label>
+              <select
+                className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                value={editIncomeMonth}
+                onChange={(e) => setEditIncomeMonth(e.target.value)}
+              >
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
+            </div>
 
-      <section className="" id="hero">
-        {/* <!--Income, spendings  section--> */}
-        <div className="container flex-initial  flex  flex-col items-center px-4 mx-auto mt-8 mb-6 space-x-2 space-y-0 md:space-y-0 text-lg  py-2">
-          <p  id="budgetSentence" className="dark:text-white mb-2 font-bold">
-           
-          </p>
-          <div className="flex flex-col gap-2 sm:flex-row"> 
-            <div className=" items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2  block-inline  mx-auto overflow-hidden  dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
-                           <div className="flex flex-row items-center mt-4">
-                <img className="w-8 block-inline" src={IncomeIcon} />
-                <p className=" mt-4 ml-2">Income</p>
-              </div>
-              <div
-                id="incomeCnt"
-                className="text-lime-700 dark:text-green-500 mt-2"
-              ></div><button onClick={handleEditIncomeModalOpen} className="float-left text-sm text-blue-500"> Edit income</button> 
-            </div>
-            <div className=" items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2  mx-auto  dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
-              <div className="flex flex-row items-center mt-4">
-                <img className="w-8 block-inline" src={Expense} />
-                <p className="mt-4 ml-2">Expenses</p>
-              </div>
-              <div
-                id="expansesCnt"
-                className="text-rose-600 dark:text-red-700 mt-2"
-              ></div>
-            </div>
-            <div className=" relative flex flex-col flex-initial w-40 md:w-60 md:h-32 text-center shadow p-2  mx-auto bg-gray-100 dark:bg-gray-900 dark:text-white dark:text-xl font-bold">
-              {/* <!-- <div className="text-blue-500 dark:to-blue-700">$4000</div> --> */}
-              <div className="flex flex-row items-center mt-4">
-                <img
-                  className="w-8 ml-6 mt-4 block-inline"
-                  src={moneyBagBlue}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+                Year
+              </label>
+              <div className="flex items-center">
+                <input
+                  type="number"
+                  className="mt-1 block w-1/2 px-3 py-2 dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  value={editIncomeYear}
+                  onChange={(e) => setEditIncomeYear(e.target.value)} // This line remains the same
                 />
-                <p className="mt-4 ml-1">Budget remain</p>
               </div>
-              <div
-                id="budgetCnt"
-                className="text-blue-500  dark:to-blue-700"
-              ></div>
+
+              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+                Amount
+              </label>
+              <input
+                type="number"
+                className="mt-1 block w-full dark:text-black border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                value={editIncomeAmount}
+                onChange={(e) => setEditIncomeAmount(e.target.value)}
+                required
+              />
             </div>
-          </div>
-        </div>
-        {/* <!--features panel --> */}
-        <div className="container flex flex-col gap-7 items-center mx-auto ">
-          {/* <!-- expenses and goals--> */}
-          <div className="container flex flex-col justify-center items-center md:flex-row md:space-x-2 sd:space-x-0 mx-auto px-2">
-            {/* <!--expenses--> */}
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          </>
+        }
+        handleSubmit={handleEditIncomeSubmit}
+        positiveLabel="Save"
+        negativeLabel="Cancel"
+      />
+      <div className="dark:bg-gray-700">
+        <Helmet>
+          <title>Home Screen</title>
+        </Helmet>
+        <UserNavigation />
+        <p
+          id="welcomeMsgUser"
+          className=" flex-initial text-2xl font-bold text-center dark:text-white mt-4"
+        ></p>
 
-            <div className=" container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
-              <p
-                to="#"
-                className="py-3 px-5 bg-gray-100 dark:text-white dark:bg-gray-700 font-bold text-center"
-              >
-                Current month expenses
-              </p>
-
-              <canvas
-                className="container flex p-10 dark:bg-gray-900"
-                id="chartDoughnut"
-              ></canvas>
-            </div>
-
-            {/* <!--Goals--> */}
-
-            <div
-              id="GoalsContainer"
-              className="container flex flex-col p-6 my-2 mx-auto shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px] overflow-y-auto"
-            >
-              <Link
-                to="#"
-                className="py-3 px-5 bg-gray-100 dark:bg-gray-700 dark:text-white font-bold text-center"
-              >
-                Goals Tracking
-              </Link>
-              <div
-                className="goal-container"
-                style={{ height: "100%", overflowY: "auto" }}
-              ></div>
-            </div>
-          </div>
-          {/* <!-- upcoming bills and transactions--> */}
-          {/* <!-- upcoming bills and transactions--> */}
-          <div className="container flex flex-col space-x-2 mx-4 px-2">
-            {/* <!-- Transcation activity--> */}
-            <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">
-              <Link
-                to="#"
-                className="py-3 px-5 bg-gray-100 text-center dark:text-2xl font-bold dark:text-white dark:bg-gray-700"
-              >
-                Latest Expenses
-              </Link>
-              <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <section className="" id="hero">
+          {/* <!--Income, spendings  section--> */}
+          <div className="container flex-initial  flex  flex-col items-center px-4 mx-auto mt-8 mb-6 space-x-2 space-y-0 md:space-y-0 text-lg  py-2">
+            <p
+              id="budgetSentence"
+              className="dark:text-white mb-2 font-bold"
+            ></p>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <div className=" items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2  block-inline  mx-auto overflow-hidden  dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
+                <div className="flex flex-row items-center mt-4">
+                  <img className="w-8 block-inline" src={IncomeIcon} />
+                  <p className=" mt-4 ml-2">Income</p>
+                </div>
                 <div
-                  className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
-                  style={{ maxHeight: "500px", overflowY: "auto" }}
+                  id="incomeCnt"
+                  className="text-lime-700 dark:text-green-500 mt-2"
+                ></div>
+                <button
+                  onClick={handleEditIncomeModalOpen}
+                  className="float-left text-sm text-blue-500"
                 >
-                  <div className="overflow-hidden">
-                    <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
-                      <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                          <th scope="col" className="px-6 py-4">
-                            Date
-                          </th>
-                          
-                          <th scope="col" className="px-6 py-4">
-                            Category
-                          </th>
-                          <th scope="col" className="px-6 py-4">
-                            Amount
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody id="latestExpensesBody">
-                        {/* <!-- Table rows for expenses will be added here dynamically --> */}
-                      </tbody>
-                    </table>
+                  {" "}
+                  Edit income
+                </button>
+              </div>
+              <div className=" items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2  mx-auto  dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
+                <div className="flex flex-row items-center mt-4">
+                  <img className="w-8 block-inline" src={Expense} />
+                  <p className="mt-4 ml-2">Expenses</p>
+                </div>
+                <div
+                  id="expansesCnt"
+                  className="text-rose-600 dark:text-red-700 mt-2"
+                ></div>
+              </div>
+              <div className=" relative flex flex-col flex-initial w-40 md:w-60 md:h-32 text-center shadow p-2  mx-auto bg-gray-100 dark:bg-gray-900 dark:text-white dark:text-xl font-bold">
+                {/* <!-- <div className="text-blue-500 dark:to-blue-700">$4000</div> --> */}
+                <div className="flex flex-row items-center mt-4">
+                  <img
+                    className="w-8 ml-6 mt-4 block-inline"
+                    src={moneyBagBlue}
+                  />
+                  <p className="mt-4 ml-1">Budget remain</p>
+                </div>
+                <div
+                  id="budgetCnt"
+                  className="text-blue-500  dark:to-blue-700"
+                ></div>
+              </div>
+            </div>
+          </div>
+          {/* <!--features panel --> */}
+          <div className="container flex flex-col gap-7 items-center mx-auto ">
+            {/* <!-- expenses and goals--> */}
+            <div className="container flex flex-col justify-center items-center md:flex-row md:space-x-2 sd:space-x-0 mx-auto px-2">
+              {/* <!--expenses--> */}
+
+              <div className=" container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
+                <p
+                  to="#"
+                  className="py-3 px-5 bg-gray-100 dark:text-white dark:bg-gray-700 font-bold text-center"
+                >
+                  Current month expenses
+                </p>
+
+                <canvas
+                  className="container flex p-10 dark:bg-gray-900"
+                  id="chartDoughnut"
+                ></canvas>
+              </div>
+
+              {/* <!--Goals--> */}
+
+              <div
+                id="GoalsContainer"
+                className="container flex flex-col p-6 my-2 mx-auto shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px] overflow-y-auto"
+              >
+                <Link
+                  to="#"
+                  className="py-3 px-5 bg-gray-100 dark:bg-gray-700 dark:text-white font-bold text-center"
+                >
+                  Goals Tracking
+                </Link>
+                <div
+                  className="goal-container"
+                  style={{ height: "100%", overflowY: "auto" }}
+                ></div>
+              </div>
+            </div>
+            {/* <!-- upcoming bills and transactions--> */}
+            {/* <!-- upcoming bills and transactions--> */}
+            <div className="container flex flex-col space-x-2 mx-4 px-2">
+              {/* <!-- Transcation activity--> */}
+              <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">
+                <Link
+                  to="#"
+                  className="py-3 px-5 bg-gray-100 text-center dark:text-2xl font-bold dark:text-white dark:bg-gray-700"
+                >
+                  Latest Expenses
+                </Link>
+                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div
+                    className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
+                    style={{ maxHeight: "500px", overflowY: "auto" }}
+                  >
+                    <div className="overflow-hidden">
+                      <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
+                        <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">
+                          <tr>
+                            <th scope="col" className="px-6 py-4">
+                              Date
+                            </th>
+
+                            <th scope="col" className="px-6 py-4">
+                              Category
+                            </th>
+                            <th scope="col" className="px-6 py-4">
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody id="latestExpensesBody">
+                          {/* <!-- Table rows for expenses will be added here dynamically --> */}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <Footer />
-    </div></div>
+        </section>
+        <Footer />
+      </div>
+    </div>
   );
 };
 
