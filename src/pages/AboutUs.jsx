@@ -5,6 +5,7 @@ import { default as giphy } from "../assets/images/giphy.gif";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
+// The About component defines the layout and content for the About Us page.
 const About = () => {
   return (
     <div

@@ -14,6 +14,7 @@ import BudgetCategoryChanger from "./pages/BudgetCategoryChanger";
 import AddGoal from "./pages/AddGoal";
 import ScrollToTop from "./lib/ScrollToTop";
 
+// Defining the main App component
 function App() {
   return (
     <>

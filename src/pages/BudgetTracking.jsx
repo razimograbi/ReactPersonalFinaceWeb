@@ -5,37 +5,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BudgetList from "../components/BudgetList";
 
+// BudgetTracking component for tracking budgets
 const BudgetTracking = () => {
+  // State variables for managing years, selected month, selected year, and budget array
   const [years, setYears] = useState([]);
-  const [currentlySelectedMonth, setCurrentSelectedMonth] = useState('');
+  const [currentlySelectedMonth, setCurrentSelectedMonth] = useState("");
   const [currentlySelectedYear, setCurrentlySelectedYear] = useState("2024");
-  const [budgetsArray, setBudgetArray] = useState([]);
 
-  
-
-  function getToken() {
-    const tokenObj = JSON.parse(localStorage.getItem("token"));
-    if (!tokenObj) return null;
-
-    const currentTime = new Date().getTime();
-    if (currentTime > tokenObj.expires) {
-      localStorage.removeItem("token"); // Remove expired token
-      return null;
-    }
-
-    return tokenObj.value;
-  }
-
-  
+  // useEffect hook to initialize state and fetch years
   useEffect(() => {
-
     const storedMonth = localStorage.getItem("selectedMonth");
     const storedYear = localStorage.getItem("selectedYear");
-    
+
     // Use stored values as initial state if available, otherwise use default values
-    setCurrentSelectedMonth(storedMonth || '');
-    setCurrentlySelectedYear(storedYear || '2024');
- 
+    setCurrentSelectedMonth(storedMonth || "");
+    setCurrentlySelectedYear(storedYear || "2024");
+
     const currentYear = new Date().getFullYear();
     const yearsArray = [];
 
@@ -47,33 +32,18 @@ const BudgetTracking = () => {
   }, []);
 
   //----------------------------------------------------------------------
-  // let selectedYear = null; // Variable to store the selected year
 
   // Function to handle year selection
   function selectingYear(e) {
-    // selectYear.value = year; // Store the selected year
-    // setSelectedYear(year)
     setCurrentlySelectedYear(e.target.value.toString());
     localStorage.setItem("selectedYear", currentlySelectedYear);
   }
-
 
   //this was changed
   // Function to handle month selection
   function selectMonth(month) {
     setCurrentSelectedMonth(month.toString());
     localStorage.setItem("selectedMonth", month.toString());
-
-    /*   if (currentlySelectedYear) {
-      // Log the selected year and month to the console
-      console.log("Selected Year:", currentlySelectedYear);
-      console.log("Selected Month:", month.toString());
-      
-      // displayBudgets(budgetsArray);
-    } else {
-      // Prompt the user to select a year first
-      console.log("Please select a year first");
-    } */
   }
 
   const handleMonth = (e) => {
@@ -150,121 +120,124 @@ const BudgetTracking = () => {
       <div className="hidden flex sm:flex flex-wrap justify-center my-8 mx-auto inline-block">
         {/* <!-- Month Options --> */}
         <div className="mx-auto shadow flex flex-row">
-        <div
-          id="janBtn"
-          value="1"
-          onClick={() => selectMonth(1)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          January
-        </div>
-        <div
-          id="febBtn"
-          value="2"
-          onClick={() => selectMonth(2)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          February
-        </div>
-        <div
-          id="marBtn"
-          value="3"
-          onClick={() => selectMonth(3)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white    text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          March
-        </div>
-        <div
-          id="aprBtn"
-          value="4"
-          onClick={() => selectMonth(4)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          April
-        </div>
-        <div
-          id="mayBtn"
-          value="5"
-          onClick={() => selectMonth(5)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          May
-        </div>
-        <div
-          id="junBtn"
-          value="6"
-          onClick={() => selectMonth(6)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          June
-        </div>
-        <div
-          id="julBtn"
-          value="7"
-          onClick={() => selectMonth(7)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          July
-        </div>
-        <div
-          id="augBtn"
-          value="8"
-          onClick={() => selectMonth(8)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          August
-        </div>
-        <div
-          id="sepBtn"
-          value="9"
-          onClick={() => selectMonth(9)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          September
-        </div>
-        <div
-          id="octBtn"
-          value="10"
-          onClick={() => selectMonth(10)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          October
-        </div>
-        <div
-          id="novBtn"
-          value="11"
-          onClick={() => selectMonth(11)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          November
-        </div>
-        <div
-          id="decBtn"
-          value="12"
-          onClick={() => selectMonth(12)}
-          className="month-btn dark:bg-gray-900 dark:text-white p-4 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
-        >
-          December
-        </div>
+          <div
+            id="janBtn"
+            value="1"
+            onClick={() => selectMonth(1)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            January
+          </div>
+          <div
+            id="febBtn"
+            value="2"
+            onClick={() => selectMonth(2)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            February
+          </div>
+          <div
+            id="marBtn"
+            value="3"
+            onClick={() => selectMonth(3)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white    text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            March
+          </div>
+          <div
+            id="aprBtn"
+            value="4"
+            onClick={() => selectMonth(4)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            April
+          </div>
+          <div
+            id="mayBtn"
+            value="5"
+            onClick={() => selectMonth(5)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            May
+          </div>
+          <div
+            id="junBtn"
+            value="6"
+            onClick={() => selectMonth(6)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white   text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            June
+          </div>
+          <div
+            id="julBtn"
+            value="7"
+            onClick={() => selectMonth(7)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            July
+          </div>
+          <div
+            id="augBtn"
+            value="8"
+            onClick={() => selectMonth(8)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            August
+          </div>
+          <div
+            id="sepBtn"
+            value="9"
+            onClick={() => selectMonth(9)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            September
+          </div>
+          <div
+            id="octBtn"
+            value="10"
+            onClick={() => selectMonth(10)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            October
+          </div>
+          <div
+            id="novBtn"
+            value="11"
+            onClick={() => selectMonth(11)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 dark:hover:bg-gray-500 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            November
+          </div>
+          <div
+            id="decBtn"
+            value="12"
+            onClick={() => selectMonth(12)}
+            className="month-btn dark:bg-gray-900 dark:text-white p-4 bg-white  text-center cursor-pointer transition duration-300 hover:bg-gray-300"
+          >
+            December
+          </div>
         </div>
       </div>
-      <div className="text-lg text-center dark:text-white">{currentlySelectedMonth < 10 ? `0${currentlySelectedMonth}` : currentlySelectedMonth} / {currentlySelectedYear}</div>
+      <div className="text-lg text-center dark:text-white">
+        {currentlySelectedMonth < 10
+          ? `0${currentlySelectedMonth}`
+          : currentlySelectedMonth}{" "}
+        / {currentlySelectedYear}
+      </div>
       <div className="flex flex-col md:flex-row space-x-2 mx-4 px-2 gap-3 justify-center items-center mb-8">
         {/* <!--expenses--> */}
 
         <div className="dark:bg-gray-900 container max-w-xl  ">
-
           {currentlySelectedMonth ? (
-            <BudgetList 
-            currentlySelectedMonth={currentlySelectedMonth}
-            currentlySelectedYear={currentlySelectedYear}/>
+            <BudgetList
+              currentlySelectedMonth={currentlySelectedMonth}
+              currentlySelectedYear={currentlySelectedYear}
+            />
           ) : (
             <ul
               id="budgetList"
               className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900"
-            >
-
-            </ul>
+            ></ul>
           )}
         </div>
       </div>

@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 
+// this component includes our contact and a beautiful description of how the user can contact us.
 const ContactUs = () => {
   return (
     <div className="text-white font-sans">
@@ -87,7 +88,7 @@ const ContactUs = () => {
                         Contact
                       </h3>
                       <p className="text-gray-600 dark:text-slate-400">
-                        Mobile: +1 (123) 456-7890
+                        Mobile: +972 (53) 720-5189
                       </p>
                       <p className="text-gray-600 dark:text-slate-400">
                         Mail: tailnext@gmail.com
