@@ -2,40 +2,38 @@ import UserNavigation from "../components/UserNavigation";
 import Footer from "../components/Footer";
 import { default as DolarSign } from "../assets/images/dollar-sign-svgrepo-com.svg";
 import { Helmet } from "react-helmet";
-import { useState, } from "react";
-import Modal from '../components/Modal'; // Import the Modal component
+import { useState } from "react";
+import Modal from "../components/Modal"; // Import the Modal component
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddGoal = () => {
- // State variables for managing goal name, amount of money, and modal visibility
- const [choosenName, setNameOfGoal] = useState(null); // Goal name
- const [amountOfMoney, setAmountOfMoney] = useState(null); // Amount of money
- const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
+  // State variables for managing goal name, amount of money, and modal visibility
+  const [choosenName, setNameOfGoal] = useState(null); // Goal name
+  const [amountOfMoney, setAmountOfMoney] = useState(null); // Amount of money
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
 
- // useNavigate hook for programmatic navigation
+  // useNavigate hook for programmatic navigation
   const navigate = useNavigate();
 
-    // Function to handle changes in the amount of money input field
+  // Function to handle changes in the amount of money input field
   const handleAmountOfMoney = (e) => {
-   
     setAmountOfMoney(e.target.value);
-   
   };
 
-    // Function to handle changes in the goal name input field
+  // Function to handle changes in the goal name input field
   const handleNameOfGoal = (e) => {
     setNameOfGoal(e.target.value);
   };
 
-    // Function to handle modal visibility
+  // Function to handle modal visibility
   const handleModal = (e) => {
     e.preventDefault();
-    
+
     setIsModalOpen((prev) => !prev);
   };
 
-    // Function to retrieve token from localStorage
+  // Function to retrieve token from localStorage
   function getToken() {
     const tokenObj = JSON.parse(localStorage.getItem("token"));
     if (!tokenObj) return null;
@@ -49,28 +47,29 @@ const AddGoal = () => {
     return tokenObj.value;
   }
 
-    // Function to handle form submission
+  // Function to handle form submission
   const handleSubmit = () => {
     const goalData = {
       name: choosenName,
       amount: parseInt(amountOfMoney),
-      
-      /*add more fields here as needed  */
     };
 
-
     const token = getToken();
-      axios.post("https://partialbackendforweb.onrender.com/pages/api/goals/add",goalData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    axios
+      .post(
+        "https://partialbackendforweb.onrender.com/pages/api/goals/add",
+        goalData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log("Goals data retrieved successfully:");
         setIsModalOpen((prev) => !prev);
-      
+
         navigate("/goals1");
-        
       })
       .catch((error) => {
         console.error("Error retrieving goals data:", error);
@@ -82,10 +81,10 @@ const AddGoal = () => {
       <Helmet>
         <title>Add Goal</title>
       </Helmet>
- 
-      <Modal 
-        isOpen={isModalOpen} 
-        handleModal={handleModal} 
+
+      <Modal
+        isOpen={isModalOpen}
+        handleModal={handleModal}
         content={
           <>
             <h1 className="text-center my-4 font-bold text-xl">
@@ -116,7 +115,7 @@ const AddGoal = () => {
         positiveLabel="Yes"
         negativeLabel="No"
       />
-     
+
       <UserNavigation />
       <div
         id="menu-overlay"
@@ -126,7 +125,10 @@ const AddGoal = () => {
         <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
           Add New Goal
         </h2>
-        <form className="max-w-sm mx-auto p-12 border rounded-md shadow" onSubmit={handleModal}>
+        <form
+          className="max-w-sm mx-auto p-12 border rounded-md shadow"
+          onSubmit={handleModal}
+        >
           <div className="relative flex flex-col gap-3 justify-center items-end mb-5">
             <div>
               <label
@@ -139,7 +141,6 @@ const AddGoal = () => {
                 type="text"
                 id="name-of-goal"
                 className="bg-gray-50 border border-gray-300 text-gray-900 max-w-44 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                
                 required
                 onChange={handleNameOfGoal}
               />
@@ -149,7 +150,6 @@ const AddGoal = () => {
                 id="money-label"
                 htmlFor="amount-of-money"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                
               >
                 Goal Amount
               </label>

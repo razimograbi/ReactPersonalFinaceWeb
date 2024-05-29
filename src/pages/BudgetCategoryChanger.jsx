@@ -2,7 +2,9 @@ import UserNavigation from "../components/UserNavigation";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 
+// BudgetCategoryChanger component for changing budget categories
 const BudgetCategoryChanger = () => {
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
   };
