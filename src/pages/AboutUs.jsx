@@ -1,5 +1,5 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../components/GeneralComponents/Footer";
+import Header from "../components/GeneralComponents/Header";
 import { default as aboutUs } from "../assets/images/about_us.jpg";
 import { default as giphy } from "../assets/images/giphy.gif";
 import { Link } from "react-router-dom";

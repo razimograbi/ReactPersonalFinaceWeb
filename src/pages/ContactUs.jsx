@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/GeneralComponents/Header";
+import Footer from "../components/GeneralComponents/Footer";
 import { Helmet } from "react-helmet";
 
 // this component includes our contact and a beautiful description of how the user can contact us.

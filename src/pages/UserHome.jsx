@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { default as Expense } from "../assets/images/Expenses.png";
 import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
-import Modal from "../components/Modal";
-import Goals from "../components/Goals";
-import Income from "../components/Income";
-import LatestExpenses from "../components/LatestExpenses";
-import Expenses from "../components/Expenses";
-import Budget from "../components/Budget";
+import Modal from "../components/GeneralComponents/Modal";
+import Goals from "../components/GoalsComponents/Goals";
+import Income from "../components/UserHomeComponents/Income";
+import LatestExpenses from "../components/ExpensesComponents/LatestExpenses";
+import Expenses from "../components/ExpensesComponents/Expenses";
+import Budget from "../components/BudgetComponents/Budget";
 
-import DonutChart from "../components/DonutChart";
-import EditIncomeForm from "../components/EditIncomeForm";
+import DonutChart from "../components/UserHomeComponents/DonutChart";
+import EditIncomeForm from "../components/UserHomeComponents/EditIncomeForm";
 import { getToken } from "../utils/util";
 
 const UserHome = () => {

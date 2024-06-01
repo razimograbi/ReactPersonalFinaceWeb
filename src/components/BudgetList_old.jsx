@@ -1,9 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Modal from '../components/Modal'; // Import the Modal component
+import Modal from './GeneralComponents/Modal'; // Import the Modal component
 import axios from "axios";
-import UserNavigation from "../components/UserNavigation";
+import UserNavigation from "./GeneralComponents/UserNavigation";
 
 function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

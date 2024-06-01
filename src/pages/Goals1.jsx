@@ -1,7 +1,7 @@
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { Helmet } from "react-helmet";
-import GoalList from "../components/GoalList";
+import GoalList from "../components/GoalsComponents/GoalList";
 
 //Define goals compponent
 const Goals1 = () => {

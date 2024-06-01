@@ -1,9 +1,9 @@
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import BudgetList from "../components/BudgetList";
+import BudgetList from "../components/BudgetComponents/BudgetList";
 
 // BudgetTracking component for tracking budgets
 const BudgetTracking = () => {

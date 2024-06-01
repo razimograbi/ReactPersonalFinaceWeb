@@ -1,5 +1,5 @@
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useEffect, useRef } from "react";

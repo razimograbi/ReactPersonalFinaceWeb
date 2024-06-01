@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Modal from "../components/Modal"; // Import the Modal component
+import Modal from "../GeneralComponents/Modal"; // Import the Modal component
 import axios from "axios";
 import {
   getToken,
   getExpensesBasedOnMonthAndYear,
   calculateSpentPercentages,
   retrieveBudgetFromServer,
-} from "../utils/util";
+} from "../../utils/util";
 
 // Define the BudgetList component
 function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {

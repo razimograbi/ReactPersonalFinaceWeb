@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { calculateRemainingBudget } from "../utils/util";
+import { calculateRemainingBudget } from "../../utils/util";
 
 /**
  * Budget component to display the remaining budget for the current month.

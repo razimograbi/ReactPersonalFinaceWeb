@@ -1,5 +1,5 @@
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { Helmet } from "react-helmet";
 
 // BudgetCategoryChanger component for changing budget categories

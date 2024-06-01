@@ -1,9 +1,9 @@
-import UserNavigation from "../components/UserNavigation";
-import Footer from "../components/Footer";
+import UserNavigation from "../components/GeneralComponents/UserNavigation";
+import Footer from "../components/GeneralComponents/Footer";
 import { default as DolarSign } from "../assets/images/dollar-sign-svgrepo-com.svg";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
-import Modal from '../components/Modal'; // Import the Modal component
+import Modal from '../components/GeneralComponents/Modal'; // Import the Modal component
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
