@@ -4,7 +4,7 @@ import About from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import Goals from "./pages/Goals";
+//import Goals from "./pages/Goals";
 import UserHome from "./pages/UserHome";
 import Goals1 from "./pages/Goals1";
 import ExpensesAddition from "./pages/ExpensesAddition";
@@ -25,7 +25,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/goals" element={<Goals />} />
+        {/* <Route path="/goals" element={<Goals />} /> */}
         <Route path="/goals1" element={<Goals1 />} />
         <Route path="/userHome" element={<UserHome />} />
         <Route path="/expensesAddition" element={<ExpensesAddition />} />

@@ -1,12 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
+/**
+ * DonutChart component to display a doughnut chart of expenses by category for the current month.
+ *
+ * @param {Object} props - The properties object.
+ * @param {Object[]} props.expenses - The array of expense objects.
+ * @param {string} props.expenses[].category - The category of the expense.
+ * @param {number} props.expenses[].amount - The amount of the expense.
+ * @param {string} props.expenses[].startDate - The start date of the expense.
+ * @returns {JSX.Element} A canvas element for the doughnut chart.
+ */
+
 const DonutChart = ({ expenses }) => {
   const chartDoughnutRef = useRef(null);
 
   useEffect(() => {
     if (!expenses) return;
 
+        // List of categories to show in the chart
     const categoriesToShow = [
       "Shopping",
       "Food",
@@ -18,11 +30,13 @@ const DonutChart = ({ expenses }) => {
       "Other",
     ];
 
+    // Initialize the expense amounts for each category to zero
     const expensesByCategory = categoriesToShow.reduce((acc, category) => {
       acc[category] = 0;
       return acc;
     }, {});
 
+    // Aggregate expenses by category for the current month
     expenses.forEach((expense) => {
       const category = expense.category;
       const amount = parseFloat(expense.amount);
@@ -41,6 +55,7 @@ const DonutChart = ({ expenses }) => {
       }
     });
 
+    // Data for the doughnut chart
     const dataDoughnut = {
       labels: categoriesToShow,
       datasets: [
@@ -63,6 +78,7 @@ const DonutChart = ({ expenses }) => {
       ],
     };
 
+    // Configuration for the doughnut chart
     const configDoughnut = {
       type: "doughnut",
       data: dataDoughnut,
@@ -81,21 +97,25 @@ const DonutChart = ({ expenses }) => {
       },
     };
 
+    // Destroy the previous chart instance if it exists
     if (chartDoughnutRef.current) {
       chartDoughnutRef.current.destroy();
     }
+    // Create a new chart instance
     chartDoughnutRef.current = new Chart(
       document.getElementById("chartDoughnut"),
       configDoughnut
     );
 
+    // Cleanup function to destroy the chart on component unmount
     return () => {
       if (chartDoughnutRef.current) {
         chartDoughnutRef.current.destroy();
       }
     };
   }, [expenses]);
-
+  
+  // Render a canvas element for the doughnut chart
   return <canvas id="chartDoughnut"></canvas>;
 };
 

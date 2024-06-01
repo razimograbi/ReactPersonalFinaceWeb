@@ -1,5 +1,20 @@
 import React from "react";
 
+
+
+/**
+ * EditIncomeForm component to render a form for editing income details.
+ *
+ * @param {Object} props - The properties object.
+ * @param {string} props.editIncomeMonth - The current month selected for editing income.
+ * @param {function} props.setEditIncomeMonth - Function to set the month for editing income.
+ * @param {string} props.editIncomeYear - The current year selected for editing income.
+ * @param {function} props.setEditIncomeYear - Function to set the year for editing income.
+ * @param {number} props.editIncomeAmount - The current amount set for editing income.
+ * @param {function} props.setEditIncomeAmount - Function to set the amount for editing income.
+ * @param {string} props.errorMessage - The error message to be displayed if there's an error.
+ * @returns {JSX.Element} A form for editing income details.
+ */
 const EditIncomeForm = ({
   editIncomeMonth,
   setEditIncomeMonth,
@@ -11,9 +26,12 @@ const EditIncomeForm = ({
 }) => {
   return (
     <>
+  
       <p className="text-lg text-center font-bold dark:text-white">
         Edit Income
       </p>
+
+      {/* Month selector */}
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-700 dark:text-white">
           Month
@@ -39,6 +57,7 @@ const EditIncomeForm = ({
       </div>
 
       <div className="mt-4">
+        {/* Year input */}
         <label className="block text-sm font-medium text-gray-700 dark:text-white">
           Year
         </label>
@@ -51,6 +70,7 @@ const EditIncomeForm = ({
           />
         </div>
 
+        {/* Amount input */}
         <label className="block text-sm font-medium text-gray-700 dark:text-white">
           Amount
         </label>
@@ -62,6 +82,7 @@ const EditIncomeForm = ({
           required
         />
       </div>
+      {/* Error message display */}
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
     </>
   );

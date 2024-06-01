@@ -1,6 +1,17 @@
 import React from "react";
 
+/**
+ * LatestExpenses component to display a table of the latest expenses.
+ *
+ * @param {Object[]} expenses - Array of expense objects.
+ * @param {string} expenses[].startDate - The start date of the expense.
+ * @param {string} expenses[].category - The category of the expense.
+ * @param {number} expenses[].amount - The amount of the expense.
+ * @param {string} expenses[]._id - The unique ID of the expense.
+ * 
+ */
 const LatestExpenses = ({ expenses }) => {
+   // Return a message if no expenses are available
   if (!expenses) {
     return <p>No expenses available.</p>;
   }
@@ -8,12 +19,15 @@ const LatestExpenses = ({ expenses }) => {
   const currentMonth = currentDate.getMonth();
   const currentDay = currentDate.getDate();
 
+
+  // Filter expenses to only include those from the current month
   const filteredExpenses = expenses.filter((expense) => {
     const expenseDate = new Date(expense.startDate);
     const expenseMonth = expenseDate.getMonth();
     return expenseMonth === currentMonth && currentDay >= expenseDate.getDate();
   });
 
+  // Return the table of filtered expenses
   return (
     <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
       <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">
@@ -30,6 +44,7 @@ const LatestExpenses = ({ expenses }) => {
         </tr>
       </thead>
       <tbody id="latestExpensesBody">
+        {/* display only latest expenses of the current month */}
         {filteredExpenses.map((expense) => (
           <tr
             key={expense._id}
