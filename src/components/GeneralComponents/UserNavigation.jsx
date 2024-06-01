@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { default as AvatarAnisha } from "../assets/images/avatar-anisha.png";
+import { default as AvatarAnisha } from "../../assets/images/avatar-anisha.png";
 import { useEffect, useState } from "react";
 
 /**
