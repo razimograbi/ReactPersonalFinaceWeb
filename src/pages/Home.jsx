@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 const Home = () => {
   
   return (
-    <div className="bg-gray-900 text-white font-sans">
+    <div className="bg-gray-900 text-white font-sans bg-cover bg-no-repeat bg-page overflow-y-auto h-full h-screen">
       <Helmet>
         <title>Budget Buddy - Home</title>
       </Helmet>

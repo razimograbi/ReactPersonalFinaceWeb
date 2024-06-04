@@ -22,7 +22,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/aboutUs" element={<About />} />
         <Route path="/contactUs" element={<ContactUs />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/goals" element={<Goals />} /> */}
@@ -31,10 +30,7 @@ function App() {
         <Route path="/expensesAddition" element={<ExpensesAddition />} />
         <Route path="/expenses1" element={<Expenses1 />} />
         <Route path="/budgetTracking" element={<BudgetTracking />} />
-        <Route
-          path="/budgetCategoryChanger"
-          element={<BudgetCategoryChanger />}
-        />
+        <Route path="/budgetCategoryChanger" element={<BudgetCategoryChanger />}/>  
         <Route path="/addGoal" element={<AddGoal />} />
       </Routes>
       <ScrollToTop />
