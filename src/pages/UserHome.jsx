@@ -10,7 +10,7 @@ import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
 import Modal from "../components/GeneralComponents/Modal";
 import Goals from "../components/GoalsComponents/Goals";
 import Income from "../components/UserHomeComponents/Income";
-import LatestExpenses from "../components/ExpensesComponents/LatestExpenses";
+
 import Expenses from "../components/ExpensesComponents/Expenses";
 import Budget from "../components/BudgetComponents/Budget";
 
