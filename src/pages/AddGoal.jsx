@@ -78,13 +78,15 @@ const AddGoal = () => {
 
   return (
     <div className="h-screen dark:bg-gray-800">
+      {/* Helmet component for setting the page title */}
       <Helmet>
         <title>Add Goal</title>
       </Helmet>
-
+      {/* Modal component for confirming addition of goal */}
       <Modal
         isOpen={isModalOpen}
         handleModal={handleModal}
+        // Modal content with goal name and amount of money
         content={
           <>
             <h1 className="text-center my-4 font-bold text-xl">
@@ -117,10 +119,12 @@ const AddGoal = () => {
       />
 
       <UserNavigation />
+      {/* Overlay for the menu, hidden by default*/}
       <div
         id="menu-overlay"
         className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
       ></div>
+      {/* Main container with background image and text color styling */}
       <div className="h-max flex flex-col items-center justify-center gap-8 mt-8 mb-10 dark:bg-gray-800">
         <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
           Add New Goal
@@ -129,6 +133,7 @@ const AddGoal = () => {
           className="max-w-sm mx-auto p-12 border rounded-md shadow"
           onSubmit={handleModal}
         >
+          {/* Form fields for goal name and amount of money */}
           <div className="relative flex flex-col gap-3 justify-center items-end mb-5">
             <div>
               <label
@@ -145,6 +150,7 @@ const AddGoal = () => {
                 onChange={handleNameOfGoal}
               />
             </div>
+            {/* Form field for amount of money */}
             <div className="mb-5">
               <label
                 id="money-label"
@@ -153,6 +159,7 @@ const AddGoal = () => {
               >
                 Goal Amount
               </label>
+              {/* Input field for amount of money */}
               <div className="relative">
                 <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                   <img
@@ -171,6 +178,7 @@ const AddGoal = () => {
               </div>
             </div>
           </div>
+          {/* Button to add expense */}
           <button
             id="add-expense-button"
             type="submit"

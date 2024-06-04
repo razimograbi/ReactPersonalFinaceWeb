@@ -45,7 +45,7 @@ const BudgetTracking = () => {
     setCurrentSelectedMonth(month.toString());
     localStorage.setItem("selectedMonth", month.toString());
   }
-
+  // Function to handle month selection
   const handleMonth = (e) => {
     selectMonth(e.target.value);
   };
@@ -66,11 +66,6 @@ const BudgetTracking = () => {
         <label htmlFor="year" className="dark:text-white">
           Year
         </label>
-        {/* <!-- <select
-          id="year"
-          className="dark:bg-gray-900 dark:text-white p-2 ml-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-          onchange="selectingYear(this.value)"
-        > --> */}
         <select
           id="year"
           onChange={selectingYear}
@@ -115,8 +110,7 @@ const BudgetTracking = () => {
         </select>
       </div>
 
-      {/* <!-- Month Selector - Desktop -->
-  <!-- Month Selector - Desktop --> */}
+      {/* <!-- Month Selector - Desktop -->*/}
       <div className="hidden flex sm:flex flex-wrap justify-center my-8 mx-auto inline-block">
         {/* <!-- Month Options --> */}
         <div className="mx-auto shadow flex flex-row">
@@ -225,8 +219,8 @@ const BudgetTracking = () => {
         / {currentlySelectedYear}
       </div>
       <div className="flex flex-col md:flex-row space-x-2 mx-4 px-2 gap-3 justify-center items-center mb-8">
-        {/* <!--expenses--> */}
-
+        
+        {/* <!-- Budget List --> */}
         <div className="dark:bg-gray-900 container max-w-xl  ">
           {currentlySelectedMonth ? (
             <BudgetList

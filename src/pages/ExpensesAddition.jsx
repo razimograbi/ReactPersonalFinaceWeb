@@ -140,6 +140,7 @@ const ExpensesAddition = () => {
   };
 
   return (
+    // Main container with background color styling
     <div className="min-h-screen dark:bg-gray-800">
       <Helmet>
         <title>Expenses Page</title>
@@ -153,6 +154,7 @@ const ExpensesAddition = () => {
         <h1 className="text-center my-4 font-bold text-xl">
           Confirm Addition?
         </h1>
+        {/* <!-- Expense details --> */}
         <div className="bg-slate-400 shadow max-w-[400px]">
           <ul>
             <li className="flex gap-3 p-2">
@@ -186,11 +188,12 @@ const ExpensesAddition = () => {
       />
       
       <UserNavigation />
+      {/* <!-- Overlay for the menu, hidden by default--> */}
       <div
         id="menu-overlay"
         className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
       ></div>
-
+      {/* <!-- Main container with background image and text color styling --> */}
       <div className="h-max flex flex-col items-center justify-center gap-8 mt-8 mb-10 dark:bg-gray-800">
         <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
           Expense Addition
@@ -205,6 +208,7 @@ const ExpensesAddition = () => {
           
             Choose Category
           </label>
+          {/* <!-- Category button --> */}
           <button
             id="categoryButton"
             onClick={handleDropdown}
@@ -250,7 +254,7 @@ const ExpensesAddition = () => {
               })}
             </ul>
           </div>
-
+          {/* <!-- Form field for amount of money --> */}
           <div className="mb-5">
             <label
               id="money-label"
@@ -259,6 +263,7 @@ const ExpensesAddition = () => {
             >
               Amount Spent
             </label>
+            {/* <!-- Input field for amount of money --> */}
             <div className="relative">
               <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                 <img
@@ -277,6 +282,7 @@ const ExpensesAddition = () => {
               />
             </div>
           </div>
+          {/* <!-- Date Picker --> */}
           <div className="mb-5">
             <label
              
@@ -293,6 +299,7 @@ const ExpensesAddition = () => {
               required
             />
           </div>
+          {/* <!-- Number of Payments --> */}
           <div className="relative flex gap-3 justify-center items-end mb-5">
             <div>
               <label
@@ -310,6 +317,7 @@ const ExpensesAddition = () => {
                 required
               />
             </div>
+            {/* <!-- Question mark icon --> */}
             <span
               id="questionMark"
               onMouseOver={() => setIsQuestionOpen(true)}
@@ -318,6 +326,7 @@ const ExpensesAddition = () => {
             >
               ?
             </span>
+            {/* <!-- Info message --> */}
             <div
               id="infoMessage"
               className={`${

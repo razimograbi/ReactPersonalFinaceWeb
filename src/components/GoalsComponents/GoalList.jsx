@@ -120,7 +120,7 @@ const GoalList = () => {
       // Render the component
   return (
     <div>
-      
+      {/* Delete Goal Modal */}
       <Modal
         isOpen={isDeleteModalOpen}
         handleModal={() => setIsDeleteModalOpen(false)}
@@ -155,7 +155,7 @@ const GoalList = () => {
       </Modal>
       
       
-
+      {/* Container for the list of goals */}
       <div
         id="goalsContainer"
         className="container flex flex-col p-2 my-2 mx-auto my-auto overflow-hidden "
@@ -168,6 +168,7 @@ const GoalList = () => {
             </Link>
         {goalsData.length !== 0 && (
           <>
+            {/* Display the list of goals */} 
             {goalsData.map((goal) => (
               <div
                 key={goal._id}

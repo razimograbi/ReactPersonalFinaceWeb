@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 /**
  * EditIncomeForm component to render a form for editing income details.
  *
@@ -26,12 +24,11 @@ const EditIncomeForm = ({
 }) => {
   return (
     <>
-  
       <p className="text-lg text-center font-bold dark:text-white">
         Edit Income
       </p>
 
-      {/* Month selector */}
+      {/* Month selector*/}
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-700 dark:text-white">
           Month
@@ -55,9 +52,8 @@ const EditIncomeForm = ({
           <option value="December">December</option>
         </select>
       </div>
-
+      {/* Year and amount input */}
       <div className="mt-4">
-        {/* Year input */}
         <label className="block text-sm font-medium text-gray-700 dark:text-white">
           Year
         </label>

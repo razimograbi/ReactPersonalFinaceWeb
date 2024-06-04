@@ -16,7 +16,7 @@ const Expenses1 = () => {
   const myChartRef = useRef(null);
   const chartDoughnutRef = useRef(null);
  
-
+  {/* <!-- Main container with background color styling --> */}
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +29,7 @@ const Expenses1 = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
-
+          
           const expenses = response.data.expenses;
           expenses.sort((a, b) => {
             // Convert the start dates to Date objects
@@ -46,7 +46,7 @@ const Expenses1 = () => {
             }
           });
           console.log(expenses);
-       
+          {/* <!-- Update the latest and upcoming expenses tables --> */}
           const latestExpensesBody = document.querySelector(
             "#latestExpensesBody"
           );
@@ -114,14 +114,6 @@ const Expenses1 = () => {
           });
 
           // // Calculate total amount spent in each category
-          // expensesData.forEach((expense) => {
-          //   const category = expense.category;
-          //   const amount = parseFloat(expense.amount);
-          //   // If the category is in the categoriesToShow array, update the total amount
-          //   if (categoriesToShow.includes(category)) {
-          //     expensesByCategory[category] += amount;
-          //   }
-          // });
           expenses.forEach((expense) => {
             const category = expense.category;
             const amount = parseFloat(expense.amount);
@@ -144,7 +136,8 @@ const Expenses1 = () => {
           });
 
 
-
+          // Doughnut Chart
+          {/* <!-- Doughnut chart code for expense categorization --> */}
           const dataDoughnut = {
             labels: categoriesToShow,
             datasets: [
@@ -310,16 +303,18 @@ const Expenses1 = () => {
   }, []);
 
   return (
+    // Main container with background color styling
     <div className="dark:bg-gray-700">
       <Helmet>
         <title>Document</title>
       </Helmet>
 
       <UserNavigation />
+      {/* <!-- Main section with margin-top and flex alignment --> */}
       <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
         Expenses Tracking{" "}
       </h2>
-
+      {/* <!-- Container for centering content --> */}
       <div className="flex flex-col justify-between  ">
         <div className="flex justify-center">
         <div className="container ml-2 md:mr-10 md:justify-start">
@@ -332,6 +327,7 @@ const Expenses1 = () => {
           </Link>
         </div>
         </div>
+        {/* <!-- Bar chart code for income and expenses --> */}
         <div className="flex flex-col md:flex-row justify-center mx-4">
 
           <div className=" container  text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900  dark:text-white max-w-[900px] max-h-[800px] mr-4">
@@ -340,6 +336,7 @@ const Expenses1 = () => {
               <canvas id="myChart" className=""></canvas>
             </div>
           </div>
+          {/* <!-- Doughnut chart code for expense categorization --> */}
           <div className=" dark:text-white container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
             <Link
               to={""}
@@ -353,6 +350,7 @@ const Expenses1 = () => {
             ></canvas>
           </div>
         </div>
+        {/* <!--End of Doughnut chart--> */}
         <div className="flex flex-col justify-center items-center mx-4">
           {/* <!-- Transcation activity--> */}
           <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">
@@ -362,11 +360,13 @@ const Expenses1 = () => {
             >
               Latest Expenses
             </Link>
+            {/* <!-- Table for displaying latest expenses --> */}
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div
                 className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
                 style={{ maxHeight: "500px", overflowY: "auto" }}
               >
+                {/* <!-- Table for displaying latest expenses --> */}
                 <div className="overflow-hidden">
                   <table className="min-w-full text-left text-sm font-light dark:text-gray-400">
                     <thead className="border-b bg-white font-medium dark:bg-gray-700 dark:text-gray-400">
@@ -399,6 +399,7 @@ const Expenses1 = () => {
             >
               Upcoming Expenses
             </Link>
+            {/* <!-- Table for displaying upcoming expenses --> */}
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
