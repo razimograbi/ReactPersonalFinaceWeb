@@ -6,6 +6,8 @@ import { useState } from "react";
 import Modal from "../components/GeneralComponents/Modal"; // Import the Modal component
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../utils/util";
+
 
 const AddGoal = () => {
   // State variables for managing goal name, amount of money, and modal visibility
@@ -32,20 +34,6 @@ const AddGoal = () => {
 
     setIsModalOpen((prev) => !prev);
   };
-
-  // Function to retrieve token from localStorage
-  function getToken() {
-    const tokenObj = JSON.parse(localStorage.getItem("token"));
-    if (!tokenObj) return null;
-
-    const currentTime = new Date().getTime();
-    if (currentTime > tokenObj.expires) {
-      localStorage.removeItem("token"); // Remove expired token
-      return null;
-    }
-
-    return tokenObj.value;
-  }
 
   // Function to handle form submission
   const handleSubmit = () => {
