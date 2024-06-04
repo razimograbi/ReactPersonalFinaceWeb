@@ -17,6 +17,7 @@ import Budget from "../components/BudgetComponents/Budget";
 import DonutChart from "../components/UserHomeComponents/DonutChart";
 import EditIncomeForm from "../components/UserHomeComponents/EditIncomeForm";
 import { getToken } from "../utils/util";
+import ExpensesTable from "../components/ExpensesComponents/ExpensesTable";
 
 const UserHome = () => {
   // const chartDoughnutRef = useRef(null);
@@ -27,8 +28,9 @@ const UserHome = () => {
   const [editIncomeMonth, setEditIncomeMonth] = useState("");
   const [editIncomeYear, setEditIncomeYear] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  
   const currentYear = new Date().getFullYear();
-
+  const [filteredExpenses,setFilteredExpenses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +46,19 @@ const UserHome = () => {
           setUserData(responseData);
           updateLocalStorage(responseData);
           updateUI(responseData);
+          
+          const currentDate = new Date();
+          const currentMonth = currentDate.getMonth();
+          const currentDay = currentDate.getDate();
+
+          // Filter expenses to only include those from the current month
+          const expenses = response.data.expenses;
+          const filtered = expenses.filter((expense) => {
+            const expenseDate = new Date(expense.startDate);
+            const expenseMonth = expenseDate.getMonth();
+            return expenseMonth === currentMonth && currentDay >= expenseDate.getDate();
+          });
+          setFilteredExpenses(filtered);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -67,7 +82,7 @@ const UserHome = () => {
     ).textContent = `Welcome ${userData.name},`;
   };
 
-  // Function to handle opening the edit income modal
+  /* // Function to handle opening the edit income modal
   const handleEditIncomeModalOpen = () => {
     setIsEditIncomeModalOpen(true);
     setEditIncomeMonth(""); // Reset editIncomeMonth state
@@ -114,13 +129,13 @@ const UserHome = () => {
       .catch((error) => {
         console.error("Error occurred while adding income:", error);
       });
-  };
+  }; */
 
   //const currentYear = new Date().getFullYear();
 
   return (
     <div>
-      <Modal
+      {/* <Modal
         isOpen={isEditIncomeModalOpen}
         handleModal={handleEditIncomeModalClose}
         content={
@@ -137,7 +152,7 @@ const UserHome = () => {
         handleSubmit={handleEditIncomeSubmit}
         positiveLabel="Save"
         negativeLabel="Cancel"
-      />
+      /> */}
 
       <div className="dark:bg-gray-700">
         <Helmet>
@@ -157,7 +172,8 @@ const UserHome = () => {
               className="dark:text-white mb-2 font-bold"
             ></p>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <div className="items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2 block-inline mx-auto overflow-hidden dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
+            <Income userData={userData} />
+              {/* <div className="items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2 block-inline mx-auto overflow-hidden dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
                 <div className="flex flex-row items-center mt-4">
                   <img
                     className="w-8 block-inline"
@@ -173,7 +189,7 @@ const UserHome = () => {
                 >
                   Edit income
                 </button>
-              </div>
+              </div> */}
               <div className="items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2 mx-auto dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
                 <div className="flex flex-row items-center mt-4">
                   <img
@@ -234,23 +250,8 @@ const UserHome = () => {
 
             {/* Upcoming bills and transactions */}
             <div className="container flex flex-col space-x-2 mx-4 px-2">
-              <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">
-                <Link
-                  to="#"
-                  className="py-3 px-5 bg-gray-100 text-center dark:text-2xl font-bold dark:text-white dark:bg-gray-700"
-                >
-                  Latest Expenses
-                </Link>
-                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div
-                    className="inline-block min-w-full py-2 sm:px-6 lg:px-8"
-                    style={{ maxHeight: "500px", overflowY: "auto" }}
-                  >
-                    <div className="overflow-hidden">
-                      <LatestExpenses expenses={userData?.expenses} />
-                    </div>
-                  </div>
-                </div>
+              <div className="container flex flex-col p-2 my-2 mx-auto shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 dark:border-solid dark:border-white max-w-[1200px] bg-gray-200">    
+                <ExpensesTable expenses={filteredExpenses} isLatest={true} tableName={"Latest Expenses"}/>
               </div>
             </div>
           </div>
