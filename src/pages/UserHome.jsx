@@ -22,13 +22,7 @@ import ExpensesTable from "../components/ExpensesComponents/ExpensesTable";
 const UserHome = () => {
   // const chartDoughnutRef = useRef(null);
   const [totalExpensesForMonth, setTotalExpensesForMonth] = useState(0);
-  const [userData, setUserData] = useState(null);
-  const [editIncomeAmount, setEditIncomeAmount] = useState("");
-  const [isEditIncomeModalOpen, setIsEditIncomeModalOpen] = useState(false);
-  const [editIncomeMonth, setEditIncomeMonth] = useState("");
-  const [editIncomeYear, setEditIncomeYear] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  
+  const [userData, setUserData] = useState(null); 
   const currentYear = new Date().getFullYear();
   const [filteredExpenses,setFilteredExpenses] = useState([]);
   const navigate = useNavigate();
@@ -82,78 +76,9 @@ const UserHome = () => {
     ).textContent = `Welcome ${userData.name},`;
   };
 
-  /* // Function to handle opening the edit income modal
-  const handleEditIncomeModalOpen = () => {
-    setIsEditIncomeModalOpen(true);
-    setEditIncomeMonth(""); // Reset editIncomeMonth state
-    setEditIncomeAmount(""); // Reset editIncomeAmount state
-  };
-
-  // Function to handle closing the edit income modal
-  const handleEditIncomeModalClose = () => {
-    setIsEditIncomeModalOpen(false);
-  };
-
-  const handleEditIncomeSubmit = () => {
-    // Validate the year
-    const year = parseInt(editIncomeYear);
-    if (year < 1990 || year > currentYear) {
-      setErrorMessage("Please enter a year between 1990 and " + currentYear);
-      return;
-    }
-    if (!editIncomeAmount) {
-      setErrorMessage("Amount field is required");
-      return;
-    }
-    setErrorMessage("");
-
-    // Make the POST request to update the income
-    const token = getToken();
-
-    const data = {
-      amount: parseInt(editIncomeAmount),
-      month: editIncomeMonth,
-      year: editIncomeYear,
-    };
-
-    // Make the POST request to update the income
-    axios
-      .post("https://partialbackendforweb.onrender.com/income/add2", data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        console.log("Income added successfully:", response.data);
-        // Close the modal after successful submission
-        setIsEditIncomeModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Error occurred while adding income:", error);
-      });
-  }; */
-
-  //const currentYear = new Date().getFullYear();
-
   return (
     <div>
-      {/* <Modal
-        isOpen={isEditIncomeModalOpen}
-        handleModal={handleEditIncomeModalClose}
-        content={
-          <EditIncomeForm
-            editIncomeMonth={editIncomeMonth}
-            setEditIncomeMonth={setEditIncomeMonth}
-            editIncomeYear={editIncomeYear}
-            setEditIncomeYear={setEditIncomeYear}
-            editIncomeAmount={editIncomeAmount}
-            setEditIncomeAmount={setEditIncomeAmount}
-            errorMessage={errorMessage}
-          />
-        }
-        handleSubmit={handleEditIncomeSubmit}
-        positiveLabel="Save"
-        negativeLabel="Cancel"
-      /> */}
-
+      
       <div className="dark:bg-gray-700">
         <Helmet>
           <title>Home Screen</title>
@@ -173,23 +98,7 @@ const UserHome = () => {
             ></p>
             <div className="flex flex-col gap-2 sm:flex-row">
             <Income userData={userData} />
-              {/* <div className="items-center relative flex-initial w-40 md:w-60 md:h-32 flex flex-col text-center shadow p-2 block-inline mx-auto overflow-hidden dark:bg-gray-900 dark:text-white dark:text-xl bg-gray-100 font-bold">
-                <div className="flex flex-row items-center mt-4">
-                  <img
-                    className="w-8 block-inline"
-                    src={IncomeIcon}
-                    alt="Income Icon"
-                  />
-                  <p className="mt-4 ml-2">Income</p>
-                </div>
-                <Income userData={userData} />
-                <button
-                  onClick={handleEditIncomeModalOpen}
-                  className="float-left text-sm text-blue-500"
-                >
-                  Edit income
-                </button>
-              </div> */}
+              
               <div className="items-center relative flex flex-initial w-40 md:w-60 md:h-32 flex-col text-center shadow p-2 mx-auto dark:bg-gray-900 dark:text-white dark:text-xl font-bold bg-gray-100">
                 <div className="flex flex-row items-center mt-4">
                   <img
