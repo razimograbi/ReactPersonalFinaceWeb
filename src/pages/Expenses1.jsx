@@ -122,89 +122,6 @@ const Expenses1 = () => {
 
           setMonthlyIncomes(monthlyIncomes);
           setMonthlyExpenses(monthlyExpenses);
-
-
-          // If there are months without income, they will remain zero
-
-          /* if (myChartRef.current !== null) {
-            myChartRef.current.destroy();
-          }
-
-          const gridColor = "#ccc"; // Light gray color
-      
-
-          const ctx = document.getElementById("myChart").getContext("2d");
-           myChartRef.current=new Chart(ctx, {
-            type: "bar",
-            data: {
-              labels: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ], // Update with your months
-              datasets: [
-                {
-                  label: "Income",
-                  data: monthlyIncomes, // Fake data for income
-                  backgroundColor: "rgba(75, 192, 192)",
-                  borderColor: "rgba(75, 192, 192, 1)",
-                  borderWidth: 1,
-                },
-                {
-                  label: "Expenses",
-                  data: monthlyExpenses, // Fake data for expenses
-                  backgroundColor: "rgba(255, 99, 132)",
-                  borderColor: "rgba(255, 99, 132, 1)",
-                  borderWidth: 1,
-                },
-              ],
-            },
-            options: {
-              indexAxis: "x", // Display bars horizontally
-              
-              plugins: {
-                legend: {
-                  position: "right",
-                   // Position the legend to the right
-                },
-
-              },
-              scales: {
-                x: {
-                  beginAtZero: true,
-                  grid: {
-                    color: gridColor, // Set adaptive grid color
-                  },
-                  ticks: {
-                   
-                    font: {
-                      size: 12, // Increase font size for x-axis labels
-                    },
-                  },
-                },
-                y: {
-                  grid: {
-                    color: gridColor, // Set adaptive grid color
-                  },
-                  ticks: {
-                    
-                    font: {
-                      size: 12, // Increase font size for x-axis labels
-                    },
-                  },
-                },
-              },
-            },
-          }); */
         } else {
           console.error("Token not found in localStorage");
         }
@@ -249,7 +166,7 @@ const Expenses1 = () => {
 {/*               <canvas id="myChart" className=""></canvas>
  */}            </div>
           </div>
-          <div className=" dark:text-white container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
+          <div className=" dark:text-white container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden max-h-full bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
             <Link
               to={""}
               className="py-3 px-5 bg-gray-100 text-xl dark:text-white dark:bg-gray-700 font-bold text-center"
