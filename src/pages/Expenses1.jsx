@@ -2,9 +2,10 @@ import UserNavigation from "../components/GeneralComponents/UserNavigation";
 import Footer from "../components/GeneralComponents/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef ,useState} from "react";
 import axios from "axios";
 import { Chart } from "chart.js/auto";
+import DonutChart from "../components/UserHomeComponents/DonutChart";
 
 /**
  * Functional component for displaying and managing expense tracking.
@@ -15,7 +16,8 @@ const Expenses1 = () => {
     // References for chart elements
   const myChartRef = useRef(null);
   const chartDoughnutRef = useRef(null);
- 
+
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,7 @@ const Expenses1 = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
-
+          setUserData(response.data)
           const expenses = response.data.expenses;
           expenses.sort((a, b) => {
             // Convert the start dates to Date objects
@@ -93,7 +95,7 @@ const Expenses1 = () => {
           });
 
           // Update Donut
-
+/* 
           // Define the categories to display in the donut chart
           const categoriesToShow = [
             "Shopping",
@@ -191,7 +193,7 @@ const Expenses1 = () => {
             chartDoughnutRef.current.destroy();
           }
           chartDoughnutRef.current=new Chart(document.getElementById("chartDoughnut"), configDoughnut);
-
+ */
           //Update My Chart
 
           const incomes = response.data.income;
@@ -347,10 +349,12 @@ const Expenses1 = () => {
             >
               Expenses Categorization
             </Link>
-            <canvas
+            {/* HERE CHART!!! */}
+            <DonutChart expenses={userData?.expenses} useCurrentMonth={false} />
+            {/* <canvas
               className="container flex p-10 dark:bg-gray-900"
               id="chartDoughnut"
-            ></canvas>
+            ></canvas> */}
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mx-4">
