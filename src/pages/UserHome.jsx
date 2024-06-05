@@ -26,7 +26,7 @@ const UserHome = () => {
   const currentYear = new Date().getFullYear();
   const [filteredExpenses,setFilteredExpenses] = useState([]);
   const navigate = useNavigate();
-
+  // useEffect hook to fetch user data on component mount and update UI accordingly
   useEffect(() => {
     const tokenData = getToken();
     if (tokenData) {
@@ -62,12 +62,12 @@ const UserHome = () => {
       navigate("/login");
     }
   }, [navigate]);
-
+  // Function to update local storage with user data
   const updateLocalStorage = (userData) => {
     localStorage.setItem("userName", userData.name);
     localStorage.setItem("userEmail", userData.email);
   };
-
+  // Function to update the UI with user data
   const updateUI = (userData) => {
     document.getElementById("userNameHam").textContent = userData.name;
     document.getElementById("userEmailHam").textContent = userData.email;
@@ -77,6 +77,7 @@ const UserHome = () => {
   };
 
   return (
+    // Main container with background color styling
     <div>
       
       <div className="dark:bg-gray-700">
@@ -88,7 +89,7 @@ const UserHome = () => {
           id="welcomeMsgUser"
           className=" flex-initial text-2xl font-bold text-center dark:text-white mt-4"
         ></p>
-
+        {/* <!-- Hero section --> */}
         <section id="hero">
           {/* Income, spendings section */}
           <div className="container flex-initial flex flex-col items-center px-4 mx-auto mt-8 mb-6 space-x-2 space-y-0 md:space-y-0 text-lg py-2">
@@ -96,6 +97,7 @@ const UserHome = () => {
               id="budgetSentence"
               className="dark:text-white mb-2 font-bold"
             ></p>
+            {/* <!-- Income, expenses, budget remain --> */}
             <div className="flex flex-col gap-2 sm:flex-row">
             <Income userData={userData} />
               
@@ -113,6 +115,7 @@ const UserHome = () => {
                   setTotalExpensesForMonth={setTotalExpensesForMonth}
                 />
               </div>
+              {/* Budget remain */}
               <div className="relative flex flex-col flex-initial w-40 md:w-60 md:h-32 text-center shadow p-2 mx-auto bg-gray-100 dark:bg-gray-900 dark:text-white dark:text-xl font-bold">
                 <div className="flex flex-row items-center mt-4">
                   <img

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
-//Define Footer component
+//Define Footer component for the website footer 
 const Footer = () => {
   return (
+    // Footer container with background color styling
     <footer className="bg-white dark:bg-gray-900 w-full">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
@@ -14,6 +15,7 @@ const Footer = () => {
               Budget Buddy
             </Link>
           </div>
+          {/* <!-- Navigation Links --> */}
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
@@ -32,6 +34,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+            {/* <!-- Follow Us Links --> */}
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Follow us
@@ -52,6 +55,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+            {/* <!-- Legal Links --> */}
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Legal
@@ -71,6 +75,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        {/* <!-- Divider --> */}
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
@@ -80,7 +85,9 @@ const Footer = () => {
             </Link>
             . All Rights Reserved.
           </span>
+          {/* <!-- Social Media Links --> */}
           <div className="flex mt-4 sm:justify-center sm:mt-0">
+            {/* <!-- Facebook Link --> */}
             <Link
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
@@ -100,6 +107,7 @@ const Footer = () => {
               </svg>
               <span className="sr-only">Facebook page</span>
             </Link>
+            {/* <!-- Twitter Link --> */}
             <Link
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
@@ -115,6 +123,7 @@ const Footer = () => {
               </svg>
               <span className="sr-only">Discord community</span>
             </Link>
+            {/* <!-- GitHub Link --> */}
             <Link
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
@@ -134,6 +143,7 @@ const Footer = () => {
               </svg>
               <span className="sr-only">Twitter page</span>
             </Link>
+            {/* <!-- Dribbble Link --> */}
             <Link
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
@@ -153,6 +163,7 @@ const Footer = () => {
               </svg>
               <span className="sr-only">GitHub account</span>
             </Link>
+            {/* <!-- LinkedIn Link --> */}
             <Link
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"

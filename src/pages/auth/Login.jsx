@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 
+
+// Login component for user login page 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,8 @@ const Login = () => {
   if (tokenObj) {
     localStorage.removeItem("token");
   }
-
+  // Function to handle changes in the input fields for email and password 
+  // This function updates the email and password state variables
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "email") {
@@ -22,7 +25,7 @@ const Login = () => {
       setPassword(value);
     }
   }
-
+  // Function to handle form submission 
   function handleSubmit(event) {
     event.preventDefault();
     // Create loginData object
@@ -54,6 +57,7 @@ const Login = () => {
       });
   }
   return (
+    // Main container with background image and text color styling
     <div
       className="bg-cover bg-center bg-fixed"
       style={{ backgroundImage: `url(${giphy})`, color: "#ffffff" }}
@@ -61,6 +65,7 @@ const Login = () => {
       <Helmet>
         <title>Login - Budget Buddy</title>
       </Helmet>
+      {/* Header component */}
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-gray-800 p-8 rounded-md shadow-md max-w-md w-full text-white">
           {/* <!-- Adjust background color to gray-800 and text color to white --> */}
@@ -85,7 +90,7 @@ const Login = () => {
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-
+            {/* <!-- Password Input Field --> */}
             <div>
               <label
                 htmlFor="password"
@@ -103,7 +108,7 @@ const Login = () => {
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-
+            {/* <!-- Login Button --> */}
             <div className="flex items-center justify-between">
               <Link to="/login" className="text-blue-500 hover:underline">
                 Forgot Password?

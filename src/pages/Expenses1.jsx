@@ -67,12 +67,14 @@ const Expenses1 = () => {
   }, []);
 
   return (
+    // Main container with background color styling
     <div className="dark:bg-gray-700">
       <Helmet>
         <title>Document</title>
       </Helmet>
 
       <UserNavigation />
+      {/* <!-- Main section with margin-top and flex alignment --> */}
       <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
         Expenses Tracking
       </h2>
@@ -88,6 +90,7 @@ const Expenses1 = () => {
             </Link>
           </div>
         </div>
+        {/* <!-- Bar chart code for income and expenses --> */}
         <div className="flex flex-col md:flex-row justify-center mx-4">
           <div className="container text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 dark:text-white max-w-[900px] max-h-[800px] mr-4">
             <div className="container flex dark:text-white">
@@ -101,6 +104,7 @@ const Expenses1 = () => {
             <DonutChart expenses={userData?.expenses} useCurrentMonth={false} />
           </div>
         </div>
+        {/* <!--End of Doughnut chart--> */}
         <div className="flex flex-col justify-center items-center mx-4">
           <ExpensesTable expenses={latestExpenses} isLatest={true} tableName="Latest Expenses" />
           <ExpensesTable expenses={upcomingExpenses} isLatest={false} tableName="Upcoming Expenses" />

@@ -131,6 +131,7 @@ const UserNavigation = () => {
                   
                 </span>
               </div>
+              {/* <!-- User menu items --> */}
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <Link
@@ -157,6 +158,7 @@ const UserNavigation = () => {
                   </Link>
                 </li>
                 <li>
+                  {/* <!-- Dark mode toggle --> */}
                   <button
                     type="button"
                     data-toggle-dark="dark"
@@ -192,7 +194,7 @@ const UserNavigation = () => {
               </ul>
             </div>
           </div>
-
+          {/* <!-- Popup Menu for Mobile --> */}
           <div
             id="popupmenu"
             className="z-50 justify-start gap-4 hidden sm:hidden absolute bg-blue-400 width-[70px] top-[60px] rounded-lg left-0 right-0 p-4 pb-6 border-black shadow"

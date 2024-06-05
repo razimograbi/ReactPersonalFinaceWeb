@@ -222,6 +222,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           }}
           content={
             <>
+              {/* Modal content for tracking another category */}
               <p className="mb-2 font-bold text-lg text-center dark:text-white">
                 Track Another Category
               </p>
@@ -231,6 +232,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
                   : currentlySelectedMonth}{" "}
                 / {currentlySelectedYear}
               </p>
+              {/* Form fields for tracking another category */}
               <div className="flex flex-col items-center">
                 <select
                   value={selectedCategory}
@@ -262,6 +264,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           id="budgetList"
           className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900"
         >
+          {/* Display the list of budgets */}
           {budgetArray?.map((budget) => {
             const percentageSpent = (budget.spent / budget.limit) * 100;
             return (
@@ -311,6 +314,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           })}
         </ul>
       </div>
+      {/* Button to track another category */}
       <div className="flex justify-center">
         <button
           onClick={() => setIsTrackModalOpen(true)}
@@ -322,7 +326,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
     </div>
   );
 }
-
+// Export the BudgetList component as the default export
 BudgetList.propTypes = {
   currentlySelectedMonth: PropTypes.string,
   currentlySelectedYear: PropTypes.string,

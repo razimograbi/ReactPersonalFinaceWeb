@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
-//Define Header component
+//Define Header component for the website header 
 const Header = () => {
   return (
+    // Navbar container with background color styling
     <div id="navbar-container" className="fixed w-full -top-1 z-20">
       <nav className="bg-blue-500 p-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -21,6 +22,7 @@ const Header = () => {
               &#9776;
               {/* <!-- Hamburger Icon --> */}
             </button>
+            {/* <!-- Navigation Links --> */}
             <div className="sm:flex space-x-4 hidden">
               <Link to="/" className="hover:text-gray-300">
                 Home
@@ -32,6 +34,7 @@ const Header = () => {
                 Contact Us
               </Link>
             </div>
+            {/* <!-- Login and Register Links --> */}
             <div className="items-center sm:flex hidden">
               <Link
                 to="/login"
@@ -46,6 +49,7 @@ const Header = () => {
                 Register
               </Link>
             </div>
+            {/* <!-- Popup Menu for Mobile --> */}
             <div
               id="popupmenu"
               className="justify-start gap-4 hidden sm:hidden absolute bg-slate-600 width-[70px] top-[60px] rounded-lg left-0 right-0 p-4 pb-6"

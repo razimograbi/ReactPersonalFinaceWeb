@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet";
 import { useState } from "react";
 import axios from "axios"; // Import axios
 
+
+// Register component for user registration page 
 const Register = () => {
   const [formData, setFormData] = useState({
     fullname: "",
@@ -11,7 +13,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevForm) => ({
@@ -60,13 +62,16 @@ const Register = () => {
   
 
   return (
+    // Main container with background image and text color styling 
     <div
       className="bg-cover bg-center bg-fixed"
       style={{ backgroundImage: `url(${growth})`, color: "#ffffff" }}
     >
+      {/* Helmet component for setting the page title */}
       <Helmet>
         <title>Register - Budget Buddy</title>
       </Helmet>
+      {/* Register form container */}
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-gray-800 p-8 rounded-md shadow-md max-w-md w-full text-white">
           <h1 className="text-3xl font-bold mb-4">Create an Account</h1>
@@ -90,6 +95,7 @@ const Register = () => {
               />
             </div>
 
+            {/* <!-- Email Input Field --> */}
             <div>
               <label
                 htmlFor="email"
@@ -106,7 +112,7 @@ const Register = () => {
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-
+            {/* <!-- Password Input Field --> */}
             <div>
               <label
                 htmlFor="password"
@@ -123,7 +129,7 @@ const Register = () => {
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-
+            {/* <!-- Confirm Password Input Field --> */}
             <div>
               <label
                 htmlFor="confirmPassword"
@@ -140,7 +146,7 @@ const Register = () => {
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-
+            {/* <!-- Register Button --> */}
             <div>
               <button
                 onClick={handleRegister}

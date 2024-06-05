@@ -5,6 +5,9 @@ import Modal from './GeneralComponents/Modal'; // Import the Modal component
 import axios from "axios";
 import UserNavigation from "./GeneralComponents/UserNavigation";
 
+
+
+// BudgetList component for displaying a list of budgets and their details
 function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [budgetId, setBudgetId] = useState('');
@@ -82,7 +85,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
       });
     setIsTrackModalOpen(false);
   };
-
+  // Function to refresh the component after adding a new budget
   const handlenewBudgetLimitChange = (e) => {
     const inputAmount = e.target.value;
     // Allow only positive numbers greater than zero
@@ -91,7 +94,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
     }
   };
  
-  
+  // Function to handle editing the budget
   const handleBudgetEdit =  () => {
     
       const token = getToken();
@@ -127,7 +130,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
    
   };
  
-
+  // Function to handle closing the modal
   const handleModalClose = () => {
     setBudgetLimit('');
     setIsModalOpen(false);
@@ -137,7 +140,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
   return (
     <div>
     <div>
-
+      {/* Modal for editing budget */}
       <Modal
         isOpen={isModalOpen}
         handleModal={handleModalClose}
@@ -205,7 +208,9 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
         
       {budgetArray?.map((budget) => {
         const percentageSpent = (budget.spent / budget.limit) * 100;
+        
         return (
+          // List item for each budget category with details and edit button
           <li className ="hover:shadow-lg transform hover:scale-105 transition-all duration-300 " key={budget.category}>
             <div className="flex gap-5 p-2 items-center justify-center">
               <div className="flex flex-col gap-1 w-96 ">
@@ -241,6 +246,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
     
     
     </div>
+    {/* Button to track another category */}
     <div className="flex justify-center">
     <button onClick={() => setIsTrackModalOpen(true)} className="bg-blue-500 m-4 rounded-md text-white p-2 items-center">Track another category</button>
     </div>
@@ -248,6 +254,7 @@ function BudgetList({ budgetArray, currentlySelectedMonth, currentlySelectedYear
   );
 }
 
+// Prop types for BudgetList component to ensure that the correct props are passed
 BudgetList.propTypes = {
   currentlySelectedMonth: PropTypes.string,
   currentlySelectedYear: PropTypes.string,

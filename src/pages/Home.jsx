@@ -5,21 +5,24 @@ import { default as aboutUs } from "../assets/images/about_us.jpg";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-//Define home component
+// Home component for the home page
 const Home = () => {
   
   return (
+    // Main container with background image and text color styling
     <div className="bg-gray-900 text-white font-sans bg-cover bg-no-repeat bg-page overflow-y-auto h-full h-screen">
       <Helmet>
         <title>Budget Buddy - Home</title>
       </Helmet>
       <Header />
+      {/* <!-- Mobile Menu Overlay --> */}
       <div
         id="menu-overlay"
         className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
       ></div>
       {/* <!-- Hero Section --> */}
       <section className="bg-gray-800 text-white h-screen flex items-center">
+        {/* <!-- Container for centering content --> */}
         <div className="mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Take Control of Your Finances with Budget Buddy
@@ -34,7 +37,9 @@ const Home = () => {
             Get Started
           </Link>
         </div>
+
       </section>
+      {/* <!-- Wallpaper Section --> */}
       <div
         className="mx-auto  h-80 w-full mt-28 bg-cover bg-fixed bg-center bg-no-repeat shadow-lg"
         style={{
@@ -89,6 +94,7 @@ const Home = () => {
                 className="relative z-00 object-cover w-full h-96 rounded-3xl"
               />
             </div>
+              {/* <!-- Text content container --> */}
             <div className="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
               <h2 className="mb-4 text-4xl font-semibold text-blue-500 dark:text-gray-300">
                 About Us
@@ -102,6 +108,7 @@ const Home = () => {
                 management, we have designed Budget Buddy to be your trusted
                 companion in navigating the complexities of personal finances...
               </p>
+              {/* <!-- Discover more button --> */}
               <Link
                 to="/aboutUs"
                 className="px-4 py-3 text-blue-700 transition-all transform border border-blue-500 rounded-3xl hover:bg-blue-600 dark:border-blue-400 dark:hover:bg-blue-500 dark:hover:text-gray-100 dark:hover:border-blue-500 dark:text-blue-400 hover:text-gray-100"
