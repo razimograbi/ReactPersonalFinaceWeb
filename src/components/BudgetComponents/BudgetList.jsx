@@ -8,6 +8,7 @@ import {
   calculateSpentPercentages,
   retrieveBudgetFromServer,
 } from "../../utils/util";
+import TrackingNewBudgetCategory from "./TrackingNewBudgetCategory";
 
 // Define the BudgetList component
 function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
@@ -214,7 +215,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           negativeLabel="Discard"
         ></Modal>
 
-        <Modal
+        {/* <Modal
           isOpen={isTrackModalOpen}
           handleModal={() => {
             setBudgetLimit("");
@@ -222,7 +223,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           }}
           content={
             <>
-              {/* Modal content for tracking another category */}
+              
               <p className="mb-2 font-bold text-lg text-center dark:text-white">
                 Track Another Category
               </p>
@@ -232,7 +233,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
                   : currentlySelectedMonth}{" "}
                 / {currentlySelectedYear}
               </p>
-              {/* Form fields for tracking another category */}
+              
               <div className="flex flex-col items-center">
                 <select
                   value={selectedCategory}
@@ -259,7 +260,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           handleSubmit={handleAddBudget}
           positiveLabel="Track"
           negativeLabel="Discard"
-        />
+        /> */}
         <ul
           id="budgetList"
           className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900"
@@ -299,7 +300,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
                       className="rounded-md border px-2 dark:text-white"
                       onClick={() => {
                         setCategoryName(budget.category),
-                          setAmountSpent(budget.spent);
+                        setAmountSpent(budget.spent);
                         setBudgetLimit(budget.limit);
                         setBudgetId(budget._id);
                         setIsModalOpen(true);
@@ -316,12 +317,15 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
       </div>
       {/* Button to track another category */}
       <div className="flex justify-center">
-        <button
+      <TrackingNewBudgetCategory currentlySelectedMonth={currentlySelectedMonth} currentlySelectedYear={currentlySelectedYear} budgetArray={budgetArray}
+      refreshComponent={refreshComponent}/>
+
+        {/* <button
           onClick={() => setIsTrackModalOpen(true)}
           className="bg-blue-500 m-4 rounded-md text-white p-2 items-center"
         >
           Track another category
-        </button>
+        </button> */}
       </div>
     </div>
   );
