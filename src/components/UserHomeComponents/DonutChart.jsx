@@ -12,7 +12,7 @@ import Chart from "chart.js/auto";
  * @returns {JSX.Element} A canvas element for the doughnut chart.
  */
 
-const DonutChart = ({ expenses }) => {
+const DonutChart = ({ expenses ,useCurrentMonth = true}) => {
   const chartDoughnutRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +41,23 @@ const DonutChart = ({ expenses }) => {
       const category = expense.category;
       const amount = parseFloat(expense.amount);
 
-      const expenseDate = new Date(expense.startDate);
+       // Get the date from the expense's start date
+       const expenseDate = new Date(expense.startDate);
+       const expenseYearOrMonth = useCurrentMonth ? expenseDate.getMonth() : expenseDate.getFullYear();
+ 
+       // Get the current date
+       const currentDate = new Date();
+       const currentYearOrMonth = useCurrentMonth ? currentDate.getMonth() : currentDate.getFullYear();
+ 
+       // Check if the expense's date matches the current date
+       if (
+         expenseYearOrMonth === currentYearOrMonth &&
+         categoriesToShow.includes(category)
+       ) {
+         expensesByCategory[category] += amount;
+       }
+       
+     /*  const expenseDate = new Date(expense.startDate);
       const expenseMonth = expenseDate.getMonth();
 
       const currentDate = new Date();
@@ -52,7 +68,7 @@ const DonutChart = ({ expenses }) => {
         categoriesToShow.includes(category)
       ) {
         expensesByCategory[category] += amount;
-      }
+      } */
     });
 
     // Data for the doughnut chart

@@ -2,10 +2,11 @@ import UserNavigation from "../components/GeneralComponents/UserNavigation";
 import Footer from "../components/GeneralComponents/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef ,useState} from "react";
 import axios from "axios";
 import { Chart } from "chart.js/auto";
-
+import DonutChart from "../components/UserHomeComponents/DonutChart";
+import BarChart from "../components/ExpensesComponents/BarChart";
 /**
  * Functional component for displaying and managing expense tracking.
  * Displays a bar chart for income and expenses, a doughnut chart for expense categorization,
@@ -15,8 +16,11 @@ const Expenses1 = () => {
     // References for chart elements
   const myChartRef = useRef(null);
   const chartDoughnutRef = useRef(null);
- 
-  {/* <!-- Main container with background color styling --> */}
+
+  const [userData, setUserData] = useState(null);
+  const [monthlyIncomes, setMonthlyIncomes] = useState(Array(12).fill(0));
+  const [monthlyExpenses, setMonthlyExpenses] = useState(Array(12).fill(0));
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +33,7 @@ const Expenses1 = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
-          
+          setUserData(response.data)
           const expenses = response.data.expenses;
           expenses.sort((a, b) => {
             // Convert the start dates to Date objects
@@ -92,98 +96,7 @@ const Expenses1 = () => {
           
           });
 
-          // Update Donut
-
-          // Define the categories to display in the donut chart
-          const categoriesToShow = [
-            "Shopping",
-            "Food",
-            "Transportation",
-            "Loan",
-            "Groceries",
-            "Bills",
-            "Entertainment", // Added Entertainment category
-            "Other",
-          ];
-          // Initialize an object to store total amounts for each category
-          const expensesByCategory = {};
-
-          // Initialize total amounts for each category to 0
-          categoriesToShow.forEach((category) => {
-            expensesByCategory[category] = 0;
-          });
-
-          // // Calculate total amount spent in each category
-          expenses.forEach((expense) => {
-            const category = expense.category;
-            const amount = parseFloat(expense.amount);
-
-            // Get the month from the expense's date
-            const expenseDate = new Date(expense.startDate);
-            const expenseYear = expenseDate.getFullYear();
-
-            // Get the current month
-            const currentDate = new Date();
-            const currentYear = currentDate.getFullYear();
-
-            // Check if the expense's month matches the current month
-            if (
-              expenseYear === currentYear &&
-              categoriesToShow.includes(category)
-            ) {
-              expensesByCategory[category] += amount;
-            }
-          });
-
-
-          // Doughnut Chart
-          {/* <!-- Doughnut chart code for expense categorization --> */}
-          const dataDoughnut = {
-            labels: categoriesToShow,
-            datasets: [
-              {
-                data: categoriesToShow.map(
-                  (category) => expensesByCategory[category]
-                ),
-                backgroundColor: [
-                  "rgb(51, 153, 255)", // Light Blue (Shopping)
-                  "rgb(255, 102, 102)", // Light Red (Food)
-                  "rgb(255, 204, 51)", // Light Yellow (Transportation)
-                  "rgb(102, 204, 0)", // Light Green (Loan)
-                  "rgb(166, 206, 227)", // Light Blue (Groceries)
-                  "rgb(253, 218, 236)", // Light Pink (Bills)
-                  "rgb(255, 153, 0)", // Light Orange (Entertainment)
-                  "rgb(0, 153, 153)", // Light Teal (Other)
-                ],
-                hoverOffset: 4,
-              },
-            ],
-          };
-
-          const configDoughnut = {
-            type: "doughnut",
-            data: dataDoughnut,
-            options: {
-              plugins: {
-                doughnutlabel: {
-                  labels: [
-                    {
-                      text: "Total", // Text to display
-                      font: {
-                        size: "20", // Font size
-                      },
-                      color: "#000", // Text color
-                    },
-                  ],
-                },
-              },
-            },
-          };
-          console.log(expensesByCategory);
-          if (chartDoughnutRef.current !== null) {
-            chartDoughnutRef.current.destroy();
-          }
-          chartDoughnutRef.current=new Chart(document.getElementById("chartDoughnut"), configDoughnut);
+         
 
           //Update My Chart
 
@@ -207,12 +120,13 @@ const Expenses1 = () => {
             monthlyExpenses[month] += income.amount;
           });
 
+          setMonthlyIncomes(monthlyIncomes);
+          setMonthlyExpenses(monthlyExpenses);
+
+
           // If there are months without income, they will remain zero
 
-          console.log(monthlyIncomes);
-          console.log(monthlyExpenses);
-
-          if (myChartRef.current !== null) {
+          /* if (myChartRef.current !== null) {
             myChartRef.current.destroy();
           }
 
@@ -290,7 +204,7 @@ const Expenses1 = () => {
                 },
               },
             },
-          });
+          }); */
         } else {
           console.error("Token not found in localStorage");
         }
@@ -333,8 +247,10 @@ const Expenses1 = () => {
           <div className=" container  text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900  dark:text-white max-w-[900px] max-h-[800px] mr-4">
             {/* <!-- bar chart code for income and expenses --> */}
             <div className=" container flex dark:text-white ">
-              <canvas id="myChart" className=""></canvas>
-            </div>
+                  {/* Use the BarChart component */}
+                  <BarChart monthlyIncomes={monthlyIncomes} monthlyExpenses={monthlyExpenses} />
+{/*               <canvas id="myChart" className=""></canvas>
+ */}            </div>
           </div>
           {/* <!-- Doughnut chart code for expense categorization --> */}
           <div className=" dark:text-white container flex flex-col text-center p-6 my-2 shadow-lg rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900 max-w-[500px] max-h-[500px]">
@@ -344,10 +260,9 @@ const Expenses1 = () => {
             >
               Expenses Categorization
             </Link>
-            <canvas
-              className="container flex p-10 dark:bg-gray-900"
-              id="chartDoughnut"
-            ></canvas>
+           
+            <DonutChart expenses={userData?.expenses} useCurrentMonth={false} />
+          
           </div>
         </div>
         {/* <!--End of Doughnut chart--> */}
