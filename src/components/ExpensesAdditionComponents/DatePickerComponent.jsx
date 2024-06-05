@@ -1,11 +1,16 @@
 import React from 'react';
 
+
+// DatePicker Component : This component is used to select the date.
 const DatePicker = ({ selectedDate, handleDateChange }) => {
   return (
+    // Date Picker
     <div className="mb-5">
+      {/* Date Picker Label */}
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Start Date
       </label>
+      {/* Date Picker Input */}
       <input
         type="date"
         id="start-date"

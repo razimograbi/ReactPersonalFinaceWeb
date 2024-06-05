@@ -1,6 +1,9 @@
 import React from 'react';
 
+
+// DesktopMonthPicker Component : This component is used to select the month.
 const DesktopMonthPicker = ({ selectedMonth, onMonthSelect }) => {
+  // Months Array
   const months = [
     { id: 1, name: "January" },
     { id: 2, name: "February" },
@@ -17,8 +20,10 @@ const DesktopMonthPicker = ({ selectedMonth, onMonthSelect }) => {
   ];
 
   return (
+    // Month Picker Buttons
     <div className="flex flex-wrap justify-center my-8">
       {months.map(month => (
+        // Month Button
         <button
           key={month.id}
           onClick={() => onMonthSelect(month.id.toString())}

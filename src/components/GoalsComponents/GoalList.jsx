@@ -161,17 +161,20 @@ const GoalList = () => {
                 key={goal._id}
                 className=" shadow p-2 m-2 dark:bg-gray-900 hover:shadow-lg transform hover:scale-102 transition-all duration-300"
               >
+                {/* Goal name */}
                 <div className="text-xl font-bold">{goal.name}</div>
                 <div className="float-right flex sm:flex-row flex-col">
                 <button className="float-right bg-green-500 px-1 mb-2 sm:px-2 sm:m-2 rounded-md text-white" onClick={() => { setSelectedGoalForAddingMoney(goal); setIsAddMoneyModalOpen(true); }}>Add Money</button>
                 <button className="float-right bg-red-500  sm:px-2 sm:m-2 rounded-md text-white" onClick={() => { setSelectedGoalForDeletion(goal); setIsDeleteModalOpen(true); }}>Delete</button>
                 </div>
+                {/* Goal amount and amount saved */}
                 <p>
                   Goal amount: ${goal.amount}
                   <br />
                   Amount saved: ${goal.amountSaved}
                 </p>
                 <div>
+                  {/* Progress bar */}
                 <div className="sm mt-4 w-full bg-gray-200 rounded-full dark:bg-gray-50 shadow">
                   <div
                     className="bg-lime-500 text-xs text-gray-700 text-center font-bold p-0.5 leading-none rounded-full"

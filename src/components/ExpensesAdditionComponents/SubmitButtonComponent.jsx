@@ -1,7 +1,10 @@
 import React from 'react';
 
+
+// SubmitButton Component : This component is used to display the submit button.
 const SubmitButton = ({ buttonText, onClick, extraClasses = "" }) => {
   return (
+    // Submit Button
     <button
       type="submit"
       onClick={onClick}

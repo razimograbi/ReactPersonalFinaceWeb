@@ -168,6 +168,7 @@ const Footer = () => {
               to="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
+              {/* <!-- LinkedIn Icon --> */}
               <svg
                 className="w-4 h-4"
                 aria-hidden="true"

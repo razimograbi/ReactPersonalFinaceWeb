@@ -13,6 +13,8 @@ import React from "react";
  * @param {string} props.errorMessage - The error message to be displayed if there's an error.
  * @returns {JSX.Element} A form for editing income details.
  */
+
+// Define the EditIncomeForm component
 const EditIncomeForm = ({
   editIncomeMonth,
   setEditIncomeMonth,
@@ -23,6 +25,7 @@ const EditIncomeForm = ({
   errorMessage,
 }) => {
   return (
+    // JSX for the EditIncomeForm component
     <>
       <p className="text-lg text-center font-bold dark:text-white">
         Edit Income
@@ -38,6 +41,7 @@ const EditIncomeForm = ({
           value={editIncomeMonth}
           onChange={(e) => setEditIncomeMonth(e.target.value)}
         >
+          {/* Month options */}
           <option value="January">January</option>
           <option value="February">February</option>
           <option value="March">March</option>

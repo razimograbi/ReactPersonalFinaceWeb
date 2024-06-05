@@ -1,15 +1,19 @@
 import React from 'react';
 
+
+// PaymentInput Component : This component is used to input the number of payments.
 const PaymentInput = ({ numberOfPayment, handleNumberOfPayment }) => {
   return (
-    
+    // Number of Payments Input
       <div>
+        {/* Number of Payments Label */}
         <label
           htmlFor="number-of-payments"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Number of payments
         </label>
+        {/* Number of Payments Input */}
         <input
           type="number"
           id="number-of-payments"

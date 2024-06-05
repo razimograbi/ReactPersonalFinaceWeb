@@ -1,17 +1,23 @@
 import React from 'react';
 
+
+// MonthPicker Component : This component is used to select the month.
 const MonthPicker = ({ selectedMonth, onMonthChange }) => {
   return (
+    // Month Picker
     <div className="my-5 flex justify-center">
+      {/* Month Picker Label */}
       <label htmlFor="month" className="flex items-center dark:text-white">
         Month
       </label>
+      {/* Month Picker Select */}
       <select
         id="month"
         value={selectedMonth}
         onChange={onMonthChange}
         className="dark:bg-gray-900 dark:text-white p-2 ml-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
       >
+        {/* Month Options */}
         <option value="">Select Month</option>
         <option value="1">January</option>
         <option value="2">February</option>

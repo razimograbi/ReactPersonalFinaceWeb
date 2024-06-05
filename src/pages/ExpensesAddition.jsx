@@ -168,6 +168,7 @@ const ExpensesAddition = () => {
                     {choosenCategory}
                   </p>
                 </li>
+                {/* <!-- Amount of money --> */}
                 <li className="flex gap-3 p-2">
                   <h5 className="font-bold">Amount of money :</h5>
                   <div className="flex gap-1">
@@ -177,6 +178,7 @@ const ExpensesAddition = () => {
                     </p>
                   </div>
                 </li>
+                {/* <!-- Number of payments --> */}
                 <li className="flex gap-3 p-2">
                   <h5 className="font-bold">number of payments :</h5>
                   <p id="amount-of-payments-in-model" className="">
@@ -187,6 +189,7 @@ const ExpensesAddition = () => {
             </div>
           </>
         }
+        // <!-- Confirm and cancel buttons -->
         handleSubmit={handleSubmit}
         positiveLabel="Yes"
         negativeLabel="No"
@@ -203,21 +206,21 @@ const ExpensesAddition = () => {
         <h2 className="my-8 text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
           Expense Addition
         </h2>
-              <ExpenseForm
-        choosenCategory={choosenCategory}
-        handleChooseCategory={handleChooseCategory}
-        dropdownLinks={dropdownLinks}
-        amountOfMoney={amountOfMoney}
-        handleAmountOfMoney={handleAmountOfMoney}
-        selectedDate={selectedDate}
-        handleDateChange={handleDateChange}
-        numberOfPayment={numberOfPayment}
-        handleNumberOfPayment={handleNumberOfPayment}
-        handleModal={handleModal}
-        isQuestionOpen={isQuestionOpen}
-        setIsQuestionOpen={setIsQuestionOpen}
-      />
 
+        <ExpenseForm
+          choosenCategory={choosenCategory}
+          handleChooseCategory={handleChooseCategory}
+          dropdownLinks={dropdownLinks}
+          amountOfMoney={amountOfMoney}
+          handleAmountOfMoney={handleAmountOfMoney}
+          selectedDate={selectedDate}
+          handleDateChange={handleDateChange}
+          numberOfPayment={numberOfPayment}
+          handleNumberOfPayment={handleNumberOfPayment}
+          handleModal={handleModal}
+          isQuestionOpen={isQuestionOpen}
+          setIsQuestionOpen={setIsQuestionOpen}
+        />
       </div>
       <Footer />
     </div>

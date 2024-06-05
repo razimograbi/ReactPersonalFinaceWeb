@@ -9,6 +9,7 @@ import {
   retrieveBudgetFromServer,
 } from "../../utils/util";
 
+// Define the TrackingNewBudgetCategory component
 function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYear, budgetArray ,refreshComponent}) {
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -90,6 +91,7 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
   };
 
   return (
+    // Display the modal and button to track another category
     <>
       <Modal
         isOpen={isTrackModalOpen}
@@ -99,6 +101,7 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
             <p className="mb-2 font-bold text-lg text-center dark:text-white">
               Track Another Category
             </p>
+            {/* Display the category and budget limit input fields */}
             <div className="flex flex-col items-center">
               <select
                 value={selectedCategory}
@@ -114,6 +117,7 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
                   ))
                 }
               </select>
+              {/* Display the budget limit input field */}
               <input
                 type="number"
                 value={budgetLimit}
@@ -124,10 +128,12 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
             </div>
           </>
         }
+        
         handleSubmit={handleAddBudget}
         positiveLabel="Track"
         negativeLabel="Discard"
       />
+      {/* Button to track another category */}
       <button
           onClick={() => setIsTrackModalOpen(true)}
           className="bg-blue-500 m-4 rounded-md text-white p-2 items-center"
@@ -137,7 +143,7 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
     </>
   );
 }
-
+// Prop types for TrackingNewBudgetCategory component
 TrackingNewBudgetCategory.propTypes = {
   currentlySelectedMonth: PropTypes.string,
   currentlySelectedYear: PropTypes.string,

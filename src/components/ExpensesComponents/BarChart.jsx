@@ -18,7 +18,7 @@ const BarChart = ({ monthlyIncomes, monthlyExpenses }) => {
     }
 
     const gridColor = "#ccc"; // Light gray color
-
+    // Create a new chart with the given data
     const ctx = document.getElementById("myChart").getContext("2d");
     myChartRef.current = new Chart(ctx, {
       type: "bar",
@@ -37,6 +37,7 @@ const BarChart = ({ monthlyIncomes, monthlyExpenses }) => {
           "November",
           "December",
         ],
+        // Data for the bar chart with income and expenses datasets
         datasets: [
           {
             label: "Income",
@@ -54,6 +55,7 @@ const BarChart = ({ monthlyIncomes, monthlyExpenses }) => {
           },
         ],
       },
+      // Chart options configuration for styling and responsiveness
       options: {
         indexAxis: "x",
         plugins: {

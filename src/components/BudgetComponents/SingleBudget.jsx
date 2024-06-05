@@ -6,16 +6,19 @@ const SingleBudget = ({ budget ,setEditingVars}) => {
   const percentageSpent = (budget.spent / budget.limit) * 100;
 
   return (
+    // Single budget item
      <li
                 className="hover:shadow-lg transform hover:scale-105 transition-all duration-300 "
                 key={budget.category}
               >
+                {/* Budget category and limit */}
                 <div className="flex gap-5 p-2 items-center justify-center">
                   <div className="flex flex-col gap-1 w-96 ">
                     <div className="flex justify-between items-center ">
                       <h5 className="dark:text-white">{budget.category}</h5>
                       <p className="dark:text-white">${budget.limit}</p>
                     </div>
+                    {/* Budget spent */}
                     <div className="w-full  mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
                       <div
                         className={`rounded-full text-center p-0.5  leading-none dark:text-white ${
@@ -32,6 +35,7 @@ const SingleBudget = ({ budget ,setEditingVars}) => {
                       </div>
                     </div>
                   </div>
+                  {/* Edit button */}
                   <div className="flex items-center">
                     <button
                       className="rounded-md border px-2 dark:text-white"
@@ -46,7 +50,7 @@ const SingleBudget = ({ budget ,setEditingVars}) => {
               </li> 
   );
 };
-
+// Prop types for SingleBudget component
 SingleBudget.propTypes = {
   budget: PropTypes.shape({
     category: PropTypes.string,

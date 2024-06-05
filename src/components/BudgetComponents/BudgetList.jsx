@@ -123,10 +123,12 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
     setBudgetId(_id);
     setIsModalOpen(bool);
   }
-
+  
   return (
+    // Display the list of budgets and the button to track another category
     <div>
       <div>
+        {/* Modal to edit the budget */}
         <Modal
           isOpen={isModalOpen}
           handleModal={handleModalClose}
@@ -139,6 +141,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
                   : currentlySelectedMonth}{" "}
                 / {currentlySelectedYear}
               </p>
+              {/* Display the budget limit input field */}
               <div className="flex  flex-col items-center ">
                 <div className="dark:text-white">
                   Budget Limit <br></br>
@@ -150,6 +153,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
                     placeholder="Enter new budget amount"
                   />
                 </div>
+                {/* Display the amount spent for the selected category */}
                 <p className="mt-4 dark:text-white">
                   You have spent ${amountSpent} on this category so far.
                 </p>
@@ -161,7 +165,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
           positiveLabel="Change"
           negativeLabel="Discard"
         ></Modal>
-
+        {/* Display the list of budgets */}
         <ul
           id="budgetList"
           className="budgets-list max-w-xl divide-gray-200 dark:divide-gray-900"

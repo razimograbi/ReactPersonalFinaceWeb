@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-
+// Import the Modal component
 const CategorySelector = ({ choosenCategory, handleChooseCategory, dropdownLinks }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+// Define the CategorySelector component
   const handleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-
+// Function to handle the dropdown
   return (
+    // Category Selector Component JSX
     <div>
+      {/* Category Selector Button */}
       <button
         id="categoryButton"
         onClick={handleDropdown}
         className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
+        {/* Display the selected category */}
         {choosenCategory}
         <svg
           className="w-2.5 h-2.5 ms-3"
@@ -32,10 +35,12 @@ const CategorySelector = ({ choosenCategory, handleChooseCategory, dropdownLinks
           />
         </svg>
       </button>
+      {/* Dropdown */} 
       <div
         id="dropdown"
         className={`${isDropdownOpen ? "" : "hidden"} z-10 transition delay-150 mb-5 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
       >
+        {/* Display the list of categories */}
         <ul className="py-2 text-sm text-black dark:text-gray-200">
           {dropdownLinks.map((link, index) => (
             <li key={index}>
