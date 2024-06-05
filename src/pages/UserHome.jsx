@@ -5,17 +5,12 @@ import axios from "axios";
 import UserNavigation from "../components/GeneralComponents/UserNavigation";
 import Footer from "../components/GeneralComponents/Footer";
 import { default as Expense } from "../assets/images/Expenses.png";
-import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
-import Modal from "../components/GeneralComponents/Modal";
 import Goals from "../components/GoalsComponents/Goals";
 import Income from "../components/UserHomeComponents/Income";
-
 import Expenses from "../components/ExpensesComponents/Expenses";
 import Budget from "../components/BudgetComponents/Budget";
-
 import DonutChart from "../components/UserHomeComponents/DonutChart";
-import EditIncomeForm from "../components/UserHomeComponents/EditIncomeForm";
 import { getToken } from "../utils/util";
 import ExpensesTable from "../components/ExpensesComponents/ExpensesTable";
 
