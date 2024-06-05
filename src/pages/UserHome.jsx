@@ -5,6 +5,7 @@ import axios from "axios";
 import UserNavigation from "../components/GeneralComponents/UserNavigation";
 import Footer from "../components/GeneralComponents/Footer";
 import { default as Expense } from "../assets/images/Expenses.png";
+import { default as IncomeIcon } from "../assets/images/incomeIcon.png";
 import { default as moneyBagBlue } from "../assets/images/money-bag-blue.png";
 import Goals from "../components/GoalsComponents/Goals";
 import Income from "../components/UserHomeComponents/Income";

@@ -9,6 +9,7 @@ import {
   retrieveBudgetFromServer,
 } from "../../utils/util";
 import TrackingNewBudgetCategory from "./TrackingNewBudgetCategory";
+import SingleBudget from "./SingleBudget";
 
 // Define the BudgetList component
 function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
@@ -19,8 +20,8 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
   const [amountSpent, setAmountSpent] = useState(""); // State to hold the amount spent for the selected budget
   const [budgetLimit, setBudgetLimit] = useState(""); // State to hold the new budget limit being set
   const [categoryName, setCategoryName] = useState(""); // State to hold the name of the category being edited
-  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false); // Boolean state to manage the visibility of the add budget modal
-  const [selectedCategory, setSelectedCategory] = useState(""); // State to hold the selected category for adding a new budget
+  //const [isTrackModalOpen, setIsTrackModalOpen] = useState(false); // Boolean state to manage the visibility of the add budget modal
+  //const [selectedCategory, setSelectedCategory] = useState(""); // State to hold the selected category for adding a new budget
   const [budgetArray, setBudgetArray] = useState([]); // State to hold the array of budget data fetched from the server
   // Fetch budget data based on the selected month and year
   useEffect(() => {
@@ -115,6 +116,14 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
     setIsModalOpen(false);
   };
 
+  const setEditingVars = (category,spent,limit,_id,bool) => {
+    setCategoryName(category),
+    setAmountSpent(spent);
+    setBudgetLimit(limit);
+    setBudgetId(_id);
+    setIsModalOpen(bool);
+  }
+
   return (
     <div>
       <div>
@@ -159,50 +168,7 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
         >
           {/* Display the list of budgets */}
           {budgetArray?.map((budget) => {
-            const percentageSpent = (budget.spent / budget.limit) * 100;
-            return (
-              <li
-                className="hover:shadow-lg transform hover:scale-105 transition-all duration-300 "
-                key={budget.category}
-              >
-                <div className="flex gap-5 p-2 items-center justify-center">
-                  <div className="flex flex-col gap-1 w-96 ">
-                    <div className="flex justify-between items-center ">
-                      <h5 className="dark:text-white">{budget.category}</h5>
-                      <p className="dark:text-white">${budget.limit}</p>
-                    </div>
-                    <div className="w-full  mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                      <div
-                        className={`rounded-full text-center p-0.5  leading-none dark:text-white ${
-                          percentageSpent <= 100 ? "bg-green-600" : "bg-red-600"
-                        }`}
-                        style={{
-                          width:
-                            percentageSpent <= 100
-                              ? `${percentageSpent}%`
-                              : "100%",
-                        }}
-                      >
-                        ${budget.spent}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <button
-                      className="rounded-md border px-2 dark:text-white"
-                      onClick={() => {
-                        setCategoryName(budget.category),
-                        setAmountSpent(budget.spent);
-                        setBudgetLimit(budget.limit);
-                        setBudgetId(budget._id);
-                        setIsModalOpen(true);
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              </li>
+            return ( <SingleBudget budget={budget} setEditingVars={setEditingVars}/>    
             );
           })}
         </ul>

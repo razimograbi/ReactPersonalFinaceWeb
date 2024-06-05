@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from '../GeneralComponents/Modal'; // Import the Modal component
+import { getToken } from "../../utils/util";
 
 
 // Define the GoalList component
@@ -13,20 +14,6 @@ const GoalList = () => {
     const [addMoneyAmount, setAddMoneyAmount] = useState(""); // State to hold the amount of money to add
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Boolean state to manage the visibility of the delete modal
     const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false); // Boolean state to manage the visibility of the add money modal
-  
-    // Function to retrieve token from localStorage
-  function getToken() {
-    const tokenObj = JSON.parse(localStorage.getItem("token"));
-    if (!tokenObj) return null;
-
-    const currentTime = new Date().getTime();
-    if (currentTime > tokenObj.expires) {
-      localStorage.removeItem("token"); // Remove expired token
-      return null;
-    }
-
-    return tokenObj.value;
-  }
 
     // Function to handle deletion of a goal
   const handleDeleteGoal = () => {
