@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-// Import the Modal component
+/**
+ * Component: CategorySelector
+ * Description: Dropdown menu component for selecting a category.
+ * 
+ * @param {string} choosenCategory - The currently chosen category
+ * @param {function} handleChooseCategory - Function to handle the selection of a category
+ * @param {array} dropdownLinks - Array of category options for the dropdown menu
+ */
 const CategorySelector = ({ choosenCategory, handleChooseCategory, dropdownLinks }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for managing the visibility of the dropdown menu
+
 // Define the CategorySelector component
   const handleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);

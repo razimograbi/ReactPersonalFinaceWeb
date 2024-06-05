@@ -2,7 +2,13 @@ import React from 'react';
 import DolarSign from "../../assets/images/dollar-sign-svgrepo-com.svg"; // Make sure the path is correct
 
 
-// MoneyInput Component : This component is used to display the money input field.
+/**
+ * Component: MoneyInput
+ * Description: Component used to display and handle the money input field.
+ * 
+ * @param {string} amountOfMoney - The amount of money being input
+ * @param {function} handleAmountOfMoney - Function to handle changes in the amount of money input
+ */
 const MoneyInput = ({ amountOfMoney, handleAmountOfMoney }) => {
   // Money Input Field JSX
   return (
@@ -15,7 +21,7 @@ const MoneyInput = ({ amountOfMoney, handleAmountOfMoney }) => {
       >
         Amount Spent
       </label>
-      {/* Money Input Field */}
+      {/* Money Input space */}
       <div className="relative">
         <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
           <img

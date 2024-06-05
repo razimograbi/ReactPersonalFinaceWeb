@@ -7,7 +7,7 @@ import WorkingHours from "../components/ContactUsComponents/WorkingHoursBlockCom
 import ContactForm from "../components/ContactUsComponents/ContactFormComponent";
 import ContactHeader from "../components/ContactUsComponents/ContactHeaderComponent";
 
-// this component includes our contact and a beautiful description of how the user can contact us.
+// this component includes our contact and a description of how the user can contact us.
 const ContactUs = () => {
   return (
     // Main container with background color styling

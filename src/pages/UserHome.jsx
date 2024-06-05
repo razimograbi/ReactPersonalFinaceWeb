@@ -15,13 +15,18 @@ import DonutChart from "../components/UserHomeComponents/DonutChart";
 import { getToken } from "../utils/util";
 import ExpensesTable from "../components/ExpensesComponents/ExpensesTable";
 
+/**
+ * Component: UserHome
+ * Description: Main component for the user home screen, displaying income, expenses, budget details, charts, and tables.
+ */
 const UserHome = () => {
-  // const chartDoughnutRef = useRef(null);
-  const [totalExpensesForMonth, setTotalExpensesForMonth] = useState(0);
-  const [userData, setUserData] = useState(null); 
-  const currentYear = new Date().getFullYear();
-  const [filteredExpenses,setFilteredExpenses] = useState([]);
-  const navigate = useNavigate();
+  
+  const [totalExpensesForMonth, setTotalExpensesForMonth] = useState(0); // State variable to hold the total expenses for the current month
+  const [userData, setUserData] = useState(null); // State variable to store user data fetched from the backend
+  const currentYear = new Date().getFullYear(); // Variable to hold the current year
+  const [filteredExpenses, setFilteredExpenses] = useState([]); // State variable to store expenses filtered for the current month
+  const navigate = useNavigate(); // Navigate to different routes using React Router
+
   // useEffect hook to fetch user data on component mount and update UI accordingly
   useEffect(() => {
     const tokenData = getToken();

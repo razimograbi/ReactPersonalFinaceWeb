@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-//Define Header component for the website header 
+//The Header component for the website header 
 const Header = () => {
   return (
     // Navbar container with background color styling

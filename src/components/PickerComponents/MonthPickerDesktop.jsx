@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-// DesktopMonthPicker Component : This component is used to select the month.
+// DesktopMonthPicker Component : This component is used to select the month in desktop view
 const DesktopMonthPicker = ({ selectedMonth, onMonthSelect }) => {
   // Months Array
   const months = [

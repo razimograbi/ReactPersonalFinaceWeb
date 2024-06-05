@@ -1,7 +1,13 @@
 import React from 'react';
 
-
-// SubmitButton Component : This component is used to display the submit button.
+/**
+ * Component: SubmitButton
+ * Description: Component used to display and handle the submit button.
+ * 
+ * @param {string} buttonText - The text displayed on the submit button
+ * @param {function} onClick - Function to be executed when the button is clicked
+ * @param {string} extraClasses - Additional CSS classes to customize the button (optional)
+ */
 const SubmitButton = ({ buttonText, onClick, extraClasses = "" }) => {
   return (
     // Submit Button

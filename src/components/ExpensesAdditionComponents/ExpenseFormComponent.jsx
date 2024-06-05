@@ -6,7 +6,23 @@ import PaymentInput from './PaymentComponent';
 import SubmitButton from './SubmitButtonComponent';
 
 
-// ExpenseForm Component : This component is used to display the form for adding expenses.
+/**
+ * Component: ExpenseForm
+ * Description: Component used for displaying a form to add expenses.
+ * 
+ * @param {string} choosenCategory - The currently chosen expense category
+ * @param {function} handleChooseCategory - Function to handle the selection of an expense category
+ * @param {array} dropdownLinks - Array of expense category options for the dropdown menu
+ * @param {string} amountOfMoney - The amount of money for the expense
+ * @param {function} handleAmountOfMoney - Function to handle changes in the amount of money input
+ * @param {string} selectedDate - The selected date for the expense
+ * @param {function} handleDateChange - Function to handle changes in the selected date
+ * @param {number} numberOfPayment - The number of times the expense needs to be paid
+ * @param {function} handleNumberOfPayment - Function to handle changes in the number of payments
+ * @param {function} handleModal - Function to handle the expense form modal
+ * @param {bool} isQuestionOpen - State variable to manage the visibility of a question modal
+ * @param {function} setIsQuestionOpen - Function to set the visibility state of the question modal
+ */
 const ExpenseForm = ({
   choosenCategory,
   handleChooseCategory,

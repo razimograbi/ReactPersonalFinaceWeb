@@ -16,6 +16,10 @@ import ScrollToTop from "./lib/ScrollToTop";
 
 // Defining the main App component
 function App() {
+  /**
+   * Renders the application's main routes using React Router.
+   * Available routes include Home, About, Contact Us, Login, Register, User Home, Goals, Expenses, Budget Tracking, and Add Goal.
+   */
   return (
     <>
       <Routes>

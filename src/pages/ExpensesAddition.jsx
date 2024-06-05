@@ -6,7 +6,7 @@ import Modal from "../components/GeneralComponents/Modal"; // Import the Modal c
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ExpenseForm from "../components/ExpensesAdditionComponents/ExpenseFormComponent";
-
+import { getToken } from "../utils/util";
 /**
  * An array containing dropdown menu options for expense categories.
  * These options are displayed when selecting a category for the expense.
@@ -91,23 +91,6 @@ const ExpensesAddition = () => {
   };
 
   /**
-   * Function to retrieve token from localStorage.
-   * @returns {string|null} - Token value or null if not found or expired
-   */
-  function getToken() {
-    const tokenObj = JSON.parse(localStorage.getItem("token"));
-    if (!tokenObj) return null;
-
-    const currentTime = new Date().getTime();
-    if (currentTime > tokenObj.expires) {
-      localStorage.removeItem("token"); // Remove expired token
-      return null;
-    }
-
-    return tokenObj.value;
-  }
-
-  /**
    * Handler function to submit expense data to the server.
    * Sends a POST request to add the expense to the system.
    */
@@ -116,7 +99,6 @@ const ExpensesAddition = () => {
       category: choosenCategory,
       amount: amountOfMoney,
       numberOfPayment: numberOfPayment,
-      //startDate: Date.now(),
       startDate: selectedDate,
     };
     const token = getToken();

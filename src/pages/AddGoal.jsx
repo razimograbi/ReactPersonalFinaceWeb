@@ -8,7 +8,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../utils/util";
 
-
+/**
+ * AddGoal component for adding new goals
+ */
 const AddGoal = () => {
   // State variables for managing goal name, amount of money, and modal visibility
   const [choosenName, setNameOfGoal] = useState(null); // Goal name

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-// MonthPicker Component : This component is used to select the month.
+// MonthPicker Component in Phone view
 const MonthPicker = ({ selectedMonth, onMonthChange }) => {
   return (
     // Month Picker

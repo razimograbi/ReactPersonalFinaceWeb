@@ -4,27 +4,30 @@ import Modal from "../GeneralComponents/Modal"; // Import the Modal component
 import axios from "axios";
 import {
   getToken,
-  getExpensesBasedOnMonthAndYear,
-  calculateSpentPercentages,
-  retrieveBudgetFromServer,
 } from "../../utils/util";
 
-// Define the TrackingNewBudgetCategory component
-function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYear, budgetArray ,refreshComponent}) {
-  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [budgetLimit, setBudgetLimit] = useState("");
-  const [refreshKey, setRefreshKey] = useState(0);
+/**
+ * Component: TrackingNewBudgetCategory
+ * Description: Manages the "Track another category" button functionality for a specific month and year,
+ * including adding it to the tracked list in the database.
+ * 
+ * @param {string} currentlySelectedMonth - The selected month for tracking a new budget category
+ * @param {string} currentlySelectedYear - The selected year for tracking a new budget category
+ * @param {array} budgetArray - Array of budget data fetched from the server
+ * @param {function} refreshComponent - Function to refresh the parent component
+ */
+function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYear, budgetArray, refreshComponent }) {
+  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false); // State to manage the visibility of the add budget modal
+  const [selectedCategory, setSelectedCategory] = useState(""); // State to hold the selected category for adding a new budget
+  const [budgetLimit, setBudgetLimit] = useState(""); // State to hold the budget limit for the new budget category
+  const [refreshKey, setRefreshKey] = useState(0); // State for key to trigger component refresh
+
   
   useEffect(() => {
-    //fetchData();
+    
   }, [refreshKey, currentlySelectedMonth, currentlySelectedYear]);
 
-  /* const fetchData = async () => {
-    displayBudgets(await retrieveBudgetFromServer());
-  }; */
-
-  // Function to handle tracking another budget
+  // Function to handle adding tracking another budget to db
   const handleAddBudget = () => {
     const token = getToken();
     const formattedMonth = currentlySelectedMonth.toLocaleString("en-US", {
@@ -32,12 +35,14 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
     });
     const formattedDate = `${currentlySelectedYear}-${formattedMonth}-01`;
 
+    //preparing data to send to server
     const budgetData = {
       category: selectedCategory,
       date: formattedDate,
       limit: parseInt(budgetLimit),
     };
 
+    //POST operation to add the budget category to the tracked list of categories for certain month and year
     axios.post(
       "https://partialbackendforweb.onrender.com/pages/api/budget/add",
       budgetData,
@@ -66,12 +71,10 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
     }
   };
 
+  //handles refreshing parent component
   const handleRefresh = () => {
     refreshComponent();
   }
-  /* const refreshComponent = () => {
-    setRefreshKey((prevKey) => prevKey + 1);
-  }; */
 
   // Function to filter out categories not already in the budget array
   const getAvailableCategories = () => {
@@ -82,7 +85,7 @@ function TrackingNewBudgetCategory({ currentlySelectedMonth, currentlySelectedYe
       "Loan",
       "Groceries",
       "Bills",
-      "Entertainment", // Added Entertainment category
+      "Entertainment", 
       "Other",
     ];
     return categories.filter(

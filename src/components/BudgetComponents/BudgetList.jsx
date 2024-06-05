@@ -11,17 +11,21 @@ import {
 import TrackingNewBudgetCategory from "./TrackingNewBudgetCategory";
 import SingleBudget from "./SingleBudget";
 
-// Define the BudgetList component
+/**
+ * Component: BudgetList
+ * Description: Displays a list of budget items for a specific month and year,
+ * allowing users to edit budget limits and track new budget categories.
+ * 
+ * @param {string} currentlySelectedMonth - The currently selected month to display budget data for
+ * @param {string} currentlySelectedYear - The currently selected year to display budget data for
+ */
 function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
   // State variables declaration
-
   const [isModalOpen, setIsModalOpen] = useState(false); // Boolean state to manage the visibility of the edit modal
   const [budgetId, setBudgetId] = useState(""); // State to hold the ID of the budget being edited
   const [amountSpent, setAmountSpent] = useState(""); // State to hold the amount spent for the selected budget
   const [budgetLimit, setBudgetLimit] = useState(""); // State to hold the new budget limit being set
   const [categoryName, setCategoryName] = useState(""); // State to hold the name of the category being edited
-  //const [isTrackModalOpen, setIsTrackModalOpen] = useState(false); // Boolean state to manage the visibility of the add budget modal
-  //const [selectedCategory, setSelectedCategory] = useState(""); // State to hold the selected category for adding a new budget
   const [budgetArray, setBudgetArray] = useState([]); // State to hold the array of budget data fetched from the server
   // Fetch budget data based on the selected month and year
   useEffect(() => {
@@ -59,10 +63,10 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
   }
 
   const [refreshKey, setRefreshKey] = useState(0);
+
   useEffect(() => {
     fetchData();
     // This effect will be triggered when refreshKey changes
-    // You can perform any actions here that need to be executed when the component is refreshed
   }, [refreshKey]);
 
   // Function to refresh the component
@@ -70,23 +74,26 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
     setRefreshKey((prevKey) => prevKey + 1); // Increment the refreshKey state variable
   };
  
-
+ // Allow only positive numbers greater than zero
   const handlenewBudgetLimitChange = (e) => {
     const inputAmount = e.target.value;
-    // Allow only positive numbers greater than zero
+   
     if (/^\d*\.?\d+$/.test(inputAmount) && parseFloat(inputAmount) >= 0) {
       setBudgetLimit(inputAmount);
     }
   };
 
+  //handles the editing of a budget amount
   const handleBudgetEdit = () => {
     const token = getToken();
+
+    //preparing data to send to server
     const editData = {
-      budgetId: budgetId, // Replace with the actual budget ID
-      newBudget: parseInt(budgetLimit), // Replace with the new budget value
+      budgetId: budgetId, //actual budget ID
+      newBudget: parseInt(budgetLimit), //new budget value
     };
 
-    // PUT request
+    // PUT request to edit the amount of an existing budget
     axios
       .put(
         "https://partialbackendforweb.onrender.com/pages/api/budget/edit",
@@ -110,12 +117,14 @@ function BudgetList({ currentlySelectedMonth, currentlySelectedYear }) {
         console.error("Error editing budget data:", error);
       });
   };
-
+  
+  //closes the modal of the budget editing
   const handleModalClose = () => {
     setBudgetLimit("");
     setIsModalOpen(false);
   };
 
+  //a method thats used to set the variables taken as arguments
   const setEditingVars = (category,spent,limit,_id,bool) => {
     setCategoryName(category),
     setAmountSpent(spent);

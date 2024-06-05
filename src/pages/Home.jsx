@@ -5,7 +5,10 @@ import { default as aboutUs } from "../assets/images/about_us.jpg";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-// Home component for the home page
+/**
+ * Component: Home
+ * Description: Main component for the home page, showcasing budget management, goal setting, and expense monitoring features.
+ */
 const Home = () => {
   
   return (

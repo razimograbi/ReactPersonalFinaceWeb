@@ -3,7 +3,10 @@ import Footer from "../components/GeneralComponents/Footer";
 import { Helmet } from "react-helmet";
 import GoalList from "../components/GoalsComponents/GoalList";
 
-// Goals1 component for tracking financial goals 
+/**
+ * Component: Goals1
+ * Description: Component for tracking financial goals.
+ */
 const Goals1 = () => {
   return (
     // Main container with background color styling 

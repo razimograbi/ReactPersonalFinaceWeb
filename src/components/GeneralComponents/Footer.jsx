@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-//Define Footer component for the website footer 
+//The Footer component for the website footer 
 const Footer = () => {
   return (
     // Footer container with background color styling

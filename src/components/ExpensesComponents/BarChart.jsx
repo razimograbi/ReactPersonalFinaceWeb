@@ -13,6 +13,7 @@ const BarChart = ({ monthlyIncomes, monthlyExpenses }) => {
   const myChartRef = useRef(null);
 
   useEffect(() => {
+    //destroy previous (if existing) charts
     if (myChartRef.current) {
       myChartRef.current.destroy();
     }

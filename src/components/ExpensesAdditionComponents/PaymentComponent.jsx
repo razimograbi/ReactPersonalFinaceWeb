@@ -1,7 +1,13 @@
 import React from 'react';
 
 
-// PaymentInput Component : This component is used to input the number of payments.
+/**
+ * Component: PaymentInput
+ * Description: Component used to input and handle the number of payments.
+ * 
+ * @param {number} numberOfPayment - The number of payments being input
+ * @param {function} handleNumberOfPayment - Function to handle changes in the number of payments input
+ */
 const PaymentInput = ({ numberOfPayment, handleNumberOfPayment }) => {
   return (
     // Number of Payments Input

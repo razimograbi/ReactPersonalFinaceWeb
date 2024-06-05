@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+//component thats used to show a single budget item
+//takes as argument the target budget
 const SingleBudget = ({ budget ,setEditingVars}) => {
-  // State variables specific to a single budget item
+  
+    // State variables specific to a single budget item
   const percentageSpent = (budget.spent / budget.limit) * 100;
 
   return (

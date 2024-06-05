@@ -1,7 +1,13 @@
 import React from 'react';
 
 
-// DatePicker Component : This component is used to select the date.
+/**
+ * Component: DatePicker
+ * Description: Component used for selecting a date.
+ * 
+ * @param {string} selectedDate - The currently selected date
+ * @param {function} handleDateChange - Function to handle changes when a new date is selected
+ */
 const DatePicker = ({ selectedDate, handleDateChange }) => {
   return (
     // Date Picker

@@ -8,7 +8,9 @@ import MonthPicker from "../components/PickerComponents/MonthPickerPhone";
 import DesktopMonthPicker from "../components/PickerComponents/MonthPickerDesktop";
 import YearPicker from "../components/PickerComponents/YearPicker";
 
-// BudgetTracking component for tracking budgets
+/**
+ * BudgetTracking component for tracking budgets
+ */
 const BudgetTracking = () => {
   // State variables for managing years, selected month, selected year, and budget array
   const [years, setYears] = useState([]);

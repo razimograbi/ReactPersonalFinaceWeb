@@ -2,20 +2,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-
 import UserNavigation from "../components/GeneralComponents/UserNavigation";
 import Footer from "../components/GeneralComponents/Footer";
 import DonutChart from "../components/UserHomeComponents/DonutChart";
 import BarChart from "../components/ExpensesComponents/BarChart";
 import ExpensesTable from "../components/ExpensesComponents/ExpensesTable";
 
-// Expenses1 Component : This component is used to display the expenses tracking page.
+/**
+ * Component: Expenses1
+ * Description: Displays the expenses tracking page with charts, tables, and expense categorization.
+ */
 const Expenses1 = () => {
-  const [userData, setUserData] = useState(null);
-  const [monthlyIncomes, setMonthlyIncomes] = useState(Array(12).fill(0));
-  const [monthlyExpenses, setMonthlyExpenses] = useState(Array(12).fill(0));
-  const [latestExpenses, setLatestExpenses] = useState([]);
-  const [upcomingExpenses, setUpcomingExpenses] = useState([]);
+ // State variables
+ const [userData, setUserData] = useState(null); // User data fetched from the backend
+ const [monthlyIncomes, setMonthlyIncomes] = useState(Array(12).fill(0)); // Array to store monthly incomes
+ const [monthlyExpenses, setMonthlyExpenses] = useState(Array(12).fill(0)); // Array to store monthly expenses
+ const [latestExpenses, setLatestExpenses] = useState([]); // Array for storing latest expenses
+ const [upcomingExpenses, setUpcomingExpenses] = useState([]); // Array for storing upcoming expenses
+
   // Fetch user data from the backend
   useEffect(() => {
     const fetchData = async () => {

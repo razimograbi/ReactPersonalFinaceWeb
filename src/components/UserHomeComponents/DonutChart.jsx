@@ -9,6 +9,7 @@ import Chart from "chart.js/auto";
  * @param {string} props.expenses[].category - The category of the expense.
  * @param {number} props.expenses[].amount - The amount of the expense.
  * @param {string} props.expenses[].startDate - The start date of the expense.
+ * @param {boolean} useCurrentMonth - Flag indicating whether to calculate expenses for the current month ( or just year)
  * @returns {JSX.Element} A canvas element for the doughnut chart.
  */
 
@@ -56,7 +57,7 @@ const DonutChart = ({ expenses ,useCurrentMonth = true}) => {
        ) {
          expensesByCategory[category] += amount;
        }
-       
+
      /*  const expenseDate = new Date(expense.startDate);
       const expenseMonth = expenseDate.getMonth();
 

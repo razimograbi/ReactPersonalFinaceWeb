@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// ExpensesTable Component : This component is used to display the expenses table.
+/**
+ * Component: ExpensesTable
+ * Description: Component used to display an expenses table.
+ * 
+ * @param {array} expenses - Array of expenses data to display in the table
+ * @param {bool} isLatest - Indicates whether the table shows the latest expenses
+ * @param {string} tableName - Name or title of the expenses table
+ */
 const ExpensesTable = ({ expenses, isLatest, tableName }) => {
   const filteredExpenses = expenses.filter((expense) => {
     const expenseDate = new Date(expense.startDate);
