@@ -10,7 +10,7 @@ const Home = () => {
   
   return (
     // Main container with background image and text color styling
-    <div className="bg-gray-900 text-white font-sans bg-cover bg-no-repeat bg-page overflow-y-auto h-full h-screen">
+    <div className="bg-gray-900 text-white font-sans bg-cover bg-no-repeat bg-page overflow-y-auto h-full h-screen w-full w-screen">
       <Helmet>
         <title>Budget Buddy - Home</title>
       </Helmet>
